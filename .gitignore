@@ -1,6 +1,6 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# Created by https://www.toptal.com/developers/gitignore/api/windows,linux,macos,visualstudiocode,vim,react,node
+# Created by https://www.toptal.com/developers/gitignore
 
 ### Linux ###
 *~
@@ -244,4 +244,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.toptal.com/developers/gitignore/api/windows,linux,macos,visualstudiocode,vim,react,node
+# End of https://www.toptal.com/developers/gitignore
