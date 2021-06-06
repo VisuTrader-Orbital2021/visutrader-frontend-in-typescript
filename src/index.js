@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-// import App from './App';
-// import Login from './components/login';
+import App from './App';
+import Login from './components/login';
 import Dashboard from './components/dashboard';
 import reportWebVitals from './reportWebVitals';
 
