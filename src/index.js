@@ -2,12 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 // import App from './App';
-import LogIn from './pages/login';
+// import Login from './components/login';
+import Dashboard from './components/dashboard';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <LogIn />
+    <Dashboard />
   </React.StrictMode>,
   document.getElementById('root')
 );
