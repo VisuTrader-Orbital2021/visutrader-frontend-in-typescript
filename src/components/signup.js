@@ -58,7 +58,7 @@ export default function Signup() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Log in
+            SIGN UP
           </Typography>
           <form className={classes.form} noValidate>
             <TextField
@@ -94,7 +94,7 @@ export default function Signup() {
               color="primary"
               className={classes.submit}
             >
-              Log In
+              SIGN UP
             </Button>
             <Grid container>
               <Grid item xs>
