@@ -1,4 +1,11 @@
 import React from 'react';
+import {
+  BrowserRouter,
+  Switch,
+  Route,
+  Link as RouterLink,
+  useRouteMatch
+} from 'react-router-dom';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -105,9 +112,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Dashboard() {
+export default function Dashboard(props) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -119,8 +126,18 @@ export default function Dashboard() {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
-        <Toolbar className={classes.toolbar}>
+      <UpperBar renderDrawer={props.renderDrawer} classes={classes} open={open} handleDrawerOpen={handleDrawerOpen} />
+      <LeftDrawer renderDrawer={props.renderDrawer} classes={classes} open={open} handleDrawerClose={handleDrawerClose} />
+      <MainContent classes={classes} fixedHeightPaper={fixedHeightPaper} />
+    </div>
+  );
+}
+
+function UpperBar({ renderDrawer, classes, open, handleDrawerOpen }) {
+  return (
+    <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
+      <Toolbar className={classes.toolbar}>
+        {renderDrawer &&
           <IconButton
             edge="start"
             color="inherit"
@@ -130,16 +147,28 @@ export default function Dashboard() {
           >
             <MenuIcon />
           </IconButton>
+        }
+        <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+          DASHBOARD
+        </Typography>
+        <RouterLink to="/signup">
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            Dashboard
+            SIGN UP
           </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-        </Toolbar>
-      </AppBar>
+        </RouterLink>
+        <RouterLink to="/login">
+          <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+            LOG IN
+          </Typography>
+        </RouterLink>
+      </Toolbar>
+    </AppBar>
+  );
+}
+
+function LeftDrawer({ renderDrawer, classes, open, handleDrawerClose }) {
+  if (renderDrawer) {
+    return (
       <Drawer
         variant="permanent"
         classes={{
@@ -147,7 +176,7 @@ export default function Dashboard() {
         }}
         open={open}
       >
-        <div className={classes.toolbarIcon}>
+       <div className={classes.toolbarIcon}>
           <IconButton onClick={handleDrawerClose}>
             <ChevronLeftIcon />
           </IconButton>
@@ -157,34 +186,40 @@ export default function Dashboard() {
         <Divider />
         {/* <List>{secondaryListItems}</List> */}
       </Drawer>
-      <main className={classes.content}>
-        <div className={classes.appBarSpacer} />
-        <Container maxWidth="lg" className={classes.container}>
-          <Grid container spacing={3}>
-            {/* Chart
-            <Grid item xs={12} md={8} lg={9}>
-              <Paper className={fixedHeightPaper}>
-                <Chart />
-              </Paper>
-            </Grid>
-            Recent Deposits
-            <Grid item xs={12} md={4} lg={3}>
-              <Paper className={fixedHeightPaper}>
-                <Deposits />
-              </Paper>
-            </Grid>
-            Recent Orders
-            <Grid item xs={12}>
-              <Paper className={classes.paper}>
-                <Orders />
-              </Paper>
-            </Grid> */}
+    );
+  }
+  return null;
+}
+
+function MainContent({ classes, fixedHeightPaper }) {
+  return (
+    <main className={classes.content}>
+      <div className={classes.appBarSpacer} />
+      <Container maxWidth="lg" className={classes.container}>
+        {/* <Grid container spacing={3}>
+          Chart
+          <Grid item xs={12} md={8} lg={9}>
+            <Paper className={fixedHeightPaper}>
+              <Chart />
+            </Paper>
           </Grid>
-          <Box pt={4}>
-            <Copyright />
-          </Box>
-        </Container>
-      </main>
-    </div>
+          Recent Deposits
+          <Grid item xs={12} md={4} lg={3}>
+            <Paper className={fixedHeightPaper}>
+              <Deposits />
+            </Paper>
+          </Grid>
+          Recent Orders
+          <Grid item xs={12}>
+            <Paper className={classes.paper}>
+              <Orders />
+            </Paper>
+          </Grid>
+        </Grid>
+        <Box pt={4}>
+          <Copyright />
+        </Box> */}
+      </Container>
+    </main>
   );
 }
