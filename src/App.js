@@ -8,7 +8,7 @@ import Home from './components/home';
 import Signup from './components/signup';
 import Login from './components/login';
 // import logo from './logo.svg';
-// import './App.css';
+// import './styles/App.css';
 
 function App() {
   return (
