@@ -1,16 +1,9 @@
 import React from 'react';
-import {
-  BrowserRouter,
-  Switch,
-  Route,
-  Link as RouterLink,
-  useRouteMatch
-} from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
 import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
-import Box from '@material-ui/core/Box';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
@@ -21,17 +14,10 @@ import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import Badge from '@material-ui/core/Badge';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Link from '@material-ui/core/Link';
-import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { mainListItems, secondaryListItems } from './listItems';
-import Copyright from './copyright';
 
-const drawerWidth = 240;
+const drawerWidth = 58;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -79,6 +65,9 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
+    '&::-webkit-scrollbar': {
+      display: 'none',
+    },
   },
   drawerPaperClose: {
     overflowX: 'hidden',
@@ -90,25 +79,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       width: theme.spacing(9),
     },
-  },
-  appBarSpacer: theme.mixins.toolbar,
-  content: {
-    flexGrow: 1,
-    height: '100vh',
-    overflow: 'auto',
-  },
-  container: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
-  },
-  paper: {
-    padding: theme.spacing(2),
-    display: 'flex',
-    overflow: 'auto',
-    flexDirection: 'column',
-  },
-  fixedHeight: {
-    height: 240,
   },
 }));
 
@@ -143,14 +113,12 @@ export default function Dashboard(props) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
     <div className={classes.root}>
       <CssBaseline />
       <UpperBar renderDrawer={props.renderDrawer} classes={classes} open={open} handleDrawerOpen={handleDrawerOpen} />
       <LeftDrawer renderDrawer={props.renderDrawer} classes={classes} open={open} handleDrawerClose={handleDrawerClose} />
-      <MainContent classes={classes} fixedHeightPaper={fixedHeightPaper} />
     </div>
   );
 }
@@ -246,44 +214,10 @@ function LeftDrawer({ renderDrawer, classes, handleDrawerClose }) {
           </IconButton>
         </div>
         <Divider />
-        <List>{mainListItems}</List>
-        <Divider />
-        <List>{secondaryListItems}</List>
+        <List autoWidth={false}>{mainListItems}</List>
+        <List autoWidth={false}>{secondaryListItems}</List>
       </Drawer>
     );
   }
   return null;
-}
-
-function MainContent({ classes, fixedHeightPaper }) {
-  return (
-    <main className={classes.content}>
-      <div className={classes.appBarSpacer} />
-      <Container maxWidth="lg" className={classes.container}>
-        {/* <Grid container spacing={3}>
-          Chart
-          <Grid item xs={12} md={8} lg={9}>
-            <Paper className={fixedHeightPaper}>
-              <Chart />
-            </Paper>
-          </Grid>
-          Recent Deposits
-          <Grid item xs={12} md={4} lg={3}>
-            <Paper className={fixedHeightPaper}>
-              <Deposits />
-            </Paper>
-          </Grid>
-          Recent Orders
-          <Grid item xs={12}>
-            <Paper className={classes.paper}>
-              <Orders />
-            </Paper>
-          </Grid>
-        </Grid>
-        <Box pt={4}>
-          <Copyright />
-        </Box> */}
-      </Container>
-    </main>
-  );
 }

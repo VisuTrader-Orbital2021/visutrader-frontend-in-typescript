@@ -2,7 +2,6 @@ import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import ListSubheader from '@material-ui/core/ListSubheader';
 import ForumIcon from '@material-ui/icons/Forum';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import EqualizerIcon from '@material-ui/icons/Equalizer';
@@ -14,36 +13,32 @@ import SettingsIcon from '@material-ui/icons/Settings';
 
 export const mainListItems = (
   <div>
-    <ListItem button>
+    <ListItem>
       <ListItemIcon>
         <ForumIcon />
       </ListItemIcon>
-      <ListItemText primary="Forum" />
     </ListItem>
-    <ListItem button>
+    <ListItem>
       <ListItemIcon>
         <MenuBookIcon />
       </ListItemIcon>
-      <ListItemText primary="Guide" />
     </ListItem>
-    <ListItem button>
+    <ListItem>
       <ListItemIcon>
         <EqualizerIcon />
       </ListItemIcon>
-      <ListItemText primary="Trade" />
     </ListItem>
-    <ListItem button>
+    <ListItem>
       <ListItemIcon>
         <AccountBalanceWalletIcon />
       </ListItemIcon>
-      <ListItemText primary="Wallet" />
     </ListItem>
   </div>
 );
 
 export const secondaryListItems = (
   <div>
-    <ListItem button>
+    <ListItem>
       <ListItemIcon>
         <SettingsIcon />
       </ListItemIcon>
