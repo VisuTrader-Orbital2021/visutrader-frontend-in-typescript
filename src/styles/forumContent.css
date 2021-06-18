@@ -1,0 +1,21 @@
+.search-bar {
+  background-color: #ffffff;
+  color: #616161;
+  border: 1px solid #000000;
+  height: 50px;
+  box-shadow: 5px 5px 5px 1px #bdbdbd;
+}
+
+.create-post-bar {
+  background-color: #ffffff;
+  color: #616161;
+  border: 1px solid #000000;
+  height: 50px;
+  box-shadow: 5px 5px 5px 1px #bdbdbd;
+}
+
+.post {
+  background-color: #ffffff;
+  border: 1px solid #000000;
+  box-shadow: 5px 5px 5px 1px #bdbdbd;
+}

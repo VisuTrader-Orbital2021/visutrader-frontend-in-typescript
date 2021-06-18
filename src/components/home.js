@@ -24,7 +24,7 @@ export default function Home() {
   const classes = useStyles();
 
   return (
-    <div>
+    <div className={classes.root}>
       <Dashboard renderDrawer={false} />
       <MainContent classes={classes} />
     </div>
@@ -36,7 +36,7 @@ function MainContent({ classes }) {
     <main className={classes.content}>
       <div className={classes.appBarSpacer} />
       <Container maxWidth="lg" className={classes.container}>
-        <RouterLink to="/personal">
+        <RouterLink to="/personal/trade">
           <span>
             Go to personal page
           </span>

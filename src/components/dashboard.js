@@ -3,19 +3,17 @@ import { Link as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
 import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import { mainListItems, secondaryListItems } from './listItems';
+import LeftDrawer from './leftDrawer';
+// import DrawerListIcons from './drawerListIcons';
+// import { mainListTags, secondaryListTags } from './drawerListTags';
 
 const drawerWidth = 58;
 
@@ -91,9 +89,9 @@ const theme = createMuiTheme({
       contrastText: '#ffffff',
     },
     secondary: {
-      light: '#a52c55',
+      light: '#ef6694',
       main: '#ec407a',
-      dark: '#ef6694',
+      dark: '#a52c55',
       contrastText: '#ffffff',
     },
   },
@@ -117,8 +115,19 @@ export default function Dashboard(props) {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <UpperBar renderDrawer={props.renderDrawer} classes={classes} open={open} handleDrawerOpen={handleDrawerOpen} />
-      <LeftDrawer renderDrawer={props.renderDrawer} classes={classes} open={open} handleDrawerClose={handleDrawerClose} />
+      <UpperBar
+        renderDrawer={props.renderDrawer}
+        classes={classes}
+        open={open}
+        handleDrawerOpen={handleDrawerOpen}
+      />
+      <LeftDrawer
+        renderDrawer={props.renderDrawer}
+        location={props.location}
+        classes={classes}
+        open={open}
+        handleDrawerClose={handleDrawerClose}
+      />
     </div>
   );
 }
@@ -189,35 +198,13 @@ function UpperBar({ renderDrawer, classes, open, handleDrawerOpen }) {
       <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
         <Toolbar className={classes.toolbar}>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            VisuTrader
+            <RouterLink to="/" style={routerLinkStyle}>
+              VisuTrader
+            </RouterLink>
           </Typography>
           { renderElement() }
         </Toolbar>
       </AppBar>
     </ThemeProvider>
   );
-}
-
-function LeftDrawer({ renderDrawer, classes, handleDrawerClose }) {
-  if (renderDrawer) {
-    return (
-      <Drawer
-        variant="permanent"
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-        anchor="left"
-      >
-        <div className={classes.toolbarIcon}>
-          <IconButton onClick={handleDrawerClose}>
-            <ChevronLeftIcon />
-          </IconButton>
-        </div>
-        <Divider />
-        <List autoWidth={false}>{mainListItems}</List>
-        <List autoWidth={false}>{secondaryListItems}</List>
-      </Drawer>
-    );
-  }
-  return null;
 }
