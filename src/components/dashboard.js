@@ -1,37 +1,22 @@
 import React from 'react';
-import {
-  BrowserRouter,
-  Switch,
-  Route,
-  Link as RouterLink,
-  useRouteMatch
-} from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Drawer from '@material-ui/core/Drawer';
-import Box from '@material-ui/core/Box';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
+import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Link from '@material-ui/core/Link';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems, secondaryListItems } from './listItems';
-// import Chart from './Chart';
-// import Deposits from './Deposits';
-// import Orders from './Orders';
-import Copyright from './copyright';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
+import { Theme } from '../theme/theme';
+import LeftDrawer from './leftDrawer';
+// import DrawerListIcons from './drawerListIcons';
+// import { mainListTags, secondaryListTags } from './drawerListTags';
 
-const drawerWidth = 240;
+const drawerWidth = 58;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -79,6 +64,9 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
+    '&::-webkit-scrollbar': {
+      display: 'none',
+    },
   },
   drawerPaperClose: {
     overflowX: 'hidden',
@@ -91,24 +79,9 @@ const useStyles = makeStyles((theme) => ({
       width: theme.spacing(9),
     },
   },
-  appBarSpacer: theme.mixins.toolbar,
-  content: {
-    flexGrow: 1,
-    height: '100vh',
-    overflow: 'auto',
-  },
-  container: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
-  },
-  paper: {
-    padding: theme.spacing(2),
-    display: 'flex',
-    overflow: 'auto',
-    flexDirection: 'column',
-  },
-  fixedHeight: {
-    height: 240,
+  routerLinkStyle: {
+    textDecoration: 'none',
+    color: '#ffffff',
   },
 }));
 
@@ -121,105 +94,99 @@ export default function Dashboard(props) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <UpperBar renderDrawer={props.renderDrawer} classes={classes} open={open} handleDrawerOpen={handleDrawerOpen} />
-      <LeftDrawer renderDrawer={props.renderDrawer} classes={classes} open={open} handleDrawerClose={handleDrawerClose} />
-      <MainContent classes={classes} fixedHeightPaper={fixedHeightPaper} />
+      <UpperBar
+        renderDrawer={props.renderDrawer}
+        classes={classes}
+        open={open}
+        handleDrawerOpen={handleDrawerOpen}
+      />
+      <LeftDrawer
+        renderDrawer={props.renderDrawer}
+        location={props.location}
+        classes={classes}
+        open={open}
+        handleDrawerClose={handleDrawerClose}
+      />
     </div>
   );
 }
 
 function UpperBar({ renderDrawer, classes, open, handleDrawerOpen }) {
-  return (
-    <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
-      <Toolbar className={classes.toolbar}>
-        {renderDrawer &&
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const profileOpen = Boolean(anchorEl);
+  const renderElement = () => {
+    if (renderDrawer) {
+      return (
+        <div>
+          {/* TODO: Change <span> to <Typography> */}
+          <span>
+            DISPLAY NAME
+          </span>
           <IconButton
-            edge="start"
+            aria-label="account of current user"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            onClick={handleMenu}
             color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
           >
-            <MenuIcon />
+            <AccountCircle />
           </IconButton>
-        }
-        <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-          DASHBOARD
-        </Typography>
-        <RouterLink to="/signup">
-          <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            SIGN UP
-          </Typography>
-        </RouterLink>
-        <RouterLink to="/login">
-          <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            LOG IN
-          </Typography>
-        </RouterLink>
-      </Toolbar>
-    </AppBar>
-  );
-}
-
-function LeftDrawer({ renderDrawer, classes, open, handleDrawerClose }) {
-  if (renderDrawer) {
-    return (
-      <Drawer
-        variant="permanent"
-        classes={{
-          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-        }}
-        open={open}
-      >
-       <div className={classes.toolbarIcon}>
-          <IconButton onClick={handleDrawerClose}>
-            <ChevronLeftIcon />
-          </IconButton>
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            open={profileOpen}
+            onClose={handleClose}
+          >
+            <MenuItem onClick={handleClose}>Profile</MenuItem>
+            <MenuItem onClick={handleClose}>My account</MenuItem>
+          </Menu>
         </div>
-        <Divider />
-        <List>{mainListItems}</List>
-        <Divider />
-        {/* <List>{secondaryListItems}</List> */}
-      </Drawer>
-    );
+      );
+    } else {
+      return (
+        <div>
+          <RouterLink to="/signup" className={classes.routerLinkStyle}>
+            <Button color="inherit">SIGN UP</Button>
+          </RouterLink>
+          <RouterLink to="/login" className={classes.routerLinkStyle}>
+            <Button color="inherit">LOG IN</Button>
+          </RouterLink>
+        </div>
+      );
+    }
   }
-  return null;
-}
-
-function MainContent({ classes, fixedHeightPaper }) {
+  
   return (
-    <main className={classes.content}>
-      <div className={classes.appBarSpacer} />
-      <Container maxWidth="lg" className={classes.container}>
-        {/* <Grid container spacing={3}>
-          Chart
-          <Grid item xs={12} md={8} lg={9}>
-            <Paper className={fixedHeightPaper}>
-              <Chart />
-            </Paper>
-          </Grid>
-          Recent Deposits
-          <Grid item xs={12} md={4} lg={3}>
-            <Paper className={fixedHeightPaper}>
-              <Deposits />
-            </Paper>
-          </Grid>
-          Recent Orders
-          <Grid item xs={12}>
-            <Paper className={classes.paper}>
-              <Orders />
-            </Paper>
-          </Grid>
-        </Grid>
-        <Box pt={4}>
-          <Copyright />
-        </Box> */}
-      </Container>
-    </main>
+    <ThemeProvider theme={Theme}>
+      <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
+        <Toolbar className={classes.toolbar}>
+          <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+            <RouterLink to="/" className={classes.routerLinkStyle}>
+              VisuTrader
+            </RouterLink>
+          </Typography>
+          { renderElement() }
+        </Toolbar>
+      </AppBar>
+    </ThemeProvider>
   );
 }
