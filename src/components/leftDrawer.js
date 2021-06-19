@@ -15,68 +15,33 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import '../styles/leftDrawer.css'
 
 function forumRouterStyle(location) {
-  if (location === "forum") {
-    return {
-      color: "#536dfe"
-    };
-  }
-  else {
-    return {
-      color: "#757575"
-    };
-  }
+  return {
+    color: location === "forum" ? "#536dfe" : "#757575",
+  };
 }
 
 function guideRouterStyle(location) {
-  if (location === "guide") {
-    return {
-      color: "#536dfe"
-    };
-  }
-  else {
-    return {
-      color: "#757575"
-    };
-  }
+  return {
+    color: location === "guide" ? "#536dfe" : "#757575",
+  };
 }
 
 function tradeRouterStyle(location) {
-  if (location === "trade") {
-    return {
-      color: "#536dfe"
-    };
-  }
-  else {
-    return {
-      color: "#757575"
-    };
-  }
+  return {
+    color: location === "trade" ? "#536dfe" : "#757575",
+  };
 }
 
 function walletRouterStyle(location) {
-  if (location === "wallet") {
-    return {
-      color: "#536dfe"
-    };
-  }
-  else {
-    return {
-      color: "#757575"
-    };
-  }
+  return {
+    color: location === "wallet" ? "#536dfe" : "#757575",
+  };
 }
 
 function settingsRouterStyle(location) {
-  if (location === "settings") {
-    return {
-      color: "#536dfe"
-    };
-  }
-  else {
-    return {
-      color: "#757575"
-    };
-  }
+  return {
+    color: location === "settings" ? "#536dfe" : "#757575",
+  };
 }
 
 function MainListIcons(props) {
@@ -250,8 +215,7 @@ function RenderForumTag({ forumTag }) {
     return (
       <span className="forum-tag">Forum</span>
     );
-  }
-  else {
+  } else {
     return null;
   }
 }
@@ -261,8 +225,7 @@ function RenderGuideTag({ guideTag }) {
     return (
       <span className="guide-tag">Guide</span>
     );
-  }
-  else {
+  } else {
     return null;
   }
 }
@@ -272,8 +235,7 @@ function RenderTradeTag({ tradeTag }) {
     return (
       <span className="trade-tag">Trade</span>
     );
-  }
-  else {
+  } else {
     return null;
   }
 }
@@ -283,8 +245,7 @@ function RenderWalletTag({ walletTag }) {
     return (
       <span className="wallet-tag">Wallet</span>
     );
-  }
-  else {
+  } else {
     return null;
   }
 }
@@ -294,8 +255,7 @@ function RenderSettingsTag({ settingsTag }) {
     return (
       <span className="settings-tag">Settings</span>
     );
-  }
-  else {
+  } else {
     return null;
   }
 }

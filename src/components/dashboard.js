@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import clsx from 'clsx';
-import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -11,6 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import { Theme } from '../theme/theme';
 import LeftDrawer from './leftDrawer';
 // import DrawerListIcons from './drawerListIcons';
 // import { mainListTags, secondaryListTags } from './drawerListTags';
@@ -78,29 +79,11 @@ const useStyles = makeStyles((theme) => ({
       width: theme.spacing(9),
     },
   },
-}));
-
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      light: '#758afe',
-      main: '#536dfe',
-      dark: '#3a4cb1',
-      contrastText: '#ffffff',
-    },
-    secondary: {
-      light: '#ef6694',
-      main: '#ec407a',
-      dark: '#a52c55',
-      contrastText: '#ffffff',
-    },
+  routerLinkStyle: {
+    textDecoration: 'none',
+    color: '#ffffff',
   },
-});
-
-const routerLinkStyle = {
-  textDecoration: "none",
-  color: '#ffffff',
-};
+}));
 
 export default function Dashboard(props) {
   const classes = useStyles();
@@ -178,14 +161,13 @@ function UpperBar({ renderDrawer, classes, open, handleDrawerOpen }) {
           </Menu>
         </div>
       );
-    }
-    else {
+    } else {
       return (
         <div>
-          <RouterLink to="/signup" style={routerLinkStyle}>
+          <RouterLink to="/signup" className={classes.routerLinkStyle}>
             <Button color="inherit">SIGN UP</Button>
           </RouterLink>
-          <RouterLink to="/login" style={routerLinkStyle}>
+          <RouterLink to="/login" className={classes.routerLinkStyle}>
             <Button color="inherit">LOG IN</Button>
           </RouterLink>
         </div>
@@ -194,11 +176,11 @@ function UpperBar({ renderDrawer, classes, open, handleDrawerOpen }) {
   }
   
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={Theme}>
       <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
         <Toolbar className={classes.toolbar}>
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-            <RouterLink to="/" style={routerLinkStyle}>
+            <RouterLink to="/" className={classes.routerLinkStyle}>
               VisuTrader
             </RouterLink>
           </Typography>

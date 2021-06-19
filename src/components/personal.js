@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Dashboard from './dashboard';
@@ -59,6 +59,9 @@ export default function Personal() {
       <Route path="/personal/settings">
         <Dashboard renderDrawer={true} location="settings" />
         <SettingsContent classes={classes} fixedHeightPaper={fixedHeightPaper} />
+      </Route>
+      <Route path="/personal">
+        <Redirect to="/personal/trade" />
       </Route>
     </div>
   );
