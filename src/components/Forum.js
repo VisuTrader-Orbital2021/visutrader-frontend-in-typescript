@@ -5,18 +5,6 @@ import Box from "@material-ui/core/Box";
 import Copyright from "./Copyright";
 import "../styles/Forum.css";
 
-function Post(props) {
-  return (
-    <div className="post">
-      <div className="info">
-        {"Posted by " + props.username + " " + props.time + " ago"}
-      </div>
-      <h3 className="title">{props.title}</h3>
-      <p className="comment">{props.children}</p>
-    </div>
-  );
-}
-
 export default function Forum({ classes }) {
   return (
     <main className={classes.content}>
@@ -68,5 +56,17 @@ export default function Forum({ classes }) {
         </Box>
       </Container>
     </main>
+  );
+}
+
+function Post(props) {
+  return (
+    <div className="post">
+      <div className="info">
+        {"Posted by " + props.username + " " + props.time + " ago"}
+      </div>
+      <h3 className="title">{props.title}</h3>
+      <p className="comment">{props.children}</p>
+    </div>
   );
 }
