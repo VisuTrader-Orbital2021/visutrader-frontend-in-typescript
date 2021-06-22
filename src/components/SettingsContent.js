@@ -1,11 +1,8 @@
-import React from 'react';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
-import Chart from './chart';
-import Deposits from './deposits'
-import Copyright from './copyright';
+import React from "react";
+import Container from "@material-ui/core/Container";
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
+import Copyright from "./Copyright";
 
 export default function SettingsContent({ classes, fixedHeightPaper }) {
   return (

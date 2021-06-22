@@ -1,23 +1,23 @@
-import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
-import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
-import Dashboard from './dashboard';
-import ForumContent from './forumContent';
-import GuideContent from './guideContent';
-import TradeContent from './tradeContent';
-import WalletContent from './walletContent';
-import SettingsContent from './settingsContent';
+import React from "react";
+import { Route, Redirect } from "react-router-dom";
+import clsx from "clsx";
+import { makeStyles } from "@material-ui/core/styles";
+import Dashboard from "./Dashboard";
+import ForumContent from "./ForumContent";
+import GuideContent from "./GuideContent";
+import TradeContent from "./TradeContent";
+import WalletContent from "./WalletContent";
+import SettingsContent from "./SettingsContent";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
+    display: "flex",
   },
   appBarSpacer: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
-    height: '100vh',
-    overflow: 'auto',
+    height: "100vh",
+    overflow: "auto",
   },
   container: {
     paddingTop: theme.spacing(4),
@@ -25,9 +25,9 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     padding: theme.spacing(2),
-    display: 'flex',
-    overflow: 'auto',
-    flexDirection: 'column',
+    display: "flex",
+    overflow: "auto",
+    flexDirection: "column",
   },
   fixedHeight: {
     height: 240,
@@ -40,28 +40,28 @@ export default function Personal() {
 
   return (
     <div className={classes.root}>
-      <Route path="/personal/forum">
+      <Route exact path="/forum">
         <Dashboard renderDrawer={true} location="forum" />
         <ForumContent classes={classes} fixedHeightPaper={fixedHeightPaper} />
       </Route>
-      <Route path="/personal/guide">
+      <Route exact path="/guide">
         <Dashboard renderDrawer={true} location="guide" />
         <GuideContent classes={classes} fixedHeightPaper={fixedHeightPaper} />
       </Route>
-      <Route path="/personal/trade">
+      <Route exact path="/trade">
         <Dashboard renderDrawer={true} location="trade" />
         <TradeContent classes={classes} fixedHeightPaper={fixedHeightPaper} />
       </Route>
-      <Route path="/personal/wallet">
+      <Route exact path="/wallet">
         <Dashboard renderDrawer={true} location="wallet" />
         <WalletContent classes={classes} fixedHeightPaper={fixedHeightPaper} />
       </Route>
-      <Route path="/personal/settings">
+      <Route exact path="/settings">
         <Dashboard renderDrawer={true} location="settings" />
-        <SettingsContent classes={classes} fixedHeightPaper={fixedHeightPaper} />
-      </Route>
-      <Route path="/personal">
-        <Redirect to="/personal/trade" />
+        <SettingsContent
+          classes={classes}
+          fixedHeightPaper={fixedHeightPaper}
+        />
       </Route>
     </div>
   );
