@@ -3,9 +3,9 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import Copyright from "./Copyright";
-import "../styles/GuideContent.css";
+import "../styles/Guide.css";
 
-export default function GuideContent({ classes, fixedHeightPaper }) {
+export default function Guide({ classes, fixedHeightPaper }) {
   return (
     <main className={classes.content}>
       <div className={classes.appBarSpacer} />

@@ -4,7 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import Copyright from "./Copyright";
 
-export default function WalletContent({ classes, fixedHeightPaper }) {
+export default function Wallet({ classes, fixedHeightPaper }) {
   return (
     <main className={classes.content}>
       <div className={classes.appBarSpacer} />

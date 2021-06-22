@@ -7,7 +7,7 @@ import { CanvasJSCandlestickChart } from "./Chart";
 import Deposits from "./Deposits";
 import Copyright from "./Copyright";
 
-export default function TradeContent({ classes, fixedHeightPaper }) {
+export default function Trade({ classes, fixedHeightPaper }) {
   return (
     <main className={classes.content}>
       <div className={classes.appBarSpacer} />

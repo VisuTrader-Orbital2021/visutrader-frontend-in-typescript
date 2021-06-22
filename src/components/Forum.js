@@ -3,7 +3,7 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import Copyright from "./Copyright";
-import "../styles/ForumContent.css";
+import "../styles/Forum.css";
 
 function Post(props) {
   return (
@@ -17,7 +17,7 @@ function Post(props) {
   );
 }
 
-export default function ForumContent({ classes }) {
+export default function Forum({ classes }) {
   return (
     <main className={classes.content}>
       <div className={classes.appBarSpacer} />
