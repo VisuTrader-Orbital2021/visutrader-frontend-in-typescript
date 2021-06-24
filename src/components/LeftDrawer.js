@@ -1,18 +1,18 @@
-import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
-import Drawer from '@material-ui/core/Drawer';
-import IconButton from '@material-ui/core/IconButton';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import Divider from '@material-ui/core/Divider';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ForumIcon from '@material-ui/icons/Forum';
-import MenuBookIcon from '@material-ui/icons/MenuBook';
-import EqualizerIcon from '@material-ui/icons/Equalizer';
-import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
-import SettingsIcon from '@material-ui/icons/Settings';
-import '../styles/leftDrawer.css'
+import React from "react";
+import { Link as RouterLink } from "react-router-dom";
+import Drawer from "@material-ui/core/Drawer";
+import IconButton from "@material-ui/core/IconButton";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import Divider from "@material-ui/core/Divider";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ForumIcon from "@material-ui/icons/Forum";
+import MenuBookIcon from "@material-ui/icons/MenuBook";
+import EqualizerIcon from "@material-ui/icons/Equalizer";
+import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
+import SettingsIcon from "@material-ui/icons/Settings";
+import "../styles/LeftDrawer.css";
 
 function forumRouterStyle(location) {
   return {
@@ -49,7 +49,7 @@ function MainListIcons(props) {
     <div>
       <ListItem>
         <ListItemIcon>
-          <RouterLink to="/personal/forum" style={forumRouterStyle(props.location)}>
+          <RouterLink to="/forum" style={forumRouterStyle(props.location)}>
             <ForumIcon
               className="forum-icon"
               onMouseEnter={props.openForumTag}
@@ -60,7 +60,7 @@ function MainListIcons(props) {
       </ListItem>
       <ListItem>
         <ListItemIcon>
-          <RouterLink to="/personal/guide" style={guideRouterStyle(props.location)}>
+          <RouterLink to="/guide" style={guideRouterStyle(props.location)}>
             <MenuBookIcon
               className="guide-icon"
               onMouseEnter={props.openGuideTag}
@@ -71,7 +71,7 @@ function MainListIcons(props) {
       </ListItem>
       <ListItem>
         <ListItemIcon>
-          <RouterLink to="/personal/trade" style={tradeRouterStyle(props.location)}>
+          <RouterLink to="/trade" style={tradeRouterStyle(props.location)}>
             <EqualizerIcon
               className="trade-icon"
               onMouseEnter={props.openTradeTag}
@@ -82,7 +82,7 @@ function MainListIcons(props) {
       </ListItem>
       <ListItem>
         <ListItemIcon>
-          <RouterLink to="/personal/wallet" style={walletRouterStyle(props.location)}>
+          <RouterLink to="/wallet" style={walletRouterStyle(props.location)}>
             <AccountBalanceWalletIcon
               className="wallet-icon"
               onMouseEnter={props.openWalletTag}
@@ -100,7 +100,10 @@ function SecondaryListIcons(props) {
     <div>
       <ListItem>
         <ListItemIcon>
-          <RouterLink to="/personal/settings" style={settingsRouterStyle(props.location)}>
+          <RouterLink
+            to="/settings"
+            style={settingsRouterStyle(props.location)}
+          >
             <SettingsIcon
               className="settings-icon"
               onMouseEnter={props.openSettingsTag}
@@ -113,7 +116,13 @@ function SecondaryListIcons(props) {
   );
 }
 
-export default function LeftDrawer({ renderDrawer, location, classes, open, handleDrawerClose }) {
+export default function LeftDrawer({
+  renderDrawer,
+  location,
+  classes,
+  open,
+  handleDrawerClose,
+}) {
   const [forumTag, setForumTag] = React.useState(false);
   const openForumTag = () => {
     setForumTag(true);
@@ -153,7 +162,7 @@ export default function LeftDrawer({ renderDrawer, location, classes, open, hand
   const closeSettingsTag = () => {
     setSettingsTag(false);
   };
-  
+
   if (renderDrawer) {
     return (
       <div className="left-drawer">
@@ -212,9 +221,7 @@ export default function LeftDrawer({ renderDrawer, location, classes, open, hand
 
 function RenderForumTag({ forumTag }) {
   if (forumTag) {
-    return (
-      <span className="forum-tag">Forum</span>
-    );
+    return <span className="forum-tag">Forum</span>;
   } else {
     return null;
   }
@@ -222,9 +229,7 @@ function RenderForumTag({ forumTag }) {
 
 function RenderGuideTag({ guideTag }) {
   if (guideTag) {
-    return (
-      <span className="guide-tag">Guide</span>
-    );
+    return <span className="guide-tag">Guide</span>;
   } else {
     return null;
   }
@@ -232,9 +237,7 @@ function RenderGuideTag({ guideTag }) {
 
 function RenderTradeTag({ tradeTag }) {
   if (tradeTag) {
-    return (
-      <span className="trade-tag">Trade</span>
-    );
+    return <span className="trade-tag">Trade</span>;
   } else {
     return null;
   }
@@ -242,9 +245,7 @@ function RenderTradeTag({ tradeTag }) {
 
 function RenderWalletTag({ walletTag }) {
   if (walletTag) {
-    return (
-      <span className="wallet-tag">Wallet</span>
-    );
+    return <span className="wallet-tag">Wallet</span>;
   } else {
     return null;
   }
@@ -252,9 +253,7 @@ function RenderWalletTag({ walletTag }) {
 
 function RenderSettingsTag({ settingsTag }) {
   if (settingsTag) {
-    return (
-      <span className="settings-tag">Settings</span>
-    );
+    return <span className="settings-tag">Settings</span>;
   } else {
     return null;
   }

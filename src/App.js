@@ -1,9 +1,9 @@
-import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import Home from './components/home';
-import Signup from './components/signup';
-import Login from './components/login';
-import Personal from './components/personal';
+import React from "react";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import Home from "./components/Home";
+import Signup from "./components/Signup";
+import Login from "./components/Login";
+import Personal from "./components/Personal";
 // import logo from './logo.svg';
 // import './styles/App.css';
 
@@ -12,16 +12,19 @@ function App() {
     <BrowserRouter>
       <div>
         <Switch>
-          <Route path="/signup">
+          <Route exact path="/signup">
             <Signup />
           </Route>
-          <Route path="/login">
+          <Route exact path="/login">
             <Login />
           </Route>
-          <Route path="/personal">
+          <Route
+            exact
+            path={["/forum", "/guide", "/trade", "/wallet", "/settings"]}
+          >
             <Personal />
           </Route>
-          <Route path="/">
+          <Route exact path="/">
             <Home />
           </Route>
         </Switch>

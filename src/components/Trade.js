@@ -1,21 +1,21 @@
-import React from 'react';
-import Container from '@material-ui/core/Container';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
-import Chart from './chart';
-import Deposits from './deposits'
-import Copyright from './copyright';
+import React from "react";
+import Container from "@material-ui/core/Container";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import Box from "@material-ui/core/Box";
+import { CanvasJSCandlestickChart } from "./Chart";
+import Deposits from "./Deposits";
+import Copyright from "./Copyright";
 
-export default function TradeContent({ classes, fixedHeightPaper }) {
+export default function Trade({ classes, fixedHeightPaper }) {
   return (
     <main className={classes.content}>
       <div className={classes.appBarSpacer} />
       <Container maxWidth="lg" className={classes.container}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <Paper className={fixedHeightPaper}>
-              <Chart />
+            <Paper>
+              <CanvasJSCandlestickChart />
             </Paper>
           </Grid>
           <Grid item xs={4}>

@@ -7,6 +7,19 @@
   display: flex;
   flex-direction: column;
 }
+/* 
+.main-list-icons {
+  display: flex;
+  height: 22vh;
+  border: 1px solid blue;
+}
+
+.secondary-list-icons {
+  display: flex;
+  align-items: flex-end;
+  height: 70vh;
+  border: 1px solid purple;
+} */
 
 .forum-icon:hover {
   color: #3a4cb1;
