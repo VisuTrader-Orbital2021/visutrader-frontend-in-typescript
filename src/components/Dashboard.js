@@ -11,7 +11,6 @@ import IconButton from "@material-ui/core/IconButton";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
-import { Theme } from "../theme/Theme";
 import LeftDrawer from "./LeftDrawer";
 // import DrawerListIcons from './drawerListIcons';
 // import { mainListTags, secondaryListTags } from './drawerListTags';
@@ -174,26 +173,24 @@ function UpperBar({ renderDrawer, classes, open, handleDrawerOpen }) {
   };
 
   return (
-    <ThemeProvider theme={Theme}>
-      <AppBar
-        position="absolute"
-        className={clsx(classes.appBar, open && classes.appBarShift)}
-      >
-        <Toolbar className={classes.toolbar}>
-          <Typography
-            component="h1"
-            variant="h6"
-            color="inherit"
-            noWrap
-            className={classes.title}
-          >
-            <RouterLink to="/" className={classes.routerLinkStyle}>
-              VisuTrader
-            </RouterLink>
-          </Typography>
-          {renderElement()}
-        </Toolbar>
-      </AppBar>
-    </ThemeProvider>
+    <AppBar
+      position="absolute"
+      className={clsx(classes.appBar, open && classes.appBarShift)}
+    >
+      <Toolbar className={classes.toolbar}>
+        <Typography
+          component="h1"
+          variant="h2"
+          color="inherit"
+          noWrap
+          className={classes.title}
+        >
+          <RouterLink to="/" className={classes.routerLinkStyle}>
+            VisuTrader
+          </RouterLink>
+        </Typography>
+        {renderElement()}
+      </Toolbar>
+    </AppBar>
   );
 }

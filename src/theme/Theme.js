@@ -1,7 +1,6 @@
-import React from "react";
 import { createMuiTheme } from "@material-ui/core/styles";
 
-export const Theme = createMuiTheme({
+const theme = createMuiTheme({
   palette: {
     primary: {
       light: "#758afe",
@@ -16,4 +15,25 @@ export const Theme = createMuiTheme({
       contrastText: "#ffffff",
     },
   },
+  typography: {
+    fontFamily: ["Nunito Sans", "sans-serif"].join(","),
+    h1: {
+      fontSize: "36px",
+      fontWeight: "700",
+    },
+    h2: {
+      fontSize: "28px",
+      fontWeight: "700",
+    },
+    h3: {
+      fontSize: "20px",
+      fontWeight: "400",
+    },
+    body1: {
+      fontSize: "36px",
+      fontWeight: "400",
+    },
+  },
 });
+
+export default theme;
