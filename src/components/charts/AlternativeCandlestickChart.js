@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { CanvasJSChart } from "canvasjs-react-charts";
 import { getDailyChartForSymbol } from "./ApiConnector";
 
-export const CanvasJSCandlestickChart = () => {
+export const AlternativeCandlestickChart = () => {
   const [stockData, setStockData] = useState([]);
 
   useEffect(() => {
@@ -13,8 +13,6 @@ export const CanvasJSCandlestickChart = () => {
 
     fetchStockData();
   }, []);
-
-  console.log(stockData);
 
   return (
     <CanvasJSChart

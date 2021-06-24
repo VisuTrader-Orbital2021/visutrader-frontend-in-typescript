@@ -47,6 +47,7 @@ function MainContent({ classes }) {
         <span>
           The most beginner-friendly paper trading app on the internet
         </span>
+        {/* TODO: Change RouterLink destination */}
         <RouterLink to="/trade" className={classes.buttonStyle}>
           <Button color="primary">GET STARTED</Button>
         </RouterLink>
