@@ -5,6 +5,8 @@ import Box from "@material-ui/core/Box";
 import Copyright from "./Copyright";
 import "../styles/Guide.css";
 
+// TODO: Write guide content
+// TODO: Remove styling with CSS
 export default function Guide({ classes, fixedHeightPaper }) {
   return (
     <main className={classes.content}>

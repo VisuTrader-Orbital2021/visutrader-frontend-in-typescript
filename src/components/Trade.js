@@ -9,13 +9,16 @@ import Typography from "@material-ui/core/Typography";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Fade from "@material-ui/core/Fade";
+import List from '@material-ui/core/List';
 import { CandlestickChart, SplineAreaChart } from "./StockChart";
 import CompanyOverview from "./CompanyOverview";
-import PaperTrade from "./PaperTrade";
+import PaperTrading from "./PaperTrading";
 import Watchlist from "./Watchlist";
 import Copyright from "./Copyright";
 import "../styles/Trade.css";
 
+// TODO: Fix watchlist not updating the stock chart
+// TODO: Remove styling with CSS
 export default function Trade({ classes, fixedHeightPaper }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [chartType, setChartType] = React.useState("CANDLESTICK");
@@ -27,6 +30,11 @@ export default function Trade({ classes, fixedHeightPaper }) {
     setAnchorEl(null);
     setChartType(type);
   };
+  const [option, setOptionType] = React.useState("AMZN");
+  const handleOption = (choice) => {
+    setOptionType(choice);
+    console.log(choice);    // to be removed
+  }
 
   return (
     <main className={classes.content}>
@@ -64,32 +72,39 @@ export default function Trade({ classes, fixedHeightPaper }) {
                 </div>
                 <div className="chart-content">
                   {chartType === "CANDLESTICK" ? (
-                    <CandlestickChart />
+                    <CandlestickChart>{option}</CandlestickChart>
                   ) : (
-                    <SplineAreaChart />
+                    <SplineAreaChart>{option}</SplineAreaChart>
                   )}
                 </div>
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={4}>
             <Card>
               <CardContent>
-                <CompanyOverview />
+                <CompanyOverview>{option}</CompanyOverview>
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={4}>
             <Card>
               <CardContent>
-                <PaperTrade />
+                <PaperTrading />
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={4}>
             <Card>
               <CardContent>
-                <Watchlist />
+                <Typography variant="h2" color="primary">
+                  MY WATCHLIST
+                </Typography>
+                <List>
+                  <Watchlist onClick={handleOption}>AMZN</Watchlist>
+                  <Watchlist onClick={handleOption}>AAPL</Watchlist>
+                  <Watchlist onClick={handleOption}>TSLA</Watchlist>
+                </List>
               </CardContent>
             </Card>
           </Grid>

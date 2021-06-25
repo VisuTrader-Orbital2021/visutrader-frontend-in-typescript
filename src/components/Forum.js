@@ -5,6 +5,7 @@ import Box from "@material-ui/core/Box";
 import Copyright from "./Copyright";
 import "../styles/Forum.css";
 
+// TODO: Remove styling with CSS
 export default function Forum({ classes }) {
   return (
     <main className={classes.content}>

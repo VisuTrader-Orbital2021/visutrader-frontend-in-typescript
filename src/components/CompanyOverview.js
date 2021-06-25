@@ -3,14 +3,14 @@ import Typography from "@material-ui/core/Typography";
 import { getCompanyOverview } from "./APIConnector";
 import "../styles/CompanyOverview.css";
 
-export default function CompanyOverview() {
+// TODO: Remove styling with CSS
+export default function CompanyOverview(props) {
   const [companyData, setCompanyData] = useState([]);
 
   useEffect(() => {
     const fetchCompanyData = async () => {
-      const result = await getCompanyOverview("TSLA");
+      const result = await getCompanyOverview(props.children);
       setCompanyData(result.data);
-      console.log(result.data); // to be removed
     };
 
     fetchCompanyData();
@@ -18,12 +18,18 @@ export default function CompanyOverview() {
 
   return (
     <div className="overview">
-      <Typography className="symbol" variant="h2" color="primary">
+      <Typography className="overview-symbol" variant="h2" color="primary">
         {companyData["Symbol"]}
       </Typography>
-      <Typography className="name" variant="h3">{companyData["Name"]}</Typography>
-      <Typography className="industry" variant="body2">{companyData["Industry"]}</Typography>
-      <Typography className="analyst-target-price" variant="h1">${companyData["AnalystTargetPrice"]}</Typography>
+      <Typography className="overview-name" variant="h3">
+        {companyData["Name"]}
+      </Typography>
+      <Typography className="overview-industry" variant="body2">
+        {companyData["Industry"]}
+      </Typography>
+      <Typography className="overview-analyst-target-price" variant="h1">
+        ${companyData["AnalystTargetPrice"]}
+      </Typography>
     </div>
   );
-};
+}

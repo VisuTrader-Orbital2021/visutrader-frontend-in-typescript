@@ -7,6 +7,7 @@ import Dashboard from "./Dashboard";
 import Copyright from "./Copyright";
 import "../styles/Home.css";
 
+// TODO: Remove styling with CSS
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",

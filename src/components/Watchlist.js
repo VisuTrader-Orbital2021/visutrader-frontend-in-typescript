@@ -1,10 +1,34 @@
 import React, { useState, useEffect } from "react";
+import ListItem from '@material-ui/core/ListItem';
 import Typography from "@material-ui/core/Typography";
+import Divider from '@material-ui/core/Divider';
+import { getCompanyOverview } from "./APIConnector";
+import "../styles/Watchlist.css";
 
-export default function Watchlist() {
+// TODO: Remove styling with CSS
+export default function Watchlist(props) {
+  const [companyData, setCompanyData] = useState([]);
+
+  useEffect(() => {
+    const fetchCompanyData = async () => {
+      const result = await getCompanyOverview(props.children);
+      setCompanyData(result.data);
+    };
+    fetchCompanyData();
+  }, []);
+
+  const handleChange = () => {
+    props.onClick(props.children);
+  }
+
   return (
-    <div className="watchlist">
-      <Typography variant="h2" color="primary">MY WATCHLIST</Typography>
-    </div>
+    <ListItem button onClick={handleChange}>
+      <Typography variant="h3">
+        {companyData["Symbol"]}
+      </Typography>
+      <Typography variant="h3" color="secondary">
+        ${companyData["AnalystTargetPrice"]}
+      </Typography>
+    </ListItem>
   );
 }
