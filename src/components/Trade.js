@@ -9,10 +9,10 @@ import Typography from "@material-ui/core/Typography";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Fade from "@material-ui/core/Fade";
-import CandlestickChart from "./charts/CandlestickChart";
-import SplineAreaChart from "./charts/SplineAreaChart";
-import { CompanyOverview } from "./CompanyOverview";
-import Deposits from "./Deposits";
+import { CandlestickChart, SplineAreaChart } from "./StockChart";
+import CompanyOverview from "./CompanyOverview";
+import PaperTrade from "./PaperTrade";
+import Watchlist from "./Watchlist";
 import Copyright from "./Copyright";
 import "../styles/Trade.css";
 
@@ -72,24 +72,24 @@ export default function Trade({ classes, fixedHeightPaper }) {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={3}>
             <Card>
               <CardContent>
                 <CompanyOverview />
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={6}>
             <Card>
               <CardContent>
-                <Deposits />
+                <PaperTrade />
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={3}>
             <Card>
               <CardContent>
-                <Deposits />
+                <Watchlist />
               </CardContent>
             </Card>
           </Grid>

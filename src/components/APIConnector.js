@@ -16,10 +16,21 @@ const axiosInstance = axios.create({
   adapter: cache.adapter,
 });
 
-export const getDailyChartForSymbol = (symbol) => {
+export const getDailyStockChart = (symbol) => {
   return axiosInstance.get("", {
     params: {
       function: "TIME_SERIES_DAILY",
+      symbol,
+      outputsize: "full",
+      apikey: "Z3LIIQZIE0HPQWAQ",
+    },
+  });
+};
+
+export const getCompanyOverview = (symbol) => {
+  return axiosInstance.get("", {
+    params: {
+      function: "OVERVIEW",
       symbol,
       apikey: "Z3LIIQZIE0HPQWAQ",
     },

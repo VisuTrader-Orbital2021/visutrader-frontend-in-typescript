@@ -1,34 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Typography from "@material-ui/core/Typography";
-import axios from "axios";
-import localforage from "localforage";
-import { setupCache } from "axios-cache-adapter";
+import { getCompanyOverview } from "./APIConnector";
+import "../styles/CompanyOverview.css";
 
-// cache every hour
-const cache = setupCache({
-  maxAge: 60 * 60 * 1000,
-  store: localforage,
-  exclude: {
-    query: false,
-  },
-});
-
-const axiosInstance = axios.create({
-  baseURL: "https://www.alphavantage.co/query",
-  adapter: cache.adapter,
-});
-
-const getCompanyOverview = (symbol) => {
-  return axiosInstance.get("", {
-    params: {
-      function: "OVERVIEW",
-      symbol,
-      apikey: "Z3LIIQZIE0HPQWAQ",
-    },
-  });
-};
-
-export const CompanyOverview = () => {
+export default function CompanyOverview() {
   const [companyData, setCompanyData] = useState([]);
 
   useEffect(() => {
@@ -42,13 +17,13 @@ export const CompanyOverview = () => {
   }, []);
 
   return (
-    <div>
-      <Typography variant="h2" color="primary">
+    <div className="overview">
+      <Typography className="symbol" variant="h2" color="primary">
         {companyData["Symbol"]}
       </Typography>
-      <Typography variant="h3">{companyData["Name"]}</Typography>
-      <span>{companyData["Industry"]}</span>
-      <Typography variant="h4">${companyData["AnalystTargetPrice"]}</Typography>
+      <Typography className="name" variant="h3">{companyData["Name"]}</Typography>
+      <Typography className="industry" variant="body2">{companyData["Industry"]}</Typography>
+      <Typography className="analyst-target-price" variant="h1">${companyData["AnalystTargetPrice"]}</Typography>
     </div>
   );
 };
