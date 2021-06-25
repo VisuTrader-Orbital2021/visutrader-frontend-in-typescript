@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import FormControl from '@material-ui/core/FormControl';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import InputAdornment from '@material-ui/core/InputAdornment';
+import FormControl from "@material-ui/core/FormControl";
+import Input from "@material-ui/core/Input";
+import InputLabel from "@material-ui/core/InputLabel";
+import InputAdornment from "@material-ui/core/InputAdornment";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,10 +21,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-around",
   },
   buttonStyle: {
-    background: (props) =>
-      props.color === "rising"
-        ? "#04f77e"
-        : "#ff3911",
+    background: (props) => (props.color === "rising" ? "#04f77e" : "#ff3911"),
     color: "white",
   },
 }));
@@ -63,5 +60,14 @@ export default function PaperTrading() {
 function TradeButton(props) {
   const { color, ...other } = props;
   const classes = useStyles(props);
-  return <Button className={classes.buttonStyle} {...other} variant="contained" disableElevation>{props.children}</Button>;
+  return (
+    <Button
+      className={classes.buttonStyle}
+      {...other}
+      variant="contained"
+      disableElevation
+    >
+      {props.children}
+    </Button>
+  );
 }

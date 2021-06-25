@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import ListItem from '@material-ui/core/ListItem';
+import ListItem from "@material-ui/core/ListItem";
 import Typography from "@material-ui/core/Typography";
-import Divider from '@material-ui/core/Divider';
+import Divider from "@material-ui/core/Divider";
 import { getCompanyOverview } from "./APIConnector";
 import "../styles/Watchlist.css";
 
@@ -19,13 +19,11 @@ export default function Watchlist(props) {
 
   const handleChange = () => {
     props.onClick(props.children);
-  }
+  };
 
   return (
     <ListItem button onClick={handleChange}>
-      <Typography variant="h3">
-        {companyData["Symbol"]}
-      </Typography>
+      <Typography variant="h3">{companyData["Symbol"]}</Typography>
       <Typography variant="h3" color="secondary">
         ${companyData["AnalystTargetPrice"]}
       </Typography>

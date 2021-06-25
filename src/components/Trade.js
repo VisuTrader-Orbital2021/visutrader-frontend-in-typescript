@@ -9,7 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Fade from "@material-ui/core/Fade";
-import List from '@material-ui/core/List';
+import List from "@material-ui/core/List";
 import { CandlestickChart, SplineAreaChart } from "./StockChart";
 import CompanyOverview from "./CompanyOverview";
 import PaperTrading from "./PaperTrading";
@@ -33,8 +33,8 @@ export default function Trade({ classes, fixedHeightPaper }) {
   const [option, setOptionType] = React.useState("AMZN");
   const handleOption = (choice) => {
     setOptionType(choice);
-    console.log(choice);    // to be removed
-  }
+    console.log(choice); // to be removed
+  };
 
   return (
     <main className={classes.content}>
