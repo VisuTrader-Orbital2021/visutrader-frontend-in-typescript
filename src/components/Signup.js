@@ -80,7 +80,7 @@ export default function Signup() {
       alert("Signed up successfully");
       history.push("/login");
     } else {
-      // Will fix this with better UI.
+      // TODO: fix this with better UI.
       alert(JSON.stringify(response.payload));
     }
   };

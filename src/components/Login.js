@@ -14,7 +14,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Copyright from "./Copyright";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../redux/slices/user";
+import { loginUser, userSelector } from "../redux/slices/user";
 import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -56,10 +56,7 @@ export default function Login() {
   const history = useHistory();
 
   const dispatch = useDispatch();
-  const userData = useSelector((state) => {
-    const { username, displayName, email, token } = state.user;
-    return { username, displayName, email, token };
-  });
+  const userData = useSelector(userSelector);
 
   const [fields, setFields] = useState({});
 
@@ -86,7 +83,7 @@ export default function Login() {
       alert("Logged in successfully");
       history.push("/trade");
     } else {
-      // Will fix this with better UI.
+      // TODO: fix this with better UI.
       alert(JSON.stringify(response.payload));
     }
   };

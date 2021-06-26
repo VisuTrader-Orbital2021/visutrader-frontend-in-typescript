@@ -115,4 +115,10 @@ const userSlice = createSlice({
 
 export const { resetUser } = userSlice.actions;
 
+export const userSelector = (state) => {
+  const { username, displayName, email, token } = state.user;
+  const authenticated = token === "null" ? false : Boolean(token);
+  return { username, displayName, email, token, authenticated };
+};
+
 export default userSlice.reducer;
