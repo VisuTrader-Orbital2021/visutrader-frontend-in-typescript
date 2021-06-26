@@ -21,13 +21,11 @@ export default function Watchlist({ company, onClick }) {
   };
 
   return (
-    <div>
-      <ListItem button onClick={handleChange}>
-        <Typography variant="h3">{companyData["Symbol"]}</Typography>
-        <Typography variant="h3" color="secondary">
-          ${companyData["AnalystTargetPrice"]}
-        </Typography>
-      </ListItem>
-    </div>
+    <ListItem button onClick={handleChange}>
+      <Typography variant="h3">{companyData["Symbol"]}</Typography>
+      <Typography variant="h3" color="secondary">
+        ${companyData["AnalystTargetPrice"]}
+      </Typography>
+    </ListItem>
   );
 }
