@@ -14,6 +14,7 @@ import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
 import SettingsIcon from "@material-ui/icons/Settings";
 import "../styles/LeftDrawer.css";
 
+// TODO: Remove styling with CSS
 function forumRouterStyle(location) {
   return {
     color: location === "forum" ? "#536dfe" : "#757575",

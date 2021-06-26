@@ -33,6 +33,10 @@ const theme = createMuiTheme({
       fontSize: "16px",
       fontWeight: "400",
     },
+    body2: {
+      fontSize: "12px",
+      fontWeight: "400",
+    },
   },
 });
 

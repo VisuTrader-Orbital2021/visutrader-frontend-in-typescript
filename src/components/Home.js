@@ -7,6 +7,7 @@ import Dashboard from "./Dashboard";
 import Copyright from "./Copyright";
 import "../styles/Home.css";
 
+// TODO: Remove styling with CSS
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -47,6 +48,7 @@ function MainContent({ classes }) {
         <span>
           The most beginner-friendly paper trading app on the internet
         </span>
+        {/* TODO: Change RouterLink destination */}
         <RouterLink to="/trade" className={classes.buttonStyle}>
           <Button color="primary">GET STARTED</Button>
         </RouterLink>

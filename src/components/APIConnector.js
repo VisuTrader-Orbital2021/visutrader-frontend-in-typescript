@@ -16,12 +16,23 @@ const axiosInstance = axios.create({
   adapter: cache.adapter,
 });
 
-export const getDailyChartForSymbol = (symbol) => {
+export const getDailyStockChart = (symbol) => {
   return axiosInstance.get("", {
     params: {
       function: "TIME_SERIES_DAILY",
       symbol,
-      apikey: "Z3LIIQZIE0HPQWAQ",
+      outputsize: "full",
+      apikey: process.env.REACT_APP_ALPHA_VANTAGE_API_KEY,
+    },
+  });
+};
+
+export const getCompanyOverview = (symbol) => {
+  return axiosInstance.get("", {
+    params: {
+      function: "OVERVIEW",
+      symbol,
+      apikey: process.env.REACT_APP_ALPHA_VANTAGE_API_KEY,
     },
   });
 };

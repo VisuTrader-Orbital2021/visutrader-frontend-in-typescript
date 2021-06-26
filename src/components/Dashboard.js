@@ -12,8 +12,6 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import LeftDrawer from "./LeftDrawer";
-// import DrawerListIcons from './drawerListIcons';
-// import { mainListTags, secondaryListTags } from './drawerListTags';
 
 const drawerWidth = 58;
 
@@ -186,7 +184,7 @@ function UpperBar({ renderDrawer, classes, open, handleDrawerOpen }) {
           className={classes.title}
         >
           <RouterLink to="/" className={classes.routerLinkStyle}>
-            VisuTrader
+            VISUTRADER
           </RouterLink>
         </Typography>
         {renderElement()}
