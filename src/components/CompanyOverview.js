@@ -14,7 +14,7 @@ export default function CompanyOverview({ company }) {
     };
 
     fetchCompanyData();
-  }, []);
+  }, [company]);
 
   return (
     <div className="overview">
