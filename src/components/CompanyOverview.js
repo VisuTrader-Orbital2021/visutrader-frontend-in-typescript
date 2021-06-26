@@ -4,12 +4,12 @@ import { getCompanyOverview } from "./APIConnector";
 import "../styles/CompanyOverview.css";
 
 // TODO: Remove styling with CSS
-export default function CompanyOverview(props) {
+export default function CompanyOverview({ company }) {
   const [companyData, setCompanyData] = useState([]);
 
   useEffect(() => {
     const fetchCompanyData = async () => {
-      const result = await getCompanyOverview(props.children);
+      const result = await getCompanyOverview(company);
       setCompanyData(result.data);
     };
 

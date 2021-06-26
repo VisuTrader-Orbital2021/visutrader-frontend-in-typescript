@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
@@ -10,12 +10,20 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Fade from "@material-ui/core/Fade";
 import List from "@material-ui/core/List";
-import { CandlestickChart, SplineAreaChart } from "./StockChart";
+import Divider from "@material-ui/core/Divider";
+import StockChart from "./StockChart";
 import CompanyOverview from "./CompanyOverview";
 import PaperTrading from "./PaperTrading";
 import Watchlist from "./Watchlist";
 import Copyright from "./Copyright";
 import "../styles/Trade.css";
+
+const CANDLESTICK = "CANDLESTICK";
+const SPLINE_AREA = "SPLINE AREA";
+
+const AMAZON = "AMZN";
+const APPLE = "AAPL";
+const TESLA = "TSLA";
 
 // TODO: Fix watchlist not updating the stock chart
 // TODO: Remove styling with CSS
@@ -26,14 +34,15 @@ export default function Trade({ classes, fixedHeightPaper }) {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = (type) => {
+  const handleClose = (chartType) => {
     setAnchorEl(null);
-    setChartType(type);
+    setChartType(chartType);
+    console.log(chartType); // to be removed
   };
-  const [option, setOptionType] = React.useState("AMZN");
-  const handleOption = (choice) => {
-    setOptionType(choice);
-    console.log(choice); // to be removed
+  const [company, setCompany] = React.useState(AMAZON);
+  const handleCompany = (company) => {
+    setCompany(company);
+    console.log(company); // to be removed
   };
 
   return (
@@ -60,22 +69,19 @@ export default function Trade({ classes, fixedHeightPaper }) {
                     anchorEl={anchorEl}
                     keepMounted
                     open={open}
+                    onClose={() => handleClose(chartType)}
                     TransitionComponent={Fade}
                   >
-                    <MenuItem onClick={() => handleClose("CANDLESTICK")}>
+                    <MenuItem onClick={() => handleClose(CANDLESTICK)}>
                       CANDLESTICK
                     </MenuItem>
-                    <MenuItem onClick={() => handleClose("SPLINE AREA")}>
+                    <MenuItem onClick={() => handleClose(SPLINE_AREA)}>
                       SPLINE AREA
                     </MenuItem>
                   </Menu>
                 </div>
                 <div className="chart-content">
-                  {chartType === "CANDLESTICK" ? (
-                    <CandlestickChart>{option}</CandlestickChart>
-                  ) : (
-                    <SplineAreaChart>{option}</SplineAreaChart>
-                  )}
+                  <StockChart chartType={chartType} company={company} />
                 </div>
               </CardContent>
             </Card>
@@ -83,7 +89,7 @@ export default function Trade({ classes, fixedHeightPaper }) {
           <Grid item xs={4}>
             <Card>
               <CardContent>
-                <CompanyOverview>{option}</CompanyOverview>
+                <CompanyOverview company={company} />
               </CardContent>
             </Card>
           </Grid>
@@ -101,9 +107,11 @@ export default function Trade({ classes, fixedHeightPaper }) {
                   MY WATCHLIST
                 </Typography>
                 <List>
-                  <Watchlist onClick={handleOption}>AMZN</Watchlist>
-                  <Watchlist onClick={handleOption}>AAPL</Watchlist>
-                  <Watchlist onClick={handleOption}>TSLA</Watchlist>
+                  <Watchlist company={AMAZON} onClick={handleCompany} />
+                  <Divider />
+                  <Watchlist company={APPLE} onClick={handleCompany} />
+                  <Divider />
+                  <Watchlist company={TESLA} onClick={handleCompany} />
                 </List>
               </CardContent>
             </Card>

@@ -3,12 +3,23 @@ import { getDailyStockChart } from "./APIConnector";
 import CanvasJSReact from "../assets/canvasjs.stock.react";
 let CanvasJSStockChart = CanvasJSReact.CanvasJSStockChart;
 
-export const CandlestickChart = (props) => {
+const CANDLESTICK = "CANDLESTICK";
+const SPLINE_AREA = "SPLINE AREA";
+
+export default function StockChart({ chartType, company }) {
+  if (chartType === CANDLESTICK) {
+    return <CandlestickChart company={company} />;
+  } else if (chartType === SPLINE_AREA) {
+    return <SplineAreaChart company={company} />;
+  }
+}
+
+const CandlestickChart = ({ company }) => {
   const [stockData, setStockData] = useState([]);
 
   useEffect(() => {
     const fetchStockData = async () => {
-      const result = await getDailyStockChart(props.children);
+      const result = await getDailyStockChart(company);
       setStockData(
         formatStockData(result.data["Time Series (Daily)"]).slice(0, 250)
       );
@@ -104,12 +115,12 @@ export const CandlestickChart = (props) => {
   );
 };
 
-export const SplineAreaChart = (props) => {
+const SplineAreaChart = ({ company }) => {
   const [stockData, setStockData] = useState([]);
 
   useEffect(() => {
     const fetchStockData = async () => {
-      const result = await getDailyStockChart(props.children);
+      const result = await getDailyStockChart(company);
       setStockData(
         formatStockData(result.data["Time Series (Daily)"]).slice(0, 250)
       );

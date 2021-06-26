@@ -22,7 +22,7 @@ export const getDailyStockChart = (symbol) => {
       function: "TIME_SERIES_DAILY",
       symbol,
       outputsize: "full",
-      apikey: "Z3LIIQZIE0HPQWAQ",
+      apikey: process.env.REACT_APP_ALPHA_VANTAGE_API_KEY,
     },
   });
 };
@@ -32,7 +32,7 @@ export const getCompanyOverview = (symbol) => {
     params: {
       function: "OVERVIEW",
       symbol,
-      apikey: "Z3LIIQZIE0HPQWAQ",
+      apikey: process.env.REACT_APP_ALPHA_VANTAGE_API_KEY,
     },
   });
 };
