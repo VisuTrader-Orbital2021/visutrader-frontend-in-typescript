@@ -14,7 +14,7 @@ export default function Watchlist({ company, onClick }) {
       setCompanyData(result.data);
     };
     fetchCompanyData();
-  }, []);
+  }, [company]);
 
   const handleChange = () => {
     onClick(company);
