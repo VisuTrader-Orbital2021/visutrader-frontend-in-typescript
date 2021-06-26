@@ -182,11 +182,11 @@ function UpperBar({ classes, open, handleDrawerOpen }) {
     } else {
       return (
         <div>
-          <RouterLink to="/signup" className={classes.routerLinkStyle}>
-            <Button color="inherit">SIGN UP</Button>
-          </RouterLink>
           <RouterLink to="/login" className={classes.routerLinkStyle}>
             <Button color="inherit">LOG IN</Button>
+          </RouterLink>
+          <RouterLink to="/signup" className={classes.routerLinkStyle}>
+            <Button variant="contained" color="secondary">SIGN UP</Button>
           </RouterLink>
         </div>
       );
