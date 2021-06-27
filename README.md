@@ -21,15 +21,15 @@
 ## 📝 Table of Contents
 - [Motivation](#motivation)
 - [Getting Started](#getting_started)
-- [Deployment](#deployment)
 - [Usage](#usage)
+- [Deployment](#deployment)
 - [Built Using](#built_using)
 - [Authors](#authors)
 - [Acknowledgments](#acknowledgement)
 
 ## 🧐 Motivation <a name="motivation"></a>
 
-So you want to get started in investing. You might have a little bit of money saved and thought that you should probably try to invest in something. But if you are a complete beginner, the whole investment thing can seem like a very complicated process. After surfing the internet for a while, you decided that maybe investing in stock is the right choice. But what even is a stock? And how do you even buy a stock? Do you just go to, say, [Apple](https://www.apple.com) or [Tesla](https://www.apple.com) and just buy their stocks? How does it even work? And how is the process like? Fret not, you have come to the right place.
+So you want to get started in investing. You might have a little bit of money saved and thought that you should probably try to invest in something. But if you are a complete beginner, the whole investment thing can seem like a very complicated process. After surfing the internet for a while, you decided that maybe investing in stock is the right choice. But what even is a stock? And how do you even buy a stock? Do you just go to, say, [Apple](https://www.apple.com) or [Tesla](https://www.tesla.com) and just buy their stocks? How does it even work? And how is the process like? Fret not, you have come to the right place.
 
 Learning to invest in stock shouldn't be hard. We are making it easier by putting together a comprehensive beginner guide on our website, VisuTrader, to help kickstart your journey in investing. VisuTrader is a paper trading app equipped with beautiful stock market visualization, wallet functionality, and a discussion forum where you can discuss with like-minded individuals and even ask for expert's advice. VisuTrader is the only introduction to stock investing that you will ever need.
 
