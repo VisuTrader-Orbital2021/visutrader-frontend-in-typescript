@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link as RouterLink } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -47,6 +48,13 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+  },
+  routerLinkStyle: {
+    textDecoration: "none",
+    color: "#536dfe", // TODO: Fix styling
+    "&:hover": {
+      textDecoration: "underline",
+    },
   },
 }));
 
@@ -151,14 +159,14 @@ export default function Login() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <RouterLink to="/login" className={classes.routerLinkStyle}>
                   Forgot password?
-                </Link>
+                </RouterLink>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <RouterLink to="/signup" className={classes.routerLinkStyle}>
                   {"Don't have an account? Sign Up"}
-                </Link>
+                </RouterLink>
               </Grid>
             </Grid>
             <Box mt={5}>

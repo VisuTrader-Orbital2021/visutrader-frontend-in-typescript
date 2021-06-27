@@ -3,6 +3,7 @@ import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
 import Dashboard from "./Dashboard";
 import Copyright from "./Copyright";
 import "../styles/Home.css";
@@ -44,11 +45,10 @@ function MainContent({ classes }) {
     <main>
       <div className={classes.appBarSpacer} />
       <div className="welcome-section">
-        <h1>WELCOME</h1>
-        <span>
+        <Typography variant="h2">WELCOME</Typography>
+        <Typography variant="body1">
           The most beginner-friendly paper trading app on the internet
-        </span>
-        {/* TODO: Change RouterLink destination */}
+        </Typography>
         <RouterLink to="/trade" className={classes.buttonStyle}>
           <Button color="primary">GET STARTED</Button>
         </RouterLink>

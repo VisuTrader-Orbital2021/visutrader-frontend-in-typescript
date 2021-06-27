@@ -1,3 +1,12 @@
 .table-of-contents {
   position: fixed;
 }
+
+.table-of-contents a {
+  text-decoration: none;
+  color: black;
+}
+
+.table-of-contents a:hover {
+  color: #ec407a;
+}
