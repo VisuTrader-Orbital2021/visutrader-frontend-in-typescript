@@ -4,32 +4,35 @@ import Home from "./components/Home";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 import Personal from "./components/Personal";
-// import logo from './logo.svg';
-// import './styles/App.css';
+
+import { Provider } from "react-redux";
+import store from "./redux/store";
 
 function App() {
   return (
-    <BrowserRouter>
-      <div>
-        <Switch>
-          <Route exact path="/signup">
-            <Signup />
-          </Route>
-          <Route exact path="/login">
-            <Login />
-          </Route>
-          <Route
-            exact
-            path={["/forum", "/guide", "/trade", "/wallet", "/settings"]}
-          >
-            <Personal />
-          </Route>
-          <Route exact path="/">
-            <Home />
-          </Route>
-        </Switch>
-      </div>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <div>
+          <Switch>
+            <Route exact path="/signup">
+              <Signup />
+            </Route>
+            <Route exact path="/login">
+              <Login />
+            </Route>
+            <Route
+              exact
+              path={["/forum", "/guide", "/trade", "/wallet", "/settings"]}
+            >
+              <Personal />
+            </Route>
+            <Route exact path="/">
+              <Home />
+            </Route>
+          </Switch>
+        </div>
+      </BrowserRouter>
+    </Provider>
   );
 }
 

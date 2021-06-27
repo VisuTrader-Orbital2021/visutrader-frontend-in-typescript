@@ -25,7 +25,7 @@ const CandlestickChart = ({ company }) => {
       );
     };
     fetchStockData();
-  }, []);
+  }, [company]);
 
   return (
     <CanvasJSStockChart
@@ -126,7 +126,7 @@ const SplineAreaChart = ({ company }) => {
       );
     };
     fetchStockData();
-  }, []);
+  }, [company]);
 
   return (
     <CanvasJSStockChart

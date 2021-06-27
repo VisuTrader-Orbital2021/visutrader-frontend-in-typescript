@@ -1,7 +1,7 @@
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 import clsx from "clsx";
-import { makeStyles, ThemeProvider } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -11,7 +11,11 @@ import IconButton from "@material-ui/core/IconButton";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import LeftDrawer from "./LeftDrawer";
+import { userSelector } from "../redux/slices/user";
+import { resetUser } from "../redux/slices/user";
 
 const drawerWidth = 58;
 
@@ -96,7 +100,6 @@ export default function Dashboard(props) {
     <div className={classes.root}>
       <CssBaseline />
       <UpperBar
-        renderDrawer={props.renderDrawer}
         classes={classes}
         open={open}
         handleDrawerOpen={handleDrawerOpen}
@@ -112,21 +115,39 @@ export default function Dashboard(props) {
   );
 }
 
-function UpperBar({ renderDrawer, classes, open, handleDrawerOpen }) {
+function UpperBar({ classes, open, handleDrawerOpen }) {
+  const dispatch = useDispatch();
+  const user = useSelector(userSelector);
+  const history = useHistory();
+
   const [anchorEl, setAnchorEl] = React.useState(null);
+
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleLogOut = () => {
+    handleClose();
+    dispatch(resetUser());
+
+    // TODO: fix for better UI & UX
+    alert("Logged out successfully");
+    history.push("/");
+  };
+
   const profileOpen = Boolean(anchorEl);
+
   const renderElement = () => {
-    if (renderDrawer) {
+    if (user.authenticated) {
       return (
         <div>
-          {/* TODO: Change <span> to <Typography> */}
-          <span>DISPLAY NAME</span>
+          <Typography variant="body1" display="inline">
+            {user.displayName}
+          </Typography>
           <IconButton
             aria-label="account of current user"
             aria-controls="menu-appbar"
@@ -153,17 +174,20 @@ function UpperBar({ renderDrawer, classes, open, handleDrawerOpen }) {
           >
             <MenuItem onClick={handleClose}>Profile</MenuItem>
             <MenuItem onClick={handleClose}>My account</MenuItem>
+            <MenuItem onClick={handleLogOut}>Log out</MenuItem>
           </Menu>
         </div>
       );
     } else {
       return (
         <div>
-          <RouterLink to="/signup" className={classes.routerLinkStyle}>
-            <Button color="inherit">SIGN UP</Button>
-          </RouterLink>
           <RouterLink to="/login" className={classes.routerLinkStyle}>
             <Button color="inherit">LOG IN</Button>
+          </RouterLink>
+          <RouterLink to="/signup" className={classes.routerLinkStyle}>
+            <Button variant="contained" color="secondary">
+              SIGN UP
+            </Button>
           </RouterLink>
         </div>
       );

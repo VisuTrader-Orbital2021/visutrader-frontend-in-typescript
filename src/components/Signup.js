@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -13,6 +13,9 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Copyright from "./Copyright";
+import { useDispatch } from "react-redux";
+import { signUpUser } from "../redux/slices/user";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -50,6 +53,38 @@ const useStyles = makeStyles((theme) => ({
 export default function Signup() {
   const classes = useStyles();
 
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const [fields, setFields] = useState({});
+
+  const handleInputChange = (e) => {
+    const target = e.target;
+
+    const name = target.name;
+    const value = target.value;
+
+    setFields({
+      ...fields,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const response = await dispatch(signUpUser(fields));
+
+    if (response.type === signUpUser.fulfilled.toString()) {
+      // Redirect when success here
+      alert("Signed up successfully");
+      history.push("/login");
+    } else {
+      // TODO: fix this with better UI.
+      alert(JSON.stringify(response.payload));
+    }
+  };
+
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -62,7 +97,7 @@ export default function Signup() {
           <Typography component="h1" variant="h5">
             SIGN UP
           </Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form} noValidate onSubmit={handleSubmit}>
             <TextField
               variant="outlined"
               margin="normal"
@@ -73,6 +108,29 @@ export default function Signup() {
               name="username"
               autoComplete="username"
               autoFocus
+              onChange={handleInputChange}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="display_name"
+              label="Display name"
+              name="display_name"
+              autoFocus
+              onChange={handleInputChange}
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email"
+              name="email"
+              autoFocus
+              onChange={handleInputChange}
             />
             <TextField
               variant="outlined"
@@ -84,6 +142,7 @@ export default function Signup() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={handleInputChange}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
