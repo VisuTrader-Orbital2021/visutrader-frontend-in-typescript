@@ -25,7 +25,6 @@ const AMAZON = "AMZN";
 const APPLE = "AAPL";
 const TESLA = "TSLA";
 
-// TODO: Fix watchlist not updating the stock chart
 // TODO: Remove styling with CSS
 export default function Trade({ classes, fixedHeightPaper }) {
   const [anchorEl, setAnchorEl] = React.useState(null);

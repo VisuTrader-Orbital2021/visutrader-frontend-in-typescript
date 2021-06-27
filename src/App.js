@@ -6,7 +6,7 @@ import Login from "./components/Login";
 import Personal from "./components/Personal";
 
 import { Provider } from "react-redux";
-import store from './redux/store'
+import store from "./redux/store";
 
 function App() {
   return (

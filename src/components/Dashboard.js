@@ -1,7 +1,7 @@
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 import clsx from "clsx";
-import { makeStyles, ThemeProvider } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -12,10 +12,10 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 import LeftDrawer from "./LeftDrawer";
 import { userSelector } from "../redux/slices/user";
-import { resetUser } from '../redux/slices/user'
+import { resetUser } from "../redux/slices/user";
 
 const drawerWidth = 58;
 
@@ -137,7 +137,7 @@ function UpperBar({ classes, open, handleDrawerOpen }) {
     // TODO: fix for better UI & UX
     alert("Logged out successfully");
     history.push("/");
-  }
+  };
 
   const profileOpen = Boolean(anchorEl);
 
@@ -145,7 +145,6 @@ function UpperBar({ classes, open, handleDrawerOpen }) {
     if (user.authenticated) {
       return (
         <div>
-          {/* TODO: Change <span> to <Typography> */}
           <Typography variant="body1" display="inline">
             {user.displayName}
           </Typography>
@@ -186,7 +185,9 @@ function UpperBar({ classes, open, handleDrawerOpen }) {
             <Button color="inherit">LOG IN</Button>
           </RouterLink>
           <RouterLink to="/signup" className={classes.routerLinkStyle}>
-            <Button variant="contained" color="secondary">SIGN UP</Button>
+            <Button variant="contained" color="secondary">
+              SIGN UP
+            </Button>
           </RouterLink>
         </div>
       );
