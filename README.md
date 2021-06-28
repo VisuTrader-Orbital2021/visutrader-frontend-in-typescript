@@ -14,15 +14,15 @@
 
 ---
 
-<p align="center"> The most beginner-friendly paper trading app on the internet.
+<p align="center"> The most beginner-friendly paper trading app on the internet
     <br> 
 </p>
 
 ## 📝 Table of Contents
 - [Motivation](#motivation)
+- [Poster](#poster)
+- [Features](#features)
 - [Getting Started](#getting_started)
-- [Usage](#usage)
-- [Deployment](#deployment)
 - [Built Using](#built_using)
 - [Authors](#authors)
 - [Acknowledgments](#acknowledgement)
@@ -32,6 +32,22 @@
 So you want to get started in investing. You might have a little bit of money saved and thought that you should probably try to invest in something. But if you are a complete beginner, the whole investment thing can seem like a very complicated process. After surfing the internet for a while, you decided that maybe investing in stock is the right choice. But what even is a stock? And how do you even buy a stock? Do you just go to, say, [Apple](https://www.apple.com) or [Tesla](https://www.tesla.com) and just buy their stocks? How does it even work? And how is the process like? Fret not, you have come to the right place.
 
 Learning to invest in stock shouldn't be hard. We are making it easier by putting together a comprehensive beginner guide on our website, VisuTrader, to help kickstart your journey in investing. VisuTrader is a paper trading app equipped with beautiful stock market visualization, wallet functionality, and a discussion forum where you can discuss with like-minded individuals and even ask for expert's advice. VisuTrader is the only introduction to stock investing that you will ever need.
+
+## 📜 Poster <a name="poster"></a>
+
+<img alt="visutrader-poster"
+     src="https://imgur.com/58SRNEm"
+     align="center" />
+
+## 💎 Features <a name="features"></a>
+
+### Trading
+
+### Guide
+
+### Wallet
+
+### Forum
 
 ## 🏁 Getting Started <a name="getting_started"></a>
 
@@ -104,15 +120,14 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
-## 🎈 Usage <a name="usage"></a>
-Add notes about how to use the system.
-
-## 🚀 Deployment <a name="deployment"></a>
-Add additional notes about how to deploy this on a live system.
-
 ## ⛏️ Built Using <a name="built_using"></a>
+- [PostgreSQL](https://www.postgresql.org/) - Database
+- [Python](https://www.python.org/) - Backend Framework
+- [Django](https://www.djangoproject.com/) - Web Framework
 - [ReactJS](https://reactjs.org/) - Web Framework
 - [NodeJS](https://nodejs.org/en/) - Server Environment
+- [Heroku](https://heroku.com/) - Backend Hosting
+- [Netlify](https://netlify.com/) - Frontend Hosting
 
 ## ✍️ Authors <a name="authors"></a>
 - [@richwill28](https://github.com/richwill28)
