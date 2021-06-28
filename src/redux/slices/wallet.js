@@ -47,6 +47,8 @@ const walletSlice = createSlice({
     builder.addCase(getWalletDetail.fulfilled, (state, { payload }) => {
       state.balance = payload.balance;
       state.history = payload.history;
+      state.profit = 0;
+      state.expense = 0;
 
       if (state.history.length) {
         state.history = state.history.map((transaction) => ({
