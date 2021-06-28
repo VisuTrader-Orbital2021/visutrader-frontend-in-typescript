@@ -6,8 +6,18 @@ const initialState = {
   displayName: localStorage.getItem("displayName"),
   email: localStorage.getItem("email"),
   token: localStorage.getItem("token"),
+  wallet: localStorage.getItem("wallet"),
+  dateJoined: localStorage.getItem("dateJoined"),
   loading: false,
 };
+
+function setLocalStorage(data) {
+  for (const [key, value] of Object.entries(data)) {
+    if (value) {
+      localStorage.setItem(key, value);
+    }
+  }
+}
 
 // Note: Signing up requires user to login again.
 export const signUpUser = createAsyncThunk(
@@ -61,10 +71,14 @@ export const loginUser = createAsyncThunk(
 
       const userData = getState().user;
 
-      localStorage.setItem("username", userData.username);
-      localStorage.setItem("displayName", userData.displayName);
-      localStorage.setItem("email", userData.email);
-      localStorage.setItem("token", tokenObject.token);
+      setLocalStorage({
+        username: userData.username,
+        displayName: userData.displayName,
+        email: userData.email,
+        wallet: userData.wallet,
+        dateJoined: userData.dateJoined,
+        token: tokenObject.token,
+      });
 
       return tokenObject;
     } catch (err) {
@@ -109,6 +123,8 @@ const userSlice = createSlice({
       state.username = payload.username;
       state.displayName = payload.display_name;
       state.email = payload.email;
+      state.wallet = payload.wallets[0];
+      state.dateJoined = payload.created_at;
     });
   },
 });
@@ -116,9 +132,9 @@ const userSlice = createSlice({
 export const { resetUser } = userSlice.actions;
 
 export const userSelector = (state) => {
-  const { username, displayName, email, token } = state.user;
-  const authenticated = token === "null" ? false : Boolean(token);
-  return { username, displayName, email, token, authenticated };
+  const { username, displayName, email, dateJoined, token } = state.user;
+  const authenticated = Boolean(token);
+  return { username, displayName, email, dateJoined, token, authenticated };
 };
 
 export default userSlice.reducer;
