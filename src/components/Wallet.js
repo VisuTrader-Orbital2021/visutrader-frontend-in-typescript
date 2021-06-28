@@ -27,6 +27,7 @@ import {
 } from "recharts";
 import Copyright from "./Copyright";
 import { useDispatch, useSelector } from "react-redux";
+import { userSelector } from "../redux/slices/user";
 import { getWalletDetail } from "../redux/slices/wallet";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { parseISO, format } from "date-fns";
@@ -71,144 +72,168 @@ export default function Wallet({ classes, fixedHeightPaper }) {
   const theme = useTheme();
   const walletStyle = useStyles();
 
-  const dispatch = useDispatch();
-  const walletData = useSelector((state) => state.wallet);
-  const userJoinDate = useSelector((state) => state.user.dateJoined);
+  const user = useSelector(userSelector);
 
-  useEffect(() => {
-    dispatch(getWalletDetail())
-      .then(unwrapResult)
-      .catch((err) => {
-        alert(JSON.stringify(err));
-      });
-  }, [dispatch]);
+  const RenderWallet = () => {
+    const dispatch = useDispatch();
+    const walletData = useSelector((state) => state.wallet);
+    const userJoinDate = useSelector((state) => state.user.dateJoined);
 
-  const data = [
-    { name: "Inflow", value: walletData.profit, fill: "#3FE06D" },
-    { name: "Outflow", value: walletData.expense, fill: "#E05555" },
-  ];
+    useEffect(() => {
+      dispatch(getWalletDetail())
+        .then(unwrapResult)
+        .catch((err) => {
+          alert(JSON.stringify(err));
+        });
+    }, [dispatch]);
 
-  const timelineData = getBalanceHistory(
-    walletData.balance,
-    walletData.history,
-    userJoinDate
-  );
+    const data = [
+      { name: "Inflow", value: walletData.profit, fill: "#3FE06D" },
+      { name: "Outflow", value: walletData.expense, fill: "#E05555" },
+    ];
 
-  return (
-    <main className={classes.content}>
-      <div className={classes.appBarSpacer} />
-      <Container maxWidth="lg" className={classes.container}>
-        <Grid container direction="column" spacing={3} alignItems="stretch">
-          <Grid container item spacing={3} alignItems="stretch">
-            <Grid container item spacing={3} xs={4} direction="column">
-              <Grid item>
-                <Card>
-                  <CardContent>
-                    <Typography variant="h2">Account Details</Typography>
-                    <Typography variant="body1">
-                      Balance: ${walletData.balance}
-                    </Typography>
-                    <Typography variant="body1">
-                      Expense: ${walletData.expense}
-                    </Typography>
-                    <Typography variant="body1">
-                      Profit: ${walletData.profit}
-                    </Typography>
-                  </CardContent>
-                </Card>
+    const timelineData = getBalanceHistory(
+      walletData.balance,
+      walletData.history,
+      userJoinDate
+    );
+
+    return (
+      <main className={classes.content}>
+        <div className={classes.appBarSpacer} />
+        <Container maxWidth="lg" className={classes.container}>
+          <Grid container direction="column" spacing={3} alignItems="stretch">
+            <Grid container item spacing={3} alignItems="stretch">
+              <Grid container item spacing={3} xs={4} direction="column">
+                <Grid item>
+                  <Card>
+                    <CardContent>
+                      <Typography variant="h2">Account Details</Typography>
+                      <Typography variant="body1">
+                        Balance: ${walletData.balance}
+                      </Typography>
+                      <Typography variant="body1">
+                        Expense: ${walletData.expense}
+                      </Typography>
+                      <Typography variant="body1">
+                        Profit: ${walletData.profit}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+
+                <Grid item>
+                  <Card>
+                    <CardContent>
+                      <Typography variant="h2">Cash Flow</Typography>
+                      <ResponsiveContainer width="100%" height={400}>
+                        <PieChart width={300} height={300}>
+                          <Pie
+                            dataKey="value"
+                            data={data}
+                            startAngle={90}
+                            endAngle={-270}
+                            cx="50%"
+                            cy="50%"
+                            outerRadius={80}
+                            label
+                          />
+                          <Legend />
+                          <Tooltip />
+                        </PieChart>
+                      </ResponsiveContainer>
+                    </CardContent>
+                  </Card>
+                </Grid>
               </Grid>
 
-              <Grid item>
-                <Card>
-                  <CardContent>
-                    <Typography variant="h2">Cash Flow</Typography>
+              <Grid item xs={8}>
+                <Card classes={{ root: walletStyle.fillHeight }}>
+                  <CardContent classes={{ root: walletStyle.fillHeight }}>
+                    <Typography variant="h2">Balance Trend</Typography>
                     <ResponsiveContainer width="100%" height={400}>
-                      <PieChart width={300} height={300}>
-                        <Pie
-                          dataKey="value"
-                          data={data}
-                          startAngle={90}
-                          endAngle={-270}
-                          cx="50%"
-                          cy="50%"
-                          outerRadius={80}
-                          label
-                        />
-                        <Legend />
+                      {/* TODO: Fix width. XAxis label seems to be cut on right side. */}
+                      <AreaChart
+                        width={500}
+                        height={400}
+                        data={timelineData}
+                        margin={{
+                          top: theme.spacing(3),
+                          right: theme.spacing(3),
+                        }}
+                      >
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="date" />
+                        <YAxis dataKey="amount" />
                         <Tooltip />
-                      </PieChart>
+                        <Area
+                          type="monotone"
+                          dataKey="amount"
+                          stroke="#8884d8"
+                          fill="#8884d8"
+                        />
+                      </AreaChart>
                     </ResponsiveContainer>
                   </CardContent>
                 </Card>
               </Grid>
             </Grid>
-
-            <Grid item xs={8}>
-              <Card classes={{ root: walletStyle.fillHeight }}>
-                <CardContent classes={{ root: walletStyle.fillHeight }}>
-                  <Typography variant="h2">Balance Trend</Typography>
-                  <ResponsiveContainer width="100%" height={400}>
-                    {/* TODO: Fix width. XAxis label seems to be cut on right side. */}
-                    <AreaChart
-                      width={500}
-                      height={400}
-                      data={timelineData}
-                      margin={{
-                        top: theme.spacing(3),
-                        right: theme.spacing(3),
-                      }}
-                    >
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="date" />
-                      <YAxis dataKey="amount" />
-                      <Tooltip />
-                      <Area
-                        type="monotone"
-                        dataKey="amount"
-                        stroke="#8884d8"
-                        fill="#8884d8"
-                      />
-                    </AreaChart>
-                  </ResponsiveContainer>
-                </CardContent>
-              </Card>
+            <Grid item>
+              <TableContainer component={Paper}>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell align="center">Date and Time</TableCell>
+                      <TableCell align="center">Amount</TableCell>
+                      <TableCell align="center">Market</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {walletData.history.map((row) => {
+                      return (
+                        <TableRow key={row.amount + row.createdAt}>
+                          <TableCell component="th" scope="row" align="center">
+                            {format(
+                              parseISO(row.createdAt),
+                              "MM/dd/yyyy HH:mm:ss O"
+                            )}
+                          </TableCell>
+                          <TableCell align="center">{row.amount}</TableCell>
+                          <TableCell align="center">{row.market}</TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  </TableBody>
+                </Table>
+              </TableContainer>
             </Grid>
           </Grid>
-          <Grid item>
-            <TableContainer component={Paper}>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell align="center">Date and Time</TableCell>
-                    <TableCell align="center">Amount</TableCell>
-                    <TableCell align="center">Market</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {walletData.history.map((row) => {
-                    return (
-                      <TableRow key={row.amount + row.createdAt}>
-                        <TableCell component="th" scope="row" align="center">
-                          {format(
-                            parseISO(row.createdAt),
-                            "MM/dd/yyyy HH:mm:ss O"
-                          )}
-                        </TableCell>
-                        <TableCell align="center">{row.amount}</TableCell>
-                        <TableCell align="center">{row.market}</TableCell>
-                      </TableRow>
-                    );
-                  })}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Grid>
-        </Grid>
 
-        <Box pt={4}>
-          <Copyright />
-        </Box>
-      </Container>
-    </main>
-  );
+          <Box pt={4}>
+            <Copyright />
+          </Box>
+        </Container>
+      </main>
+    );
+  };
+
+  if (user.authenticated) {
+    return RenderWallet();
+  } else {
+    return (
+      <main className={classes.content}>
+        <div className={classes.appBarSpacer} />
+        <Container maxWidth="lg" className={classes.container}>
+          <Box pt={4}>
+            <Typography variant="h3" align="center">
+              Sign up to unlock this feature
+            </Typography>
+          </Box>
+          <Box pt={4}>
+            <Copyright />
+          </Box>
+        </Container>
+      </main>
+    );
+  }
 }
