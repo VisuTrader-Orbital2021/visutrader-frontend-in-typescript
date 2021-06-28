@@ -194,7 +194,7 @@ export default function LeftDrawer({
                 closeWalletTag={closeWalletTag}
               />
             </List>
-            <List className="secondary-list-icons" autowith={false}>
+            <List className="secondary-list-icons" autowidth={false}>
               <SecondaryListIcons
                 location={location}
                 openSettingsTag={openSettingsTag}
