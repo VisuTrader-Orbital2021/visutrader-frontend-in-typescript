@@ -1,12 +1,12 @@
 <p align="center">
   <a href="" rel="noopener">
- <img width=200px height=200px src="https://i.imgur.com/6wj0hh6.jpg" alt="Project logo"></a>
+  <img width=200px height=200px src="https://i.imgur.com/6wj0hh6.jpg" alt="Project logo"></a>
 </p>
 
 <h3 align="center">VisuTrader</h3>
 
 <div align="center">
-
+  
   [![Status](https://img.shields.io/badge/status-active-success.svg)]()
   [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
 
@@ -14,8 +14,9 @@
 
 ---
 
-<p align="center"> The most beginner-friendly paper trading app on the internet
-    <br> 
+<p align="center">
+  The most beginner-friendly paper trading app on the internet
+  <br> 
 </p>
 
 ## 📝 Table of Contents
@@ -27,19 +28,24 @@
 - [Authors](#authors)
 - [Acknowledgments](#acknowledgement)
 
-## 🧐 Motivation <a name="motivation"></a>
+## 🧐 Motivation <a name="motivation" />
 
 So you want to get started in investing. You might have a little bit of money saved and thought that you should probably try to invest in something. But if you are a complete beginner, the whole investment thing can seem like a very complicated process. After surfing the internet for a while, you decided that maybe investing in stock is the right choice. But what even is a stock? And how do you even buy a stock? Do you just go to, say, [Apple](https://www.apple.com) or [Tesla](https://www.tesla.com) and just buy their stocks? How does it even work? And how is the process like? Fret not, you have come to the right place.
 
 Learning to invest in stock shouldn't be hard. We are making it easier by putting together a comprehensive beginner guide on our website, VisuTrader, to help kickstart your journey in investing. VisuTrader is a paper trading app equipped with beautiful stock market visualization, wallet functionality, and a discussion forum where you can discuss with like-minded individuals and even ask for expert's advice. VisuTrader is the only introduction to stock investing that you will ever need.
 
-## 📜 Poster <a name="poster"></a>
+## 📜 Poster <a name="poster" />
 
-<img alt="visutrader-poster"
-     src="https://imgur.com/58SRNEm"
-     align="center" />
+<div align="center">
+  <img
+    alt="visutrader-poster"
+    src="https://github.com/VisuTrader-Orbital2021/visutrader-frontend/blob/assets/images/poster.png"
+    width=60%
+    height=auto
+  />
+</div>
 
-## 💎 Features <a name="features"></a>
+## 💎 Features <a name="features" />
 
 ### Trading
 
@@ -49,7 +55,7 @@ Learning to invest in stock shouldn't be hard. We are making it easier by puttin
 
 ### Forum
 
-## 🏁 Getting Started <a name="getting_started"></a>
+## 🏁 Getting Started <a name="getting_started" />
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -120,20 +126,24 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
-## ⛏️ Built Using <a name="built_using"></a>
+## ⛏️ Built Using <a name="built_using" />
+- [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) - Frontend Framework
+- [Django](https://www.djangoproject.com/) - Web Framework
+- [Heroku](https://heroku.com/) - Backend Hosting
+- [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML) - Frontend Framework
+- [JavaScript](https://www.javascript.com/) - Frontend Framework
+- [Netlify](https://netlify.com/) - Frontend Hosting
+- [NodeJS](https://nodejs.org/en/) - Server Environment
 - [PostgreSQL](https://www.postgresql.org/) - Database
 - [Python](https://www.python.org/) - Backend Framework
-- [Django](https://www.djangoproject.com/) - Web Framework
 - [ReactJS](https://reactjs.org/) - Web Framework
-- [NodeJS](https://nodejs.org/en/) - Server Environment
-- [Heroku](https://heroku.com/) - Backend Hosting
-- [Netlify](https://netlify.com/) - Frontend Hosting
+- [TypeScript](https://www.typescriptlang.org/) - Frontend Framework
 
-## ✍️ Authors <a name="authors"></a>
+## ✍️ Authors <a name="authors" />
 - [@richwill28](https://github.com/richwill28)
 - [@DystoriaX](https://github.com/DystoriaX)
 
-## 🎉 Acknowledgements <a name="acknowledgement"></a>
+## 🎉 Acknowledgements <a name="acknowledgement" />
 - Hat tip to anyone whose code was used
 - Inspiration
 - References
