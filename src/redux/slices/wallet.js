@@ -28,7 +28,9 @@ export const getWalletDetail = createAsyncThunk(
       );
 
       // TODO: is this the best way?
-      await Promise.all(serializedHistory).then(data => {walletData.history = data})
+      await Promise.all(serializedHistory).then((data) => {
+        walletData.history = data;
+      });
 
       return walletData;
     } catch (err) {
@@ -53,16 +55,18 @@ const walletSlice = createSlice({
           fromWallet: transaction.from_wallet,
           createdAt: transaction.created_at,
         }));
-  
-        state.history.sort((a, b) => parseISO(a.createdAt) - parseISO(b.createdAt));
-  
+
+        state.history.sort(
+          (a, b) => parseISO(a.createdAt) - parseISO(b.createdAt)
+        );
+
         state.history.forEach(({ amount, market }) => {
           if (amount > 0) {
             state.profit += amount;
           } else {
             state.expense += -amount;
           }
-        })
+        });
       }
     });
   },

@@ -189,7 +189,10 @@ export default function Wallet({ classes, fixedHeightPaper }) {
                     return (
                       <TableRow key={row.amount + row.createdAt}>
                         <TableCell component="th" scope="row" align="center">
-                          {format(parseISO(row.createdAt), "MM/dd/yyyy HH:mm:ss O")}
+                          {format(
+                            parseISO(row.createdAt),
+                            "MM/dd/yyyy HH:mm:ss O"
+                          )}
                         </TableCell>
                         <TableCell align="center">{row.amount}</TableCell>
                         <TableCell align="center">{row.market}</TableCell>

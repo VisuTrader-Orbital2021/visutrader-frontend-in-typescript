@@ -78,7 +78,7 @@ export const loginUser = createAsyncThunk(
         wallet: userData.wallet,
         dateJoined: userData.dateJoined,
         token: tokenObject.token,
-      })
+      });
 
       return tokenObject;
     } catch (err) {
