@@ -1,23 +1,22 @@
-<p align="center">
-  <a href="" rel="noopener">
-  <img width=200px height=200px src="https://i.imgur.com/6wj0hh6.jpg" alt="Project logo"></a>
-</p>
-
-<h3 align="center">VisuTrader</h3>
-
 <div align="center">
-  
-  [![Status](https://img.shields.io/badge/status-active-success.svg)]()
-  [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
-
+  <img
+    alt="visutrader-logo"
+    src="https://github.com/VisuTrader-Orbital2021/visutrader-frontend/blob/assets/images/logo.png"
+    width=25%
+    height=auto
+  />
 </div>
 
----
+<h1 align="center">VISUTRADER</h1>
 
 <p align="center">
   The most beginner-friendly paper trading app on the internet
-  <br> 
 </p>
+
+<div align="center"> 
+  <img alt="status" src="https://img.shields.io/badge/status-active-success.svg" />
+  <img alt="license" src="https://img.shields.io/badge/license-MIT-blue.svg" />
+</div>
 
 ## 📝 Table of Contents
 - [Motivation](#motivation)
