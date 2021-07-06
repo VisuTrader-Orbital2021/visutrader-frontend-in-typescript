@@ -13,9 +13,19 @@
   The most beginner-friendly paper trading app on the internet
 </p>
 
-<div align="center"> 
-  <img alt="status" src="https://img.shields.io/badge/status-active-success.svg" />
-  <img alt="license" src="https://img.shields.io/badge/license-MIT-blue.svg" />
+<div align="center">
+
+  ![website](https://img.shields.io/website?style=flat-square&url=https%3A%2F%2Fvisutrader.netlify.app)
+  ![license](https://img.shields.io/github/license/VisuTrader-Orbital2021/visutrader-frontend?color=blue&style=flat-square)
+  ![issues](https://img.shields.io/github/issues/VisuTrader-Orbital2021/visutrader-frontend?style=flat-square)
+  ![pull-requests](https://img.shields.io/github/issues-pr/VisuTrader-Orbital2021/visutrader-frontend?style=flat-square)
+
+</div>
+
+<div align="center">
+
+  ![built-with-love](https://forthebadge.com/images/badges/built-with-love.svg)
+
 </div>
 
 ## 📝 Table of Contents
@@ -125,18 +135,28 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
-## ⛏️ Built Using <a name="built_using" />
-- [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) - Frontend Framework
-- [Django](https://www.djangoproject.com/) - Web Framework
-- [Heroku](https://heroku.com/) - Backend Hosting
-- [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML) - Frontend Framework
-- [JavaScript](https://www.javascript.com/) - Frontend Framework
-- [Netlify](https://netlify.com/) - Frontend Hosting
-- [NodeJS](https://nodejs.org/en/) - Server Environment
-- [PostgreSQL](https://www.postgresql.org/) - Database
-- [Python](https://www.python.org/) - Backend Framework
-- [ReactJS](https://reactjs.org/) - Web Framework
-- [TypeScript](https://www.typescriptlang.org/) - Frontend Framework
+## ⛏️ Designed and Built Using <a name="built_using" />
+[![Canva](https://img.shields.io/badge/Canva-%2300C4CC.svg?&style=for-the-badge&logo=Canva&logoColor=white)](https://www.canva.com/)
+[![CSS](https://img.shields.io/badge/CSS-239120?&style=for-the-badge&logo=css3&logoColor=white)](https://www.w3.org/TR/CSS/#css)
+[![Django](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=green)](https://www.djangoproject.com/)
+[![Django-REST](https://img.shields.io/badge/DJANGO-REST-ff1709?style=for-the-badge&logo=django&logoColor=white&color=ff1709&labelColor=gray)](https://www.django-rest-framework.org/)
+[![Figma](https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)](https://www.figma.com/)
+[![Heroku](https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white)](https://www.heroku.com/)
+[![HTML](https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://html.spec.whatwg.org/)
+[![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://www.javascript.com/)
+[![Markdown](https://img.shields.io/badge/Markdown-000000?style=for-the-badge&logo=markdown&logoColor=white)](https://daringfireball.net/projects/markdown/)
+[![Material-UI](https://img.shields.io/badge/Material--UI-0081CB?style=for-the-badge&logo=material-ui&logoColor=white)](https://material-ui.com/)
+[![Netlify](https://img.shields.io/badge/Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white)](https://www.netlify.com/)
+[![Notion](https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=notion&logoColor=white)](https://www.notion.so/)
+[![NPM](https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white)](https://www.npmjs.com/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![Python](https://img.shields.io/badge/Python-FFD43B?style=for-the-badge&logo=python&logoColor=darkgreen)](https://www.python.org/)
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
+[![React_Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)](https://reactrouter.com/)
+[![Redux](https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white)](https://redux.js.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![VIM](https://img.shields.io/badge/VIM-%2311AB00.svg?&style=for-the-badge&logo=vim&logoColor=white)](https://www.vim.org/)
+[![Visual_Studio_Code](https://img.shields.io/badge/Visual_Studio_Code-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white)](https://code.visualstudio.com/)
 
 ## ✍️ Authors <a name="authors" />
 - [@richwill28](https://github.com/richwill28)
