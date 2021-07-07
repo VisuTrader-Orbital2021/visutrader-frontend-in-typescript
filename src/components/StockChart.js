@@ -175,7 +175,6 @@ const SplineAreaChart = ({ company }) => {
 function formatStockData(stockData) {
   return Object.entries(stockData).map((entries) => {
     const [date, priceData] = entries;
-
     return {
       date,
       open: Number(priceData["1. open"]),
