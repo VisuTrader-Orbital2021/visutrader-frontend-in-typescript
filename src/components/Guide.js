@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "50px",
   },
   subtopic: {
-    marginTop: "40px",
+    marginTop: "10px",
   },
   paragraph: {
     marginTop: "20px",
@@ -58,16 +58,27 @@ export default function Guide() {
           <Grid container spacing={10}>
             <Grid item xs={9}>
               <div>
-                <header>
-                  <Typography variant="h1">WELCOME</Typography>
-
-                  <Typography className={classes.paragraph} variant="body1">
-                    In this guide, we will learn about the basics of stocks
-                    trading and investing. Happy reading!
-                  </Typography>
-                </header>
-
                 <article>
+                  <section>
+                    <Typography variant="h2">Preface</Typography>
+
+                    <Typography className={classes.paragraph} variant="body1">
+                      Lots of websites already provide a ton more information
+                      than we ever could here. With that said, plenty of
+                      prerequisites and prior knowledges are required before one
+                      could read the myriad of resources scattered on the
+                      internet. Therefore, the intention of this guide is not to
+                      be a complete resources that covers every details.
+                      Instead, this guide will provide a very brief,
+                      easy-to-understand introduction to stock trading and
+                      investment. The information provided here is inspired,
+                      referenced, and taken from many other websites in an
+                      attempt to put together a short compilation of essential
+                      information for beginners. Any suggestions are very much
+                      welcome. Happy Reading!
+                    </Typography>
+                  </section>
+
                   <section>
                     {/* Empty padding */}
                     <Typography id="why_should_I_consider_investing">
@@ -113,14 +124,14 @@ export default function Guide() {
                       from investment? Well, imagine a hypothetical savings
                       account that gives us a 10% interest rate each year. So if
                       you initially have $1000, then in 10 years time your money
-                      will have become ~$2600. If we adjust for inflation, you
-                      would still have about $2100. This is obviously very good
-                      since we have more than doubled our money by just putting
-                      it in a hypothetical saving account. Unfortunately, this
-                      hypothetical 10% interest rate saving account doesn&apos;t
-                      really exist in real life, because the value is just way
-                      too high and unrealistic. So what other options do we have
-                      to save our money?
+                      will have become roughly $2600. If we adjust for
+                      inflation, you would still have about $2100. This is
+                      obviously very good since we have more than doubled our
+                      money by just putting it in a hypothetical saving account.
+                      Unfortunately, this hypothetical 10% interest rate saving
+                      account doesn&apos;t really exist in real life, because
+                      the value is just way too high and unrealistic. So what
+                      other options do we have to save our money?
                     </Typography>
                   </section>
 
@@ -195,36 +206,166 @@ export default function Guide() {
                       after having a solid understanding of the fundamentals of
                       the market.
                     </Typography>
+                  </section>
+                  <section>
+                    {/* Empty padding */}
+                    <Typography id="but_how_do_I_buy_a_share_in_the_first_place">
+                      ‎
+                    </Typography>
+
+                    <Typography className={classes.topic} variant="h2">
+                      But how do I buy a share in the first place?
+                    </Typography>
+
+                    <Typography className={classes.paragraph} variant="body1">
+                      Let&apos;s say you want to buy a share from Apple, it is
+                      not as simple as going to{" "}
+                      <a href="http://apple.com">apple.com</a> and just press
+                      buy share or whatever. Instead, you have to go through
+                      what&apos;s called a broker. In the old days, a
+                      stockbroker was a physical person that receives orders
+                      from clients to buy/shell shares. Nowadays, you can make
+                      an account on an online broker instead and buy company
+                      shares through that. There are often fees associated with
+                      brokers (i.e., commissions), and each broker can provide
+                      you different features and benefits that may be more or
+                      less suited to your investment plans. It is best to first
+                      learn about how brokers work at the{" "}
+                      <a href="https://www.investopedia.com/investing/complete-guide-choosing-online-stock-broker/">
+                        Investopedia guide to brokers
+                      </a>
+                      . However, do keep in mind that every country has
+                      different brokers and rules that you must abide to.
+                    </Typography>
+                  </section>
+
+                  <section>
+                    {/* Empty padding */}
+                    <Typography id="resources">‎</Typography>
+
+                    <Typography className={classes.topic} variant="h2">
+                      Resources
+                    </Typography>
 
                     <section>
                       {/* Empty padding */}
-                      <Typography id="but_how_do_I_buy_a_share_in_the_first_place">
-                        ‎
-                      </Typography>
+                      <Typography id="resources">‎</Typography>
 
-                      <Typography className={classes.topic} variant="h2">
-                        But how do I buy a share in the first place?
+                      <Typography className={classes.subtopic} variant="h3">
+                        Getting started
                       </Typography>
 
                       <Typography className={classes.paragraph} variant="body1">
-                        Let&apos;s say you want to buy a share from Apple, it is
-                        not as simple as going to{" "}
-                        <a href="http://apple.com">apple.com</a> and just press
-                        buy share or whatever. Instead, you have to go through
-                        what&apos;s called a broker. In the old days, a
-                        stockbroker was a physical person that receives orders
-                        from clients to buy/shell shares. Nowadays, you can make
-                        an account on an online broker instead and buy company
-                        shares through that. There are often fees associated
-                        with brokers (i.e., commissions), and each broker can
-                        provide you different features and benefits that may be
-                        more or less suited to your investment plans. It is best
-                        to first learn about how brokers work at the{" "}
-                        <a href="https://www.investopedia.com/investing/complete-guide-choosing-online-stock-broker/">
-                          Investopedia guide to brokers
-                        </a>
-                        . However, do keep in mind that every country has
-                        different brokers and rules that you must abide to.
+                        Self-learn courses for beginners.
+                        <ul>
+                          <li>
+                            <a href="https://www.investopedia.com/investing-4427685">
+                              Investopedia University
+                            </a>
+                          </li>
+                          <li>
+                            <a href="https://www.khanacademy.org/economics-finance-domain/core-finance/stock-and-bonds">
+                              Khan Academy guide to stocks and bonds
+                            </a>
+                          </li>
+                          <li>
+                            <a href="https://www.khanacademy.org/economics-finance-domain/core-finance/investment-vehicles-tutorial">
+                              Khan Academy guide to other investment vehicles
+                              and retirement plans
+                            </a>
+                          </li>
+                        </ul>
+                      </Typography>
+                    </section>
+
+                    <section>
+                      {/* Empty padding */}
+                      <Typography id="resources">‎</Typography>
+
+                      <Typography className={classes.subtopic} variant="h3">
+                        Relevant websites
+                      </Typography>
+
+                      <Typography className={classes.paragraph} variant="body1">
+                        <ul>
+                          <li>
+                            <a href="https://www.investopedia.com/">
+                              Investopedia
+                            </a>
+                            <div>General knowledge platform</div>
+                          </li>
+                          <li>
+                            <a href="https://www.finviz.com/">Finviz</a>
+                            <div>
+                              Charts, technical data, patterns, and scanners
+                            </div>
+                          </li>
+                          <li>
+                            <a href="https://www.tradingview.com/">
+                              TradingView
+                            </a>
+                            <div>
+                              Free, real-time streaming charts and many
+                              technical analysis tools
+                            </div>
+                          </li>
+                          <li>
+                            <a href="https://www.marketwatch.com/">
+                              MarketWatch
+                            </a>
+                            <div>
+                              Great source for market related news and
+                              information
+                            </div>
+                          </li>
+                          <li>
+                            <a href="https://www.bloomberg.com/live/">
+                              Bloomberg live streaming
+                            </a>
+                            <div>
+                              Free live streaming news alternative to CNBC, and
+                              depending on your preference, a better news
+                              source. Either way if you have access to CNBC,
+                              then you can stream both CNBC & Bloomberg on your
+                              computer and switch to the one of your choice.
+                            </div>
+                          </li>
+                        </ul>
+                      </Typography>
+                    </section>
+
+                    <section>
+                      {/* Empty padding */}
+                      <Typography id="resources">‎</Typography>
+
+                      <Typography className={classes.subtopic} variant="h3">
+                        Relevant posts
+                      </Typography>
+
+                      <Typography className={classes.paragraph} variant="body1">
+                        <ul>
+                          <li>
+                            <a href="https://www.reddit.com/r/Daytrading/wiki/book-recommendations">
+                              Day Trading Books
+                            </a>
+                          </li>
+                          <li>
+                            <a href="https://www.reddit.com/r/investing/comments/9y490a/what_are_the_best_investing_books_for_beginners/">
+                              Books on Investing
+                            </a>
+                          </li>
+                          <li>
+                            <a href="https://www.bogleheads.org/RecommendedReading.php">
+                              Bogleheads&apos; suggested readings
+                            </a>
+                          </li>
+                          <li>
+                            <a href="https://www.reddit.com/r/stocks/comments/403usr/finance_and_wall_street_movies_dramas_and/">
+                              Finance and Wall Street movies, dramas, and
+                              documentaries
+                            </a>
+                          </li>
+                        </ul>
                       </Typography>
                     </section>
                   </section>
@@ -284,6 +425,16 @@ export default function Guide() {
                             href="#but_how_do_I_buy_a_share_in_the_first_place"
                           >
                             But how do I buy a share in the first place?
+                          </a>
+                        </h3>
+                      </li>
+                      <li>
+                        <h3>
+                          <a
+                            className={classes.navigationText}
+                            href="#resources"
+                          >
+                            Resources
                           </a>
                         </h3>
                       </li>
