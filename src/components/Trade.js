@@ -16,7 +16,6 @@ import CompanyOverview from "./CompanyOverview";
 import PaperTrading from "./PaperTrading";
 import Watchlist from "./Watchlist";
 import Copyright from "./Copyright";
-import "../styles/Trade.css";
 
 const CANDLESTICK = "CANDLESTICK";
 const SPLINE_AREA = "SPLINE AREA";
@@ -25,7 +24,6 @@ const AMAZON = "AMZN";
 const APPLE = "AAPL";
 const TESLA = "TSLA";
 
-// TODO: Remove styling with CSS
 export default function Trade({ classes, fixedHeightPaper }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [chartType, setChartType] = React.useState("CANDLESTICK");
@@ -52,7 +50,7 @@ export default function Trade({ classes, fixedHeightPaper }) {
           <Grid item xs={12}>
             <Card>
               <CardContent>
-                <div className="chart-header">
+                <div className={classes.chartHeader}>
                   <Typography variant="h2" color="primary">
                     STOCK CHART
                   </Typography>

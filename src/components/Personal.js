@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
+import { useTheme } from "@material-ui/core/styles";
 import Dashboard from "./Dashboard";
 import Forum from "./Forum";
 import Guide from "./Guide";
@@ -32,10 +33,16 @@ const useStyles = makeStyles((theme) => ({
   fixedHeight: {
     height: 240,
   },
+  chartHeader: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
 }));
 
 export default function Personal() {
-  const classes = useStyles();
+  const theme = useTheme();
+  const classes = useStyles(theme);
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (

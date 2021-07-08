@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import ListItem from "@material-ui/core/ListItem";
 import Typography from "@material-ui/core/Typography";
 import { getCompanyOverview } from "./APIConnector";
-import "../styles/Watchlist.css";
 
-// TODO: Remove styling with CSS
 export default function Watchlist({ company, onClick }) {
   const [companyData, setCompanyData] = useState([]);
 
