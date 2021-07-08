@@ -17,7 +17,7 @@ import LeftDrawer from "./LeftDrawer";
 import { userSelector } from "../redux/slices/user";
 import { resetUser } from "../redux/slices/user";
 
-const drawerWidth = 58;
+const DRAWER_WIDTH = 58;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,13 +25,6 @@ const useStyles = makeStyles((theme) => ({
   },
   toolbar: {
     paddingRight: 24, // keep right padding when drawer closed
-  },
-  toolbarIcon: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "flex-end",
-    padding: "0 8px",
-    ...theme.mixins.toolbar,
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -41,8 +34,8 @@ const useStyles = makeStyles((theme) => ({
     }),
   },
   appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: DRAWER_WIDTH,
+    width: `calc(100% - ${DRAWER_WIDTH}px)`,
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -56,18 +49,6 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
-  },
-  drawerPaper: {
-    position: "relative",
-    // whiteSpace: "nowrap",
-    width: drawerWidth,
-    transition: theme.transitions.create("width", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    "&::-webkit-scrollbar": {
-      display: "none",
-    },
   },
   drawerPaperClose: {
     overflowX: "hidden",
@@ -102,20 +83,17 @@ export default function Dashboard(props) {
       <UpperBar
         classes={classes}
         open={open}
-        handleDrawerOpen={handleDrawerOpen}
       />
       <LeftDrawer
         renderDrawer={props.renderDrawer}
         location={props.location}
-        classes={classes}
-        open={open}
         handleDrawerClose={handleDrawerClose}
       />
     </div>
   );
 }
 
-function UpperBar({ classes, open, handleDrawerOpen }) {
+function UpperBar({ classes, open }) {
   const dispatch = useDispatch();
   const user = useSelector(userSelector);
   const history = useHistory();
