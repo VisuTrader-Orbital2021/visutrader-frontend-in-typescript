@@ -8,7 +8,7 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import Divider from "@material-ui/core/Divider";
 import Typography from "@material-ui/core/Typography";
 import Tooltip from "@material-ui/core/Tooltip";
-import Zoom from '@material-ui/core/Zoom';
+import Zoom from "@material-ui/core/Zoom";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -23,7 +23,7 @@ const DRAWER_WIDTH = 58;
 const useStyles = makeStyles((theme) => ({
   leftDrawer: {
     display: "flex",
-    flexDirection: "row"
+    flexDirection: "row",
   },
   drawerIcons: {
     display: "flex",
@@ -68,9 +68,7 @@ function MainListIcons(props) {
         <ListItemIcon>
           <RouterLink to="/forum" style={routerStyle(props.location, "forum")}>
             <Tooltip
-              title={
-                <Typography variant="body2">Forum</Typography>
-              }
+              title={<Typography variant="body2">Forum</Typography>}
               placement="right"
               TransitionComponent={Zoom}
               arrow
@@ -84,9 +82,7 @@ function MainListIcons(props) {
         <ListItemIcon>
           <RouterLink to="/guide" style={routerStyle(props.location, "guide")}>
             <Tooltip
-              title={
-                <Typography variant="body2">Guide</Typography>
-              }
+              title={<Typography variant="body2">Guide</Typography>}
               placement="right"
               TransitionComponent={Zoom}
               arrow
@@ -100,9 +96,7 @@ function MainListIcons(props) {
         <ListItemIcon>
           <RouterLink to="/trade" style={routerStyle(props.location, "trade")}>
             <Tooltip
-              title={
-                <Typography variant="body2">Trade</Typography>
-              }
+              title={<Typography variant="body2">Trade</Typography>}
               placement="right"
               TransitionComponent={Zoom}
               arrow
@@ -119,9 +113,7 @@ function MainListIcons(props) {
             style={routerStyle(props.location, "wallet")}
           >
             <Tooltip
-              title={
-                <Typography variant="body2">Wallet</Typography>
-              }
+              title={<Typography variant="body2">Wallet</Typography>}
               placement="right"
               TransitionComponent={Zoom}
               arrow
@@ -145,9 +137,7 @@ function SecondaryListIcons(props) {
             style={routerStyle(props.location, "settings")}
           >
             <Tooltip
-              title={
-                <Typography variant="body2">Settings</Typography>
-              }
+              title={<Typography variant="body2">Settings</Typography>}
               placement="right"
               TransitionCoponent={Zoom}
               arrow

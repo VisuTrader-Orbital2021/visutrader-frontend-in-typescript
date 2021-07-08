@@ -80,10 +80,7 @@ export default function Dashboard(props) {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <UpperBar
-        classes={classes}
-        open={open}
-      />
+      <UpperBar classes={classes} open={open} />
       <LeftDrawer
         renderDrawer={props.renderDrawer}
         location={props.location}
