@@ -76,19 +76,19 @@ export default function Guide() {
                     <Typography variant="h1">Preface</Typography>
 
                     <Typography className={classes.paragraph} variant="body1">
-                      Lots of websites already provide a ton more information
-                      than we ever could here. With that said, plenty of
-                      prerequisites and prior knowledges are required before one
-                      could read the myriad of resources scattered on the
-                      internet. Therefore, the intention of this guide is not to
-                      be a complete resources that covers every details.
-                      Instead, this guide will provide a very brief,
-                      easy-to-understand introduction to stock trading and
-                      investment. The information provided here is inspired,
-                      referenced, and taken from many other websites in an
-                      attempt to put together a short compilation of essential
-                      information for beginners. Any suggestions are very much
-                      welcome. Happy Reading!
+                      This guide is by no means complete. Lots of websites
+                      already provide a ton more information than we ever could
+                      here. With that said, plenty of prerequisites and prior
+                      knowledges are required before one could read the myriad
+                      of resources scattered on the internet. Therefore, the
+                      intention of this guide is not to be a complete resources
+                      that covers every details. Instead, this guide will
+                      provide a very brief, easy-to-understand introduction to
+                      stock trading and investment. The information provided
+                      here is inspired, referenced, and taken from many other
+                      websites in an attempt to put together a short compilation
+                      of essential information for beginners. Any suggestions
+                      are very much welcome. Happy Reading!
                     </Typography>
 
                     <Typography className={classes.paragraph} variant="body1">
@@ -98,7 +98,7 @@ export default function Guide() {
                         className={classes.linkText}
                         href="#paper_trading_with_visutrader"
                       >
-                        Part 2
+                        Part 3
                       </a>{" "}
                       to learn how to use VisuTrader.
                     </Typography>
@@ -109,7 +109,7 @@ export default function Guide() {
                     <Typography id="before_you_begin">‎</Typography>
 
                     <Typography className={classes.topic} variant="h1">
-                      Part 1 Before You Start Begin
+                      Part 1 Before You Begin
                     </Typography>
 
                     <section>
@@ -384,6 +384,47 @@ export default function Guide() {
                       </Typography>
                     </section>
 
+                    <section>
+                      {/* Empty padding */}
+                      <Typography id="basic_terminologies_in_the_stock_market">
+                        ‎
+                      </Typography>
+
+                      <Typography className={classes.subtopic} variant="h2">
+                        Basic terminologies in the stock market
+                      </Typography>
+
+                      <Typography className={classes.paragraph} variant="body1">
+                        If you&apos;re a beginner, you will most likely be
+                        bombarded with lots of unfamiliar terms when you read
+                        topics related to stock trading. If you are ever
+                        confused about the meaning of a certain terminology,
+                        Investopedia is usually a great place to seek
+                        explanations. Nevertheless, here is a list of common
+                        terminologies that you will encounter:
+                        <ul>
+                          <li>
+                            <strong></strong>
+                            <div></div>
+                          </li>
+
+                          <li>
+                            <strong></strong>
+                            <div></div>
+                          </li>
+                        </ul>
+                      </Typography>
+                    </section>
+                  </section>
+
+                  <section>
+                    {/* Empty padding */}
+                    <Typography id="understanding_charts">‎</Typography>
+
+                    <Typography className={classes.topic} variant="h1">
+                      Part 2 Understanding Charts
+                    </Typography>
+
                     <section></section>
                   </section>
 
@@ -394,7 +435,7 @@ export default function Guide() {
                     </Typography>
 
                     <Typography className={classes.topic} variant="h1">
-                      Part 2 Paper Trading with VisuTrader
+                      Part 3 Paper Trading with VisuTrader
                     </Typography>
 
                     <section></section>
@@ -405,7 +446,7 @@ export default function Guide() {
                     <Typography id="resources">‎</Typography>
 
                     <Typography className={classes.topic} variant="h1">
-                      Part 3 Resources
+                      Part 4 Resources
                     </Typography>
 
                     <section>
@@ -654,7 +695,31 @@ export default function Guide() {
                               </a>
                             </h4>
                           </li>
+
+                          <li>
+                            <h4>
+                              <a
+                                className={classes.navigationText}
+                                href="#basic_terminologies_in_the_stock_market"
+                              >
+                                Basic terminologies in the stock market
+                              </a>
+                            </h4>
+                          </li>
                         </ul>
+                      </li>
+
+                      <li>
+                        <h3>
+                          <a
+                            className={classes.navigationText}
+                            href="#understanding_charts"
+                          >
+                            Part 2 Understanding Charts
+                          </a>
+                        </h3>
+
+                        <ul></ul>
                       </li>
 
                       <li>
@@ -663,7 +728,7 @@ export default function Guide() {
                             className={classes.navigationText}
                             href="#paper_trading_with_visutrader"
                           >
-                            Part 2 Paper Trading with VisuTrader
+                            Part 3 Paper Trading with VisuTrader
                           </a>
                         </h3>
 
@@ -676,7 +741,7 @@ export default function Guide() {
                             className={classes.navigationText}
                             href="#resources"
                           >
-                            Part 3 Resources
+                            Part 4 Resources
                           </a>
                         </h3>
 
