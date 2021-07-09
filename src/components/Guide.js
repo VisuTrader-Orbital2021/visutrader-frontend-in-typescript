@@ -574,7 +574,21 @@ export default function Guide() {
                         period.
                       </Typography>
 
-                      <img alt="candlestick" src="" />
+                      <img
+                        alt="candlestick"
+                        src="https://github.com/VisuTrader-Orbital2021/visutrader-frontend/blob/assets/images/guide/candlestick.svg"
+                      />
+
+                      <Typography className={classes.paragraph} variant="body1">
+                        The colored portion of the candlestick is called
+                        &quot;the body&quot; (also referred to as &quot;the real
+                        body&quot;). The long thin lines above and below the
+                        body represent the high/low range and are called
+                        &quot;shadows&quot; (also referred to as
+                        &quot;wicks&quot; and &quot;tails&quot;). The high is
+                        marked by the top of the upper shadow and the low by the
+                        bottom of the lower shadow.
+                      </Typography>
                     </section>
                   </section>
 
