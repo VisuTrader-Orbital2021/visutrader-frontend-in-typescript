@@ -404,28 +404,178 @@ export default function Guide() {
                         terminologies that you will encounter:
                         <ul>
                           <li>
-                            <strong></strong>
-                            <div></div>
+                            <strong>Volume</strong>
+                            <div>
+                              Volume is how active a particular company is over
+                              a period of time in terms of trading; in other
+                              words, the number of shares that are being traded.
+                              Typically, you want to look for companies with
+                              high volume to avoid issues with liquidity and
+                              other reasons. However, if volume is much higher
+                              than the average volume in a given period, you may
+                              see wilder swings (good or bad) and volatility.
+                            </div>
                           </li>
 
                           <li>
-                            <strong></strong>
-                            <div></div>
+                            <strong>Dividend</strong>
+                            <div>
+                              A scheduled payout from a company. Dividends are
+                              used to reward investors for investing in a
+                              company. They can be paid monthly, quarterly,
+                              yearly, or on a one-time special basis. Dividends
+                              are often issued by mature companies but also
+                              companies with limited growth, REITs, and
+                              struggling companies trying to attract investors
+                              or keep current ones happy. Dividends can be
+                              great, especially for income investors, but it’s
+                              important to note that they can limit growth and
+                              aren’t tax efficient (you&apos;re forced to pay
+                              taxes on dividends vs just holding) when held
+                              outside a tax advantaged account. Never invest in
+                              a company solely for its dividend.
+                            </div>
+                          </li>
+
+                          <li>
+                            <strong>EPS</strong>
+                            <div>
+                              The amount of profit allocated to a share of
+                              common stock. This can be found by taking (Net
+                              Income - Dividends)/(Number of Shares
+                              Outstanding). EPS is very important in determining
+                              how successful a company is performing and where
+                              it stands in terms of profitability. Usually, the
+                              higher a company&apos;s EPS, the more profitable
+                              it is considered to be.
+                            </div>
+                          </li>
+
+                          <li>
+                            <strong>P/E Ratio</strong>
+                            <div>
+                              Stock price divided by EPS. High P/E typically
+                              indicates expectations of high growth. This is why
+                              we see companies like Amazon with relatively high
+                              P/E&apos;s. Low P/E&apos;s may indicate a company
+                              is pretty mature and that limited growth is
+                              expected.
+                            </div>
+                          </li>
+
+                          <li>
+                            <strong>PEG</strong>
+                            <div>
+                              PEG ratio is used to determine the value of a
+                              stock while taking into account growth of a
+                              company&apos;s earnings. The formula for PEG ratio
+                              is a little more complex than some of the other
+                              ones we have here, but please visit{" "}
+                              <a href="https://www.investopedia.com/terms/p/pegratio.asp">
+                                here
+                              </a>{" "}
+                              if you&apos;re interested.
+                            </div>
+                          </li>
+
+                          <li>
+                            <strong>ROA</strong>
+                            <div>
+                              Return on Assets (ROA) is calculated by dividing a
+                              company’s net income by total assets. It is an
+                              indicator of how profitable a company is relative
+                              to its total assets. ROA gives a manager,
+                              investor, or analyst an idea as to how efficient a
+                              company&apos;s management is at using its assets
+                              to generate earnings. ROA is displayed as a
+                              percentage; the higher the ROA is, the better.
+                              Although some companies will have low ROA by the
+                              nature of their business such as bank stocks.
+                            </div>
+                          </li>
+
+                          <li>
+                            <strong>ROE</strong>
+                            <div>
+                              Return on equity (ROE) is a measure of financial
+                              performance calculated by dividing net income and
+                              shareholders equity. This formula can be used to
+                              get a better idea of future growth, how debt is
+                              impacting things, and how the company compares to
+                              its peers in the industry.
+                            </div>
+                          </li>
+
+                          <li>
+                            <strong>BETA</strong>
+                            <div>
+                              The measure of volatility and risk of a company
+                              compared to the market as a whole. A stock with a
+                              BETA of 1 means that it will likely act similar
+                              and correspond with the market. A stock with a
+                              BETA lower than 1 typically means less volatility
+                              is expected while a stock with a BETA higher than
+                              1 means it could potentially more volatile. These
+                              things aren&apos;t set in stone and companies can
+                              react and perform quite differently than what
+                              their BETA would initially indicate.
+                            </div>
                           </li>
                         </ul>
+                        If you still don&apos;t quite understand the
+                        terminologies, don&apos;t worry too much about them.
+                        Although they are useful, you wouldn&apos;t really need
+                        to understand every little details unless you&apos;re
+                        doing day trading or fundamental/technical analysis.
                       </Typography>
                     </section>
                   </section>
 
                   <section>
                     {/* Empty padding */}
-                    <Typography id="understanding_charts">‎</Typography>
-
-                    <Typography className={classes.topic} variant="h1">
-                      Part 2 Understanding Charts
+                    <Typography id="understanding_candlestick_charts">
+                      ‎
                     </Typography>
 
-                    <section></section>
+                    <Typography className={classes.topic} variant="h1">
+                      Part 2 Understanding Candlestick Charts
+                    </Typography>
+
+                    <section>
+                      {/* Empty padding */}
+                      <Typography id="history">‎</Typography>
+
+                      <Typography className={classes.subtopic} variant="h2">
+                        History
+                      </Typography>
+
+                      <Typography className={classes.paragraph} variant="body1">
+                        Candlestick charts are thought to have been developed in
+                        the 18th century by Munehisa Homma, a Japanese rice
+                        trader. They were popularized in the west by Steve
+                        Nison. According to him, it is likely that the original
+                        candlestick chart were modified and refined over many
+                        years of trading, eventually resulting in the system of
+                        candlestick charting that we use today.
+                      </Typography>
+                    </section>
+
+                    <section>
+                      {/* Empty padding */}
+                      <Typography id="explanation">‎</Typography>
+
+                      <Typography className={classes.subtopic} variant="h2">
+                        Explanation
+                      </Typography>
+
+                      <Typography className={classes.paragraph} variant="body1">
+                        Each candlestick chart contains four data sets, namely
+                        open, high, low and close values over a certain time
+                        period.
+                      </Typography>
+
+                      <img alt="candlestick" src="" />
+                    </section>
                   </section>
 
                   <section>
@@ -713,9 +863,9 @@ export default function Guide() {
                         <h3>
                           <a
                             className={classes.navigationText}
-                            href="#understanding_charts"
+                            href="#understanding_candlestick_charts"
                           >
-                            Part 2 Understanding Charts
+                            Part 2 Understanding Candlestick Charts
                           </a>
                         </h3>
 
