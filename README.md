@@ -1,7 +1,7 @@
 <div align="center">
   <img
     alt="visutrader-logo"
-    src="https://github.com/VisuTrader-Orbital2021/visutrader-frontend/blob/assets/images/logo.png"
+    src="https://github.com/VisuTrader-Orbital2021/visutrader-frontend/blob/assets/images/readme/logo.png"
     width=25%
     height=auto
   />
@@ -48,7 +48,7 @@ Learning to invest in stock shouldn't be hard. We are making it easier by puttin
 <div align="center">
   <img
     alt="visutrader-poster"
-    src="https://github.com/VisuTrader-Orbital2021/visutrader-frontend/blob/assets/images/poster.png"
+    src="https://github.com/VisuTrader-Orbital2021/visutrader-frontend/blob/assets/images/readme/poster.png"
     width=60%
     height=auto
   />
