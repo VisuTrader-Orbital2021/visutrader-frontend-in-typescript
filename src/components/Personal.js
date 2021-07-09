@@ -57,7 +57,7 @@ export default function Personal() {
       </Route>
       <Route exact path="/trade">
         <Dashboard renderDrawer={true} location="trade" />
-        <Trade classes={classes} fixedHeightPaper={fixedHeightPaper} />
+        <Trade classes={classes} />
       </Route>
       <Route exact path="/wallet">
         <Dashboard renderDrawer={true} location="wallet" />

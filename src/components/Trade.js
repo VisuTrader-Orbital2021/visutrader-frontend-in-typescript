@@ -17,6 +17,8 @@ import PaperTrading from "./PaperTrading";
 import Watchlist from "./Watchlist";
 import Copyright from "./Copyright";
 
+const INTRADAY = "INTRADAY";
+const DAILY = "DAILY";
 const CANDLESTICK = "CANDLESTICK";
 const SPLINE_AREA = "SPLINE AREA";
 
@@ -24,18 +26,31 @@ const AMAZON = "AMZN";
 const APPLE = "AAPL";
 const TESLA = "TSLA";
 
-export default function Trade({ classes, fixedHeightPaper }) {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [chartType, setChartType] = React.useState("CANDLESTICK");
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+export default function Trade({ classes }) {
+  const [anchorStock, setAnchorStock] = React.useState(null);
+  const openStock = Boolean(anchorStock);
+  const [stockType, setStockType] = React.useState(DAILY);
+  const handleStockClick = (event) => {
+    setAnchorStock(event.currentTarget);
   };
-  const handleClose = (chartType) => {
-    setAnchorEl(null);
+  const handleStockClose = (stockType) => {
+    setAnchorStock(null);
+    setStockType(stockType);
+    console.log(stockType); // to be removed
+  };
+
+  const [anchorChart, setAnchorChart] = React.useState(null);
+  const openChart = Boolean(anchorChart);
+  const [chartType, setChartType] = React.useState(CANDLESTICK);
+  const handleChartClick = (event) => {
+    setAnchorChart(event.currentTarget);
+  };
+  const handleChartClose = (chartType) => {
+    setAnchorChart(null);
     setChartType(chartType);
     console.log(chartType); // to be removed
   };
+
   const [company, setCompany] = React.useState(AMAZON);
   const handleCompany = (company) => {
     setCompany(company);
@@ -54,31 +69,60 @@ export default function Trade({ classes, fixedHeightPaper }) {
                   <Typography variant="h2" color="primary">
                     STOCK CHART
                   </Typography>
+
+                  {/* WORK IN PROGRESS */}
+                  {/* <Button
+                    aria-controls="fade-menu"
+                    aria-haspopup="true"
+                    onClick={handleStockClick}
+                  >
+                    {stockType}
+                  </Button>
+                  <Menu
+                    id="fade-menu"
+                    anchorEl={anchorStock}
+                    keepMounted
+                    open={openStock}
+                    onClose={() => handleStockClose(stockType)}
+                    TransitionComponent={Fade}
+                  >
+                    <MenuItem onClick={() => handleStockClose(INTRADAY)}>
+                      INTRADAY
+                    </MenuItem>
+                    <MenuItem onClick={() => handleStockClose(DAILY)}>
+                      DAILY
+                    </MenuItem>
+                  </Menu> */}
+
                   <Button
                     aria-controls="fade-menu"
                     aria-haspopup="true"
-                    onClick={handleClick}
+                    onClick={handleChartClick}
                   >
                     {chartType}
                   </Button>
                   <Menu
                     id="fade-menu"
-                    anchorEl={anchorEl}
+                    anchorEl={anchorChart}
                     keepMounted
-                    open={open}
-                    onClose={() => handleClose(chartType)}
+                    open={openChart}
+                    onClose={() => handleChartClose(chartType)}
                     TransitionComponent={Fade}
                   >
-                    <MenuItem onClick={() => handleClose(CANDLESTICK)}>
+                    <MenuItem onClick={() => handleChartClose(CANDLESTICK)}>
                       CANDLESTICK
                     </MenuItem>
-                    <MenuItem onClick={() => handleClose(SPLINE_AREA)}>
+                    <MenuItem onClick={() => handleChartClose(SPLINE_AREA)}>
                       SPLINE AREA
                     </MenuItem>
                   </Menu>
                 </div>
                 <div className="chart-content">
-                  <StockChart chartType={chartType} company={company} />
+                  <StockChart
+                    stockType={stockType}
+                    chartType={chartType}
+                    company={company}
+                  />
                 </div>
               </CardContent>
             </Card>
