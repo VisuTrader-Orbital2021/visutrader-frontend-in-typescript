@@ -9,7 +9,9 @@ import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import Copyright from "./Copyright";
 
-// TODO: Write guide content
+// TODO: Fix table of contents
+// TODO: Use Latex for formulas
+// TODO: Fix broken image
 const useStyles = makeStyles((theme) => ({
   appBarSpacer: theme.mixins.toolbar,
   content: {
@@ -92,8 +94,8 @@ export default function Guide() {
                     </Typography>
 
                     <Typography className={classes.paragraph} variant="body1">
-                      P.S. If you&apos;re already familiar with stock investing,
-                      you can skip to{" "}
+                      P.S. If you&apos;re already familiar with stock investing
+                      or you just want to trade right away, you can skip to{" "}
                       <a
                         className={classes.linkText}
                         href="#paper_trading_with_visutrader"
@@ -168,7 +170,7 @@ export default function Guide() {
                         interest rate saving account doesn&apos;t really exist
                         in real life, because the value is just way too high and
                         unrealistic. So what other options do we have to save
-                        our money?
+                        our money? Let&apos;s move on to the next section.
                       </Typography>
                     </section>
 
@@ -247,6 +249,34 @@ export default function Guide() {
 
                     <section>
                       {/* Empty padding */}
+                      <Typography id="investment_vs_trading">‎</Typography>
+
+                      <Typography className={classes.subtopic} variant="h2">
+                        Investment vs trading
+                      </Typography>
+
+                      <Typography
+                        className={classes.paragraph}
+                        variant="body1"
+                      ></Typography>
+                    </section>
+
+                    <section>
+                      {/* Empty padding */}
+                      <Typography id="general_advice">‎</Typography>
+
+                      <Typography className={classes.subtopic} variant="h2">
+                        General Advice
+                      </Typography>
+
+                      <Typography
+                        className={classes.paragraph}
+                        variant="body1"
+                      ></Typography>
+                    </section>
+
+                    <section>
+                      {/* Empty padding */}
                       <Typography id="but_how_do_I_buy_a_share_in_the_first_place">
                         ‎
                       </Typography>
@@ -285,12 +315,10 @@ export default function Guide() {
 
                     <section>
                       {/* Empty padding */}
-                      <Typography id="understanding_market_capitalization">
-                        ‎
-                      </Typography>
+                      <Typography id="market_capitalization">‎</Typography>
 
                       <Typography className={classes.subtopic} variant="h2">
-                        Understanding Market Capitalization
+                        Market Capitalization
                       </Typography>
 
                       <Typography className={classes.paragraph} variant="body1">
@@ -386,12 +414,12 @@ export default function Guide() {
 
                     <section>
                       {/* Empty padding */}
-                      <Typography id="basic_terminologies_in_the_stock_market">
+                      <Typography id="common_terminologies_in_the_stock_market">
                         ‎
                       </Typography>
 
                       <Typography className={classes.subtopic} variant="h2">
-                        Basic terminologies in the stock market
+                        Common terminologies in the stock market
                       </Typography>
 
                       <Typography className={classes.paragraph} variant="body1">
@@ -471,7 +499,10 @@ export default function Guide() {
                               company&apos;s earnings. The formula for PEG ratio
                               is a little more complex than some of the other
                               ones we have here, but please visit{" "}
-                              <a href="https://www.investopedia.com/terms/p/pegratio.asp">
+                              <a
+                                className={classes.linkText}
+                                href="https://www.investopedia.com/terms/p/pegratio.asp"
+                              >
                                 here
                               </a>{" "}
                               if you&apos;re interested.
@@ -575,8 +606,8 @@ export default function Guide() {
                       </Typography>
 
                       <img
-                        alt="candlestick"
                         src="https://github.com/VisuTrader-Orbital2021/visutrader-frontend/blob/assets/images/guide/candlestick.svg"
+                        alt="candlestick"
                       />
 
                       <Typography className={classes.paragraph} variant="body1">
@@ -588,6 +619,176 @@ export default function Guide() {
                         &quot;wicks&quot; and &quot;tails&quot;). The high is
                         marked by the top of the upper shadow and the low by the
                         bottom of the lower shadow.
+                        <ul>
+                          <li>
+                            <strong>Open price</strong>
+                            <div>
+                              The open price depicts the first price traded
+                              during the formation of the new candle. If the
+                              price starts to trend upwards the candle will turn
+                              green. If the price declines the candle will turn
+                              red. Actually, the coloring scheme of the charts
+                              depends on the website. The most popular colors
+                              are &quot;green&quot; and &quot;red&quot;, to
+                              indicate &quot;rise&quot; and &quot;fall&quot;
+                              respectively (although there are some websites
+                              that use blue/red or white/black).
+                            </div>
+                          </li>
+
+                          <li>
+                            <strong>Close price</strong>
+                            <div>
+                              The close price is the last price traded during
+                              the period of the candle formation. If the price
+                              starts to trend upwards the candle will turn
+                              green. If the price declines the candle will turn
+                              red. Actually, the coloring scheme of the charts
+                              depends on the website. The most popular colors
+                              are &quot;green&quot; and &quot;red&quot;, to
+                              indicate &quot;rise&quot; and &quot;fall&quot;
+                              respectively (although there are some websites
+                              that use blue/red or white/black).
+                            </div>
+                          </li>
+
+                          <li>
+                            <strong>High price</strong>
+                            <div>
+                              The top of the upper wick/shadow indicates the
+                              highest price traded during the period. In other
+                              words, the price reached this highest point at a
+                              particular time during the trading period. If
+                              there is no upper wick/shadow it means that the
+                              open price or the close price was the highest
+                              price traded.
+                            </div>
+                          </li>
+
+                          <li>
+                            <strong>Low price</strong>
+                            <div>
+                              The lowest price traded is the either the price at
+                              the bottom of the lower wick/shadow. In other
+                              words, the price reached this lowest point at a
+                              particular time during the trading period. If
+                              there is no lower wick/shadow then the lowest
+                              price traded is the same as the close price or
+                              open price in a bullish candle.
+                            </div>
+                          </li>
+                        </ul>
+                        Compared to traditional bar charts, many traders
+                        consider candlestick charts more visually appealing and
+                        easier to interpret. Each candlestick provides a simple,
+                        visually appealing picture of price action; a trader can
+                        instantly compare the relationship between the open and
+                        close as well as the high and low. The relationship
+                        between the open and close is considered vital
+                        information and forms the essence of candlesticks. Green
+                        candlesticks, where the close is greater than the open,
+                        indicate <strong>buying pressure</strong>. While red
+                        candlesticks, where the close is less than the open,
+                        indicate <strong>selling pressure</strong>.
+                      </Typography>
+                    </section>
+
+                    <section>
+                      {/* Empty padding */}
+                      <Typography id="indicators">‎</Typography>
+
+                      <Typography className={classes.subtopic} variant="h2">
+                        Indicators
+                      </Typography>
+
+                      <Typography className={classes.paragraph} variant="body1">
+                        The followings are common indicators that you will
+                        encounter on a stock trading website. They are useful in
+                        providing extra information that aid traders in their
+                        investment strategies.
+                        <ul>
+                          <li>
+                            <strong>Moving Average (MA)</strong>
+                            <div>
+                              In statistics, a moving average is a calculation
+                              used to analyze data points by creating a series
+                              of averages of different subsets of the full data
+                              set. In finance, a moving average (MA) is a stock
+                              indicator that is commonly used in technical
+                              analysis. The reason for calculating the moving
+                              average of a stock is to help smooth out the price
+                              data by creating a constantly updated average
+                              price. By calculating the moving average, the
+                              impacts of random, short-term fluctuations on the
+                              price of a stock over a specified time-frame are
+                              mitigated. Common MA periods that you will find
+                              are 10, 20, 50, 100, and 200. The longer the time
+                              period for the moving average, the greater the
+                              lag. So, a 200-day moving average will have a much
+                              greater degree of lag than a 20-day MA because it
+                              contains prices for the past 200 days.
+                            </div>
+                          </li>
+
+                          <li>
+                            <strong>Relative Strength Index (RSI)</strong>
+                            <div>
+                              The relative strength index (RSI) is a momentum
+                              indicator used in technical analysis that measures
+                              the magnitude of recent price changes to evaluate
+                              overbought or oversold conditions in the price of
+                              a stock or other asset. The RSI is displayed as an
+                              oscillator (a line graph that moves between two
+                              extremes) and can have a reading from 0 to 100.
+                              Traditional interpretation and usage of the RSI
+                              are that values of 70 or above indicate that a
+                              security is becoming overbought or overvalued and
+                              may be primed for a trend reversal or corrective
+                              pullback in price. An RSI reading of 30 or below
+                              indicates an oversold or undervalued condition.
+                            </div>
+                          </li>
+
+                          <li>
+                            <strong>
+                              Volume Weighted Average Price (VWAP)
+                            </strong>
+                            <div>
+                              The volume weighted average price (VWAP) is a
+                              trading benchmark used by traders that gives the
+                              average price a security has traded at throughout
+                              the day, based on both volume and price. It is
+                              important because it provides traders with insight
+                              into both the trend and value of a security. VWAP
+                              is calculated by (Price * The number of shares
+                              traded)/(The total shares traded).
+                            </div>
+                          </li>
+                        </ul>
+                        Please consult{" "}
+                        <a
+                          className={classes.linkText}
+                          href="https://www.investopedia.com/"
+                        >
+                          Investopedia
+                        </a>{" "}
+                        for more information on chart indicators.
+                      </Typography>
+                    </section>
+
+                    <section>
+                      {/* Empty padding */}
+                      <Typography id="patterns">‎</Typography>
+
+                      <Typography className={classes.subtopic} variant="h2">
+                        Patterns
+                      </Typography>
+
+                      <Typography className={classes.paragraph} variant="body1">
+                        This section will demonstrate the several common
+                        candlestick patterns that are used in technical
+                        analysis. Unless you want to be a day trader, you
+                        don&apos;t have to read this section.
                       </Typography>
                     </section>
                   </section>
@@ -780,167 +981,233 @@ export default function Guide() {
             <Grid item xs={3}>
               <div className={classes.tableOfContents}>
                 <aside>
-                  <h2>TABLE OF CONTENTS</h2>
+                  <h3>TABLE OF CONTENTS</h3>
                   <nav>
                     <ul className={classes.list}>
                       <li>
-                        <h3>
+                        <h4>
                           <a
                             className={classes.navigationText}
                             href="#before_you_begin"
                           >
                             Part 1 Before You Begin
                           </a>
-                        </h3>
+                        </h4>
 
                         <ul>
                           <li>
-                            <h4>
+                            <h5>
                               <a
                                 className={classes.navigationText}
                                 href="#why_should_I_consider_investing"
                               >
                                 Why should I consider Investing?
                               </a>
-                            </h4>
+                            </h5>
                           </li>
 
                           <li>
-                            <h4>
+                            <h5>
                               <a
                                 className={classes.navigationText}
                                 href="#what_is_investing"
                               >
                                 What is investing?
                               </a>
-                            </h4>
+                            </h5>
                           </li>
 
                           <li>
-                            <h4>
+                            <h5>
                               <a
                                 className={classes.navigationText}
                                 href="#what_is_a_stock"
                               >
                                 What is a stock?
                               </a>
-                            </h4>
+                            </h5>
                           </li>
 
                           <li>
-                            <h4>
+                            <h5>
                               <a
                                 className={classes.navigationText}
                                 href="#what_is_trading"
                               >
                                 What is trading?
                               </a>
-                            </h4>
+                            </h5>
                           </li>
 
                           <li>
-                            <h4>
+                            <h5>
+                              <a
+                                className={classes.navigationText}
+                                href="#investment_vs_trading"
+                              >
+                                Investment vs trading
+                              </a>
+                            </h5>
+                          </li>
+
+                          <li>
+                            <h5>
+                              <a
+                                className={classes.navigationText}
+                                href="#general_advice"
+                              >
+                                General Advice
+                              </a>
+                            </h5>
+                          </li>
+
+                          <li>
+                            <h5>
                               <a
                                 className={classes.navigationText}
                                 href="#but_how_do_I_buy_a_share_in_the_first_place"
                               >
                                 But how do I buy a share in the first place?
                               </a>
-                            </h4>
+                            </h5>
                           </li>
 
                           <li>
-                            <h4>
+                            <h5>
                               <a
                                 className={classes.navigationText}
-                                href="#understanding_market_capitalization"
+                                href="#market_capitalization"
                               >
-                                Understanding Market Capitalization
+                                Market Capitalization
                               </a>
-                            </h4>
+                            </h5>
                           </li>
 
                           <li>
-                            <h4>
+                            <h5>
                               <a
                                 className={classes.navigationText}
-                                href="#basic_terminologies_in_the_stock_market"
+                                href="#common_terminologies_in_the_stock_market"
                               >
-                                Basic terminologies in the stock market
+                                Common terminologies in the stock market
                               </a>
-                            </h4>
+                            </h5>
                           </li>
                         </ul>
                       </li>
 
                       <li>
-                        <h3>
+                        <h4>
                           <a
                             className={classes.navigationText}
                             href="#understanding_candlestick_charts"
                           >
                             Part 2 Understanding Candlestick Charts
                           </a>
-                        </h3>
+                        </h4>
 
-                        <ul></ul>
+                        <ul>
+                          <li>
+                            <h5>
+                              <a
+                                className={classes.navigationText}
+                                href="#history"
+                              >
+                                History
+                              </a>
+                            </h5>
+                          </li>
+
+                          <li>
+                            <h5>
+                              <a
+                                className={classes.navigationText}
+                                href="#explanation"
+                              >
+                                Explanation
+                              </a>
+                            </h5>
+                          </li>
+
+                          <li>
+                            <h5>
+                              <a
+                                className={classes.navigationText}
+                                href="#indicators"
+                              >
+                                Indicators
+                              </a>
+                            </h5>
+                          </li>
+
+                          <li>
+                            <h5>
+                              <a
+                                className={classes.navigationText}
+                                href="#patterns"
+                              >
+                                Patterns
+                              </a>
+                            </h5>
+                          </li>
+                        </ul>
                       </li>
 
                       <li>
-                        <h3>
+                        <h4>
                           <a
                             className={classes.navigationText}
                             href="#paper_trading_with_visutrader"
                           >
                             Part 3 Paper Trading with VisuTrader
                           </a>
-                        </h3>
+                        </h4>
 
                         <ul></ul>
                       </li>
 
                       <li>
-                        <h3>
+                        <h4>
                           <a
                             className={classes.navigationText}
                             href="#resources"
                           >
                             Part 4 Resources
                           </a>
-                        </h3>
+                        </h4>
 
                         <ul>
                           <li>
-                            <h4>
+                            <h5>
                               <a
                                 className={classes.navigationText}
                                 href="#getting_started"
                               >
                                 Getting Started
                               </a>
-                            </h4>
+                            </h5>
                           </li>
 
                           <li>
-                            <h4>
+                            <h5>
                               <a
                                 className={classes.navigationText}
                                 href="#relevant_websites"
                               >
                                 Relevant websites
                               </a>
-                            </h4>
+                            </h5>
                           </li>
 
                           <li>
-                            <h4>
+                            <h5>
                               <a
                                 className={classes.navigationText}
                                 href="#relevant_posts"
                               >
                                 Relevant posts
                               </a>
-                            </h4>
+                            </h5>
                           </li>
                         </ul>
                       </li>
