@@ -29,6 +29,9 @@ const useStyles = makeStyles((theme) => ({
   subtopic: {
     marginTop: "50px",
   },
+  subsubtopic: {
+    marginTop: "30px",
+  },
   paragraph: {
     marginTop: "20px",
   },
@@ -787,8 +790,170 @@ export default function Guide() {
                       <Typography className={classes.paragraph} variant="body1">
                         This section will demonstrate the several common
                         candlestick patterns that are used in technical
-                        analysis. Unless you want to be a day trader, you
-                        don&apos;t have to read this section.
+                        analysis.
+                      </Typography>
+
+                      <Typography className={classes.subsubtopic} variant="h3">
+                        Long vs short body
+                      </Typography>
+
+                      <Typography className={classes.paragraph} variant="body1">
+                        Generally speaking, the longer the body is, the more
+                        intense the buying or selling pressure. Conversely,
+                        short candlesticks indicate little price movement.
+                      </Typography>
+
+                      <img alt="long vs short body" src="" />
+
+                      <Typography className={classes.paragraph} variant="body1">
+                        Long green candlesticks show strong buying pressure. The
+                        longer the green candlestick is, the further the close
+                        is above the open. This indicates that prices advanced
+                        significantly from open to close and buyers were
+                        aggressive.
+                      </Typography>
+
+                      <Typography className={classes.paragraph} variant="body1">
+                        Long red candlesticks show strong selling pressure. The
+                        longer the red candlestick is, the further the close is
+                        below the open. This indicates that prices declined
+                        significantly from the open and sellers were aggressive.
+                      </Typography>
+
+                      <Typography className={classes.subsubtopic} variant="h3">
+                        Long vs short shadow
+                      </Typography>
+
+                      <img alt="long vs short shadow" src="" />
+
+                      <Typography className={classes.paragraph} variant="body1">
+                        Candlesticks with short shadows indicate that most of
+                        the trading action was confined near the open and close.
+                        Candlesticks with long shadows show that prices extended
+                        well past the open and close.
+                      </Typography>
+
+                      <Typography className={classes.subsubtopic} variant="h3">
+                        Upper vs lower shadow
+                      </Typography>
+
+                      <img alt="upper vs lower shadow" src="" />
+
+                      <Typography className={classes.paragraph} variant="body1">
+                        Candlesticks with a long upper shadow and short lower
+                        shadow indicate that buyers dominated during the
+                        session, bidding prices higher, but sellers ultimately
+                        forced prices down from their highs. This contrast of
+                        strong high and weak close resulted in a long upper
+                        shadow. Conversely, candlesticks with long lower shadows
+                        and short upper shadows indicate that sellers dominated
+                        during the session and drove prices lower. However,
+                        buyers later resurfaced to bid prices higher by the end
+                        of the session; the strong close created a long lower
+                        shadow.
+                      </Typography>
+
+                      <Typography className={classes.subsubtopic} variant="h3">
+                        Doji
+                      </Typography>
+
+                      <Typography className={classes.paragraph} variant="body1">
+                        Doji form when a security&apos;s open and close are
+                        virtually equal. The length of the upper and lower
+                        shadows can vary, with the resulting candlestick looking
+                        like a cross, inverted cross or plus sign.
+                      </Typography>
+
+                      <img alt="doji" src="" />
+
+                      <Typography className={classes.paragraph} variant="body1">
+                        Ideally, but not necessarily, the open and close should
+                        be equal. While a doji with an equal open and close
+                        would be considered more robust, it is more important to
+                        capture the essence of the candlestick. Doji convey a
+                        sense of indecision or tug-of-war between buyers and
+                        sellers. Prices move above and below the opening level
+                        during the session, but close at or near the opening
+                        level. The result is a standoff. Neither bulls nor bears
+                        were able to gain control and a turning point could be
+                        developing. In addition, Long-legged doji reflect a
+                        great amount of indecision in the market.
+                      </Typography>
+
+                      <Typography className={classes.subsubtopic} variant="h3">
+                        Dragonfly vs gravestone doji
+                      </Typography>
+
+                      <Typography className={classes.paragraph} variant="body1">
+                        On the one hand, dragonfly doji form when the open, high
+                        and close are equal and the low creates a long lower
+                        shadow. The resulting candlestick looks like a “T” due
+                        to the lack of an upper shadow. Dragonfly doji indicate
+                        that sellers dominated trading and drove prices lower
+                        during the session. By the end of the session, buyers
+                        resurfaced and pushed prices back to the opening level
+                        and the session high.
+                      </Typography>
+
+                      <img alt="dragonfly vs gravestone doji" src="" />
+
+                      <Typography className={classes.paragraph} variant="body1">
+                        On the other hand, gravestone doji form when the open,
+                        low and close are equal and the high creates a long
+                        upper shadow. The resulting candlestick looks like an
+                        upside down “T” due to the lack of a lower shadow.
+                        Gravestone doji indicate that buyers dominated trading
+                        and drove prices higher during the session. However, by
+                        the end of the session, sellers resurfaced and pushed
+                        prices back to the opening level and the session low.
+                      </Typography>
+
+                      <Typography className={classes.subsubtopic} variant="h3">
+                        Bearish engulfing
+                      </Typography>
+
+                      <img alt="bearish engulfing" src="" />
+
+                      <Typography className={classes.paragraph} variant="body1">
+                        To engulf means to swallow, notice how the red
+                        candlestick covers the entirety of the previous green
+                        candlestick. A bearish engulfing pattern develops in an
+                        uptrend when sellers outnumber buyers. This action is
+                        reflected by a long red real body engulfing a small
+                        green real body. The pattern indicates that sellers are
+                        back in control and that the price could continue to
+                        decline.
+                      </Typography>
+
+                      <Typography className={classes.subsubtopic} variant="h3">
+                        Bullish engulfing
+                      </Typography>
+
+                      <img alt="bullish engulfing" src="" />
+
+                      <Typography className={classes.paragraph} variant="body1">
+                        To engulf means to swallow, notice how the green
+                        candlestick covers the entirety of the previous red
+                        candlestick. An engulfing pattern on the bullish side of
+                        the market takes place when buyers outpace sellers. This
+                        is reflected in the chart by a long green real body
+                        engulfing a small red real body. With bulls having
+                        established some control, the price could head higher.
+                      </Typography>
+
+                      <Typography className={classes.subsubtopic} variant="h3">
+                        Conclusion
+                      </Typography>
+
+                      <Typography className={classes.paragraph} variant="body1">
+                        There are many more candlestick patterns that won&apos;t
+                        be discussed further in this section. However, do keep
+                        in mind that a single candlestick pattern by itself is
+                        often not very helpful, as it is not enough in
+                        understanding the situation or the general trend of the
+                        stock market. Traders usually study the combinations of
+                        more complex candlestick patterns to understand the
+                        overall picture and predict the market.
                       </Typography>
                     </section>
                   </section>
