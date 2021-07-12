@@ -1,8 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { userSelector } from "../redux/slices/user";
-import { makeStyles } from "@material-ui/core/styles";
-import { useTheme } from "@material-ui/core/styles";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
@@ -93,7 +92,7 @@ export default function Guide() {
                       here is inspired, referenced, and taken from many other
                       websites in an attempt to put together a short compilation
                       of essential information for beginners. Any suggestions
-                      are very much welcome. Happy Reading!
+                      are very much welcome. Happy reading!
                     </Typography>
 
                     <Typography className={classes.paragraph} variant="body1">
