@@ -14,6 +14,8 @@ const theme = createMuiTheme({
       dark: "#a52c55",
       contrastText: "#ffffff",
     },
+    rising: "#04f77e",
+    falling: "#ff3911",
   },
   typography: {
     fontFamily: ["Nunito Sans", "sans-serif"].join(","),

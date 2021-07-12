@@ -11,14 +11,15 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Fade from "@material-ui/core/Fade";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
+import { getDailyStockChart, getIntradayStockChart } from "./APIConnector";
 import StockChart from "./StockChart";
 import CompanyOverview from "./CompanyOverview";
 import PaperTrading from "./PaperTrading";
 import Watchlist from "./Watchlist";
 import Copyright from "./Copyright";
 
-const INTRADAY = "INTRADAY";
 const DAILY = "DAILY";
+const INTRADAY = "INTRADAY";
 const CANDLESTICK = "CANDLESTICK";
 const SPLINE_AREA = "SPLINE AREA";
 
@@ -27,6 +28,12 @@ const APPLE = "AAPL";
 const TESLA = "TSLA";
 
 export default function Trade({ classes }) {
+  const [company, setCompany] = React.useState(AMAZON);
+  const handleCompany = (company) => {
+    setCompany(company);
+    // console.log(company); // to be removed
+  };
+
   const [anchorStock, setAnchorStock] = React.useState(null);
   const openStock = Boolean(anchorStock);
   const [stockType, setStockType] = React.useState(DAILY);
@@ -36,8 +43,19 @@ export default function Trade({ classes }) {
   const handleStockClose = (stockType) => {
     setAnchorStock(null);
     setStockType(stockType);
-    console.log(stockType); // to be removed
+    // console.log(stockType); // to be removed
   };
+
+  const [stockData, setStockData] = useState([]);
+  useEffect(() => {
+    const fetchStockData = async () => {
+      const result = await getDailyStockChart(company);
+      setStockData(
+        formatDailyStockData(result.data["Time Series (Daily)"]).slice(0, 280)
+      );
+    };
+    fetchStockData();
+  }, [company]);
 
   const [anchorChart, setAnchorChart] = React.useState(null);
   const openChart = Boolean(anchorChart);
@@ -48,13 +66,7 @@ export default function Trade({ classes }) {
   const handleChartClose = (chartType) => {
     setAnchorChart(null);
     setChartType(chartType);
-    console.log(chartType); // to be removed
-  };
-
-  const [company, setCompany] = React.useState(AMAZON);
-  const handleCompany = (company) => {
-    setCompany(company);
-    console.log(company); // to be removed
+    // console.log(chartType); // to be removed
   };
 
   return (
@@ -110,18 +122,18 @@ export default function Trade({ classes }) {
                     TransitionComponent={Fade}
                   >
                     <MenuItem onClick={() => handleChartClose(CANDLESTICK)}>
-                      CANDLESTICK
+                      <Typography variant="body2">CANDLESTICK</Typography>
                     </MenuItem>
                     <MenuItem onClick={() => handleChartClose(SPLINE_AREA)}>
-                      SPLINE AREA
+                      <Typography variant="body2">SPLINE AREA</Typography>
                     </MenuItem>
                   </Menu>
                 </div>
                 <div className="chart-content">
                   <StockChart
                     stockType={stockType}
+                    stockData={stockData}
                     chartType={chartType}
-                    company={company}
                   />
                 </div>
               </CardContent>
@@ -130,7 +142,7 @@ export default function Trade({ classes }) {
           <Grid item xs={4}>
             <Card>
               <CardContent>
-                <CompanyOverview company={company} />
+                <CompanyOverview company={company} stockData={stockData} />
               </CardContent>
             </Card>
           </Grid>
@@ -164,4 +176,35 @@ export default function Trade({ classes }) {
       </Container>
     </main>
   );
+}
+
+function formatDailyStockData(stockData) {
+  // console.log(stockData);
+  return Object.entries(stockData).map((entries) => {
+    const [date, priceData] = entries;
+    return {
+      date,
+      open: Number(priceData["1. open"]),
+      high: Number(priceData["2. high"]),
+      low: Number(priceData["3. low"]),
+      close: Number(priceData["4. close"]),
+      volume: Number(priceData["5. volume"]),
+    };
+  });
+}
+
+// WORK IN PROGRESS
+function formatIntradayStockData(stockData) {
+  return Object.entries(stockData).map((entries) => {
+    const [dateAndTime, priceData] = entries;
+    return {
+      dateAndTime,
+      date: dateAndTime.split(" ")[0],
+      time: dateAndTime.split(" ")[1],
+      open: Number(priceData["1. open"]),
+      high: Number(priceData["2. high"]),
+      low: Number(priceData["3. low"]),
+      close: Number(priceData["4. close"]),
+    };
+  });
 }
