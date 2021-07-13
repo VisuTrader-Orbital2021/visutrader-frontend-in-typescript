@@ -14,6 +14,8 @@ const theme = createMuiTheme({
       dark: "#a52c55",
       contrastText: "#ffffff",
     },
+    rising: "#04f77e",
+    falling: "#ff3911",
   },
   typography: {
     fontFamily: ["Nunito Sans", "sans-serif"].join(","),
@@ -27,13 +29,17 @@ const theme = createMuiTheme({
     },
     h3: {
       fontSize: "20px",
-      fontWeight: "400",
+      fontWeight: "700",
     },
     body1: {
-      fontSize: "16px",
+      fontSize: "20px",
       fontWeight: "400",
     },
     body2: {
+      fontSize: "16px",
+      fontWeight: "400",
+    },
+    body3: {
       fontSize: "12px",
       fontWeight: "400",
     },

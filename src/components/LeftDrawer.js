@@ -1,9 +1,14 @@
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
+import { useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import IconButton from "@material-ui/core/IconButton";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import Divider from "@material-ui/core/Divider";
+import Typography from "@material-ui/core/Typography";
+import Tooltip from "@material-ui/core/Tooltip";
+import Zoom from "@material-ui/core/Zoom";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -12,36 +17,47 @@ import MenuBookIcon from "@material-ui/icons/MenuBook";
 import EqualizerIcon from "@material-ui/icons/Equalizer";
 import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
 import SettingsIcon from "@material-ui/icons/Settings";
-import "../styles/LeftDrawer.css";
 
-// TODO: Remove styling with CSS
-function forumRouterStyle(location) {
-  return {
-    color: location === "forum" ? "#536dfe" : "#757575",
-  };
-}
+const DRAWER_WIDTH = 58;
 
-function guideRouterStyle(location) {
-  return {
-    color: location === "guide" ? "#536dfe" : "#757575",
-  };
-}
+const useStyles = makeStyles((theme) => ({
+  leftDrawer: {
+    display: "flex",
+    flexDirection: "row",
+  },
+  drawerIcons: {
+    display: "flex",
+    flexDirection: "column",
+  },
+  listIcons: {
+    "&:hover": {
+      color: theme.palette.secondary.light,
+      transition: "color 1s",
+    },
+  },
+  toolbarIcon: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    padding: "0 8px",
+    ...theme.mixins.toolbar,
+  },
+  drawerPaper: {
+    position: "relative",
+    width: DRAWER_WIDTH,
+    transition: theme.transitions.create("width", {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
+  },
+}));
 
-function tradeRouterStyle(location) {
+function routerStyle(location, icon) {
   return {
-    color: location === "trade" ? "#536dfe" : "#757575",
-  };
-}
-
-function walletRouterStyle(location) {
-  return {
-    color: location === "wallet" ? "#536dfe" : "#757575",
-  };
-}
-
-function settingsRouterStyle(location) {
-  return {
-    color: location === "settings" ? "#536dfe" : "#757575",
+    color: location === icon ? "#536dfe" : "#757575",
   };
 }
 
@@ -50,45 +66,60 @@ function MainListIcons(props) {
     <div>
       <ListItem>
         <ListItemIcon>
-          <RouterLink to="/forum" style={forumRouterStyle(props.location)}>
-            <ForumIcon
-              className="forum-icon"
-              onMouseEnter={props.openForumTag}
-              onMouseLeave={props.closeForumTag}
-            />
+          <RouterLink to="/forum" style={routerStyle(props.location, "forum")}>
+            <Tooltip
+              title={<Typography variant="body2">Forum</Typography>}
+              placement="right"
+              TransitionComponent={Zoom}
+              arrow
+            >
+              <ForumIcon className={props.classes.listIcons} />
+            </Tooltip>
           </RouterLink>
         </ListItemIcon>
       </ListItem>
       <ListItem>
         <ListItemIcon>
-          <RouterLink to="/guide" style={guideRouterStyle(props.location)}>
-            <MenuBookIcon
-              className="guide-icon"
-              onMouseEnter={props.openGuideTag}
-              onMouseLeave={props.closeGuideTag}
-            />
+          <RouterLink to="/guide" style={routerStyle(props.location, "guide")}>
+            <Tooltip
+              title={<Typography variant="body2">Guide</Typography>}
+              placement="right"
+              TransitionComponent={Zoom}
+              arrow
+            >
+              <MenuBookIcon className={props.classes.listIcons} />
+            </Tooltip>
           </RouterLink>
         </ListItemIcon>
       </ListItem>
       <ListItem>
         <ListItemIcon>
-          <RouterLink to="/trade" style={tradeRouterStyle(props.location)}>
-            <EqualizerIcon
-              className="trade-icon"
-              onMouseEnter={props.openTradeTag}
-              onMouseLeave={props.closeTradeTag}
-            />
+          <RouterLink to="/trade" style={routerStyle(props.location, "trade")}>
+            <Tooltip
+              title={<Typography variant="body2">Trade</Typography>}
+              placement="right"
+              TransitionComponent={Zoom}
+              arrow
+            >
+              <EqualizerIcon className={props.classes.listIcons} />
+            </Tooltip>
           </RouterLink>
         </ListItemIcon>
       </ListItem>
       <ListItem>
         <ListItemIcon>
-          <RouterLink to="/wallet" style={walletRouterStyle(props.location)}>
-            <AccountBalanceWalletIcon
-              className="wallet-icon"
-              onMouseEnter={props.openWalletTag}
-              onMouseLeave={props.closeWalletTag}
-            />
+          <RouterLink
+            to="/wallet"
+            style={routerStyle(props.location, "wallet")}
+          >
+            <Tooltip
+              title={<Typography variant="body2">Wallet</Typography>}
+              placement="right"
+              TransitionComponent={Zoom}
+              arrow
+            >
+              <AccountBalanceWalletIcon className={props.classes.listIcons} />
+            </Tooltip>
           </RouterLink>
         </ListItemIcon>
       </ListItem>
@@ -103,13 +134,16 @@ function SecondaryListIcons(props) {
         <ListItemIcon>
           <RouterLink
             to="/settings"
-            style={settingsRouterStyle(props.location)}
+            style={routerStyle(props.location, "settings")}
           >
-            <SettingsIcon
-              className="settings-icon"
-              onMouseEnter={props.openSettingsTag}
-              onMouseLeave={props.closeSettingsTag}
-            />
+            <Tooltip
+              title={<Typography variant="body2">Settings</Typography>}
+              placement="right"
+              TransitionCoponent={Zoom}
+              arrow
+            >
+              <SettingsIcon className={props.classes.listIcons} />
+            </Tooltip>
           </RouterLink>
         </ListItemIcon>
       </ListItem>
@@ -120,53 +154,14 @@ function SecondaryListIcons(props) {
 export default function LeftDrawer({
   renderDrawer,
   location,
-  classes,
-  open,
   handleDrawerClose,
 }) {
-  const [forumTag, setForumTag] = React.useState(false);
-  const openForumTag = () => {
-    setForumTag(true);
-  };
-  const closeForumTag = () => {
-    setForumTag(false);
-  };
-
-  const [guideTag, setGuideTag] = React.useState(false);
-  const openGuideTag = () => {
-    setGuideTag(true);
-  };
-  const closeGuideTag = () => {
-    setGuideTag(false);
-  };
-
-  const [tradeTag, setTradeTag] = React.useState(false);
-  const openTradeTag = () => {
-    setTradeTag(true);
-  };
-  const closeTradeTag = () => {
-    setTradeTag(false);
-  };
-
-  const [walletTag, setWalletTag] = React.useState(false);
-  const openWalletTag = () => {
-    setWalletTag(true);
-  };
-  const closeWalletTag = () => {
-    setWalletTag(false);
-  };
-
-  const [settingsTag, setSettingsTag] = React.useState(false);
-  const openSettingsTag = () => {
-    setSettingsTag(true);
-  };
-  const closeSettingsTag = () => {
-    setSettingsTag(false);
-  };
+  const theme = useTheme();
+  const classes = useStyles(theme);
 
   if (renderDrawer) {
     return (
-      <div className="left-drawer">
+      <div className={classes.leftDrawer}>
         <Drawer
           variant="permanent"
           classes={{
@@ -180,82 +175,17 @@ export default function LeftDrawer({
             </IconButton>
           </div>
           <Divider />
-          <div classsName="drawer-list-icons">
+          <div classsName={classes.drawerIcons}>
             <List className="main-list-icons" autowidth={false}>
-              <MainListIcons
-                location={location}
-                openForumTag={openForumTag}
-                closeForumTag={closeForumTag}
-                openGuideTag={openGuideTag}
-                closeGuideTag={closeGuideTag}
-                openTradeTag={openTradeTag}
-                closeTradeTag={closeTradeTag}
-                openWalletTag={openWalletTag}
-                closeWalletTag={closeWalletTag}
-              />
+              <MainListIcons classes={classes} location={location} />
             </List>
             <List className="secondary-list-icons" autowidth={false}>
-              <SecondaryListIcons
-                location={location}
-                openSettingsTag={openSettingsTag}
-                closeSettingsTag={closeSettingsTag}
-              />
+              <SecondaryListIcons classes={classes} location={location} />
             </List>
           </div>
         </Drawer>
-        <div className="drawer-list-tags">
-          <div className="main-list-tags">
-            <RenderForumTag forumTag={forumTag} />
-            <RenderGuideTag guideTag={guideTag} />
-            <RenderTradeTag tradeTag={tradeTag} />
-            <RenderWalletTag walletTag={walletTag} />
-          </div>
-          <div className="secondary-list-tags">
-            <RenderSettingsTag settingsTag={settingsTag} />
-          </div>
-        </div>
       </div>
     );
   }
   return null;
-}
-
-function RenderForumTag({ forumTag }) {
-  if (forumTag) {
-    return <span className="forum-tag">Forum</span>;
-  } else {
-    return null;
-  }
-}
-
-function RenderGuideTag({ guideTag }) {
-  if (guideTag) {
-    return <span className="guide-tag">Guide</span>;
-  } else {
-    return null;
-  }
-}
-
-function RenderTradeTag({ tradeTag }) {
-  if (tradeTag) {
-    return <span className="trade-tag">Trade</span>;
-  } else {
-    return null;
-  }
-}
-
-function RenderWalletTag({ walletTag }) {
-  if (walletTag) {
-    return <span className="wallet-tag">Wallet</span>;
-  } else {
-    return null;
-  }
-}
-
-function RenderSettingsTag({ settingsTag }) {
-  if (settingsTag) {
-    return <span className="settings-tag">Settings</span>;
-  } else {
-    return null;
-  }
 }

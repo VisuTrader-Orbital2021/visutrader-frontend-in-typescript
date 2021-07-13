@@ -11,13 +11,15 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Fade from "@material-ui/core/Fade";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
+import { getDailyStockChart, getIntradayStockChart } from "./APIConnector";
 import StockChart from "./StockChart";
 import CompanyOverview from "./CompanyOverview";
 import PaperTrading from "./PaperTrading";
 import Watchlist from "./Watchlist";
 import Copyright from "./Copyright";
-import "../styles/Trade.css";
 
+const DAILY = "DAILY";
+const INTRADAY = "INTRADAY";
 const CANDLESTICK = "CANDLESTICK";
 const SPLINE_AREA = "SPLINE AREA";
 
@@ -25,23 +27,46 @@ const AMAZON = "AMZN";
 const APPLE = "AAPL";
 const TESLA = "TSLA";
 
-// TODO: Remove styling with CSS
-export default function Trade({ classes, fixedHeightPaper }) {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [chartType, setChartType] = React.useState("CANDLESTICK");
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = (chartType) => {
-    setAnchorEl(null);
-    setChartType(chartType);
-    console.log(chartType); // to be removed
-  };
+export default function Trade({ classes }) {
   const [company, setCompany] = React.useState(AMAZON);
   const handleCompany = (company) => {
     setCompany(company);
-    console.log(company); // to be removed
+    // console.log(company); // to be removed
+  };
+
+  const [anchorStock, setAnchorStock] = React.useState(null);
+  const openStock = Boolean(anchorStock);
+  const [stockType, setStockType] = React.useState(DAILY);
+  const handleStockClick = (event) => {
+    setAnchorStock(event.currentTarget);
+  };
+  const handleStockClose = (stockType) => {
+    setAnchorStock(null);
+    setStockType(stockType);
+    // console.log(stockType); // to be removed
+  };
+
+  const [stockData, setStockData] = useState([]);
+  useEffect(() => {
+    const fetchStockData = async () => {
+      const result = await getDailyStockChart(company);
+      setStockData(
+        formatDailyStockData(result.data["Time Series (Daily)"]).slice(0, 280)
+      );
+    };
+    fetchStockData();
+  }, [company]);
+
+  const [anchorChart, setAnchorChart] = React.useState(null);
+  const openChart = Boolean(anchorChart);
+  const [chartType, setChartType] = React.useState(CANDLESTICK);
+  const handleChartClick = (event) => {
+    setAnchorChart(event.currentTarget);
+  };
+  const handleChartClose = (chartType) => {
+    setAnchorChart(null);
+    setChartType(chartType);
+    // console.log(chartType); // to be removed
   };
 
   return (
@@ -52,35 +77,64 @@ export default function Trade({ classes, fixedHeightPaper }) {
           <Grid item xs={12}>
             <Card>
               <CardContent>
-                <div className="chart-header">
+                <div className={classes.chartHeader}>
                   <Typography variant="h2" color="primary">
                     STOCK CHART
                   </Typography>
+
+                  {/* WORK IN PROGRESS */}
+                  {/* <Button
+                    aria-controls="fade-menu"
+                    aria-haspopup="true"
+                    onClick={handleStockClick}
+                  >
+                    {stockType}
+                  </Button>
+                  <Menu
+                    id="fade-menu"
+                    anchorEl={anchorStock}
+                    keepMounted
+                    open={openStock}
+                    onClose={() => handleStockClose(stockType)}
+                    TransitionComponent={Fade}
+                  >
+                    <MenuItem onClick={() => handleStockClose(INTRADAY)}>
+                      INTRADAY
+                    </MenuItem>
+                    <MenuItem onClick={() => handleStockClose(DAILY)}>
+                      DAILY
+                    </MenuItem>
+                  </Menu> */}
+
                   <Button
                     aria-controls="fade-menu"
                     aria-haspopup="true"
-                    onClick={handleClick}
+                    onClick={handleChartClick}
                   >
                     {chartType}
                   </Button>
                   <Menu
                     id="fade-menu"
-                    anchorEl={anchorEl}
+                    anchorEl={anchorChart}
                     keepMounted
-                    open={open}
-                    onClose={() => handleClose(chartType)}
+                    open={openChart}
+                    onClose={() => handleChartClose(chartType)}
                     TransitionComponent={Fade}
                   >
-                    <MenuItem onClick={() => handleClose(CANDLESTICK)}>
-                      CANDLESTICK
+                    <MenuItem onClick={() => handleChartClose(CANDLESTICK)}>
+                      <Typography variant="body2">CANDLESTICK</Typography>
                     </MenuItem>
-                    <MenuItem onClick={() => handleClose(SPLINE_AREA)}>
-                      SPLINE AREA
+                    <MenuItem onClick={() => handleChartClose(SPLINE_AREA)}>
+                      <Typography variant="body2">SPLINE AREA</Typography>
                     </MenuItem>
                   </Menu>
                 </div>
                 <div className="chart-content">
-                  <StockChart chartType={chartType} company={company} />
+                  <StockChart
+                    stockType={stockType}
+                    stockData={stockData}
+                    chartType={chartType}
+                  />
                 </div>
               </CardContent>
             </Card>
@@ -88,7 +142,7 @@ export default function Trade({ classes, fixedHeightPaper }) {
           <Grid item xs={4}>
             <Card>
               <CardContent>
-                <CompanyOverview company={company} />
+                <CompanyOverview company={company} stockData={stockData} />
               </CardContent>
             </Card>
           </Grid>
@@ -122,4 +176,35 @@ export default function Trade({ classes, fixedHeightPaper }) {
       </Container>
     </main>
   );
+}
+
+function formatDailyStockData(stockData) {
+  // console.log(stockData);
+  return Object.entries(stockData).map((entries) => {
+    const [date, priceData] = entries;
+    return {
+      date,
+      open: Number(priceData["1. open"]),
+      high: Number(priceData["2. high"]),
+      low: Number(priceData["3. low"]),
+      close: Number(priceData["4. close"]),
+      volume: Number(priceData["5. volume"]),
+    };
+  });
+}
+
+// WORK IN PROGRESS
+function formatIntradayStockData(stockData) {
+  return Object.entries(stockData).map((entries) => {
+    const [dateAndTime, priceData] = entries;
+    return {
+      dateAndTime,
+      date: dateAndTime.split(" ")[0],
+      time: dateAndTime.split(" ")[1],
+      open: Number(priceData["1. open"]),
+      high: Number(priceData["2. high"]),
+      low: Number(priceData["3. low"]),
+      close: Number(priceData["4. close"]),
+    };
+  });
 }

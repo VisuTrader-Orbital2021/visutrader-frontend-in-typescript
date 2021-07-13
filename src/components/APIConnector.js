@@ -16,6 +16,18 @@ const axiosInstance = axios.create({
   adapter: cache.adapter,
 });
 
+export const getIntradayStockChart = (symbol) => {
+  return axiosInstance.get("", {
+    params: {
+      function: "TIME_SERIES_INTRADAY",
+      symbol,
+      interval: "30min", // to be adjusted
+      outputsize: "full",
+      apikey: process.env.REACT_APP_ALPHA_VANTAGE_API_KEY,
+    },
+  });
+};
+
 export const getDailyStockChart = (symbol) => {
   return axiosInstance.get("", {
     params: {

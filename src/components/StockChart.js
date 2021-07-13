@@ -1,32 +1,29 @@
-import React, { useState, useEffect } from "react";
-import { getDailyStockChart } from "./APIConnector";
+import React from "react";
 import CanvasJSReact from "../assets/canvasjs.stock.react";
 let CanvasJSStockChart = CanvasJSReact.CanvasJSStockChart;
 
+const DAILY = "DAILY";
+const INTRADAY = "INTRADAY";
 const CANDLESTICK = "CANDLESTICK";
 const SPLINE_AREA = "SPLINE AREA";
 
-export default function StockChart({ chartType, company }) {
-  if (chartType === CANDLESTICK) {
-    return <CandlestickChart company={company} />;
-  } else if (chartType === SPLINE_AREA) {
-    return <SplineAreaChart company={company} />;
+export default function StockChart({ stockType, stockData, chartType }) {
+  if (stockType === DAILY) {
+    return chartType === CANDLESTICK ? (
+      <DailyCandlestickChart stockData={stockData} />
+    ) : (
+      <DailySplineAreaChart stockData={stockData} />
+    );
+  } else {
+    return chartType === CANDLESTICK ? (
+      <IntradayCandlestickChart stockData={stockData} />
+    ) : (
+      <IntradaySplineAreaChart stockData={stockData} />
+    );
   }
 }
 
-const CandlestickChart = ({ company }) => {
-  const [stockData, setStockData] = useState([]);
-
-  useEffect(() => {
-    const fetchStockData = async () => {
-      const result = await getDailyStockChart(company);
-      setStockData(
-        formatStockData(result.data["Time Series (Daily)"]).slice(0, 250)
-      );
-    };
-    fetchStockData();
-  }, [company]);
-
+const DailyCandlestickChart = ({ stockData }) => {
   return (
     <CanvasJSStockChart
       options={{
@@ -115,19 +112,7 @@ const CandlestickChart = ({ company }) => {
   );
 };
 
-const SplineAreaChart = ({ company }) => {
-  const [stockData, setStockData] = useState([]);
-
-  useEffect(() => {
-    const fetchStockData = async () => {
-      const result = await getDailyStockChart(company);
-      setStockData(
-        formatStockData(result.data["Time Series (Daily)"]).slice(0, 250)
-      );
-    };
-    fetchStockData();
-  }, [company]);
-
+const DailySplineAreaChart = ({ stockData }) => {
   return (
     <CanvasJSStockChart
       options={{
@@ -172,16 +157,14 @@ const SplineAreaChart = ({ company }) => {
   );
 };
 
-function formatStockData(stockData) {
-  return Object.entries(stockData).map((entries) => {
-    const [date, priceData] = entries;
+// WORK IN PROGRESS
+// Note: CanvasJS doesn't support intraday chart. Consider using react-stockcharts instead.
+const IntradayCandlestickChart = ({ stockData }) => {
+  return null;
+};
 
-    return {
-      date,
-      open: Number(priceData["1. open"]),
-      high: Number(priceData["2. high"]),
-      low: Number(priceData["3. low"]),
-      close: Number(priceData["4. close"]),
-    };
-  });
-}
+// WORK IN PROGRESS
+// Note: CanvasJS doesn't support intraday chart. Consider using react-stockcharts instead.
+const IntradaySplineAreaChart = ({ stockData }) => {
+  return null;
+};
