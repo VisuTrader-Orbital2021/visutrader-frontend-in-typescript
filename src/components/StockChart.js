@@ -161,7 +161,7 @@ const DailySplineAreaChart = ({ stockData }) => {
 // Note: CanvasJS doesn't support intraday chart. Consider using react-stockcharts instead.
 const IntradayCandlestickChart = ({ stockData }) => {
   return null;
-}
+};
 
 // WORK IN PROGRESS
 // Note: CanvasJS doesn't support intraday chart. Consider using react-stockcharts instead.

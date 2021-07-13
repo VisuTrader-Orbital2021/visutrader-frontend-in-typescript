@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
   },
   companySymbol: {
-    height: "36px",
+    height: "40px",
     color: theme.palette.primary.main,
   },
   companyName: {
@@ -118,22 +118,22 @@ export default function CompanyOverview({ company, stockData }) {
   return (
     <div>
       <div className={classes.companyGeneral}>
-      <Typography className={classes.companySymbol} variant="h2">
-        {companyData["Symbol"]}
-      </Typography>
-      <Typography className={classes.companyName} variant="h3">
-        {companyData["Name"]}
-      </Typography>
-      <Typography className={classes.companyIndustry} variant="body2">
-        {companyData["Industry"]}
-      </Typography>
+        <Typography className={classes.companySymbol} variant="h2">
+          {companyData["Symbol"]}
+        </Typography>
+        <Typography className={classes.companyName} variant="h3">
+          {companyData["Name"]}
+        </Typography>
+        <Typography className={classes.companyIndustry} variant="body2">
+          {companyData["Industry"]}
+        </Typography>
       </div>
       <div className={classes.companyStock}>
-        <Typography className={classes.stockPrice} variant="h1">
+        {/* <Typography className={classes.stockPrice} variant="h1">
           ${stockData[0].close}
-        </Typography>
-        <Typography className={classes.whiteSpace}>{" "}</Typography>
-        <Typography className={classes.stockCurrency} variant ="h3">
+        </Typography> */}
+        <Typography className={classes.whiteSpace}> </Typography>
+        <Typography className={classes.stockCurrency} variant="h3">
           {companyData["Currency"]}
         </Typography>
       </div>
@@ -142,49 +142,39 @@ export default function CompanyOverview({ company, stockData }) {
           KEY STATISTICS
         </Typography>
         <div className={classes.companyStatsItem}>
-          <Typography variant="body2">
-            Volume
-          </Typography>
-          <Typography variant="body2">
+          <Typography variant="body2">Volume</Typography>
+          {/* <Typography variant="body2">
             <strong>{formatAmount(Number(stockData[0].volume))}</strong>
+          </Typography> */}
+        </div>
+        <div className={classes.companyStatsItem}>
+          <Typography variant="body2">Market Capitalization</Typography>
+          <Typography variant="body2">
+            <strong>
+              ${formatAmount(Number(companyData["MarketCapitalization"]))}
+            </strong>
           </Typography>
         </div>
         <div className={classes.companyStatsItem}>
-          <Typography variant="body2">
-            Market Capitalization
-          </Typography>
-          <Typography variant="body2">
-            <strong>${formatAmount(Number(companyData["MarketCapitalization"]))}</strong>
-          </Typography>
-        </div>
-        <div className={classes.companyStatsItem}>
-          <Typography variant="body2">
-            EPS
-          </Typography>
+          <Typography variant="body2">EPS</Typography>
           <Typography variant="body2">
             <strong>{formatAmount(Number(companyData["EPS"]))}</strong>
           </Typography>
         </div>
         <div className={classes.companyStatsItem}>
-          <Typography variant="body2">
-            P/E Ratio
-          </Typography>
+          <Typography variant="body2">P/E Ratio</Typography>
           <Typography variant="body2">
             <strong>{formatAmount(Number(companyData["PERatio"]))}</strong>
           </Typography>
         </div>
         <div className={classes.companyStatsItem}>
-          <Typography variant="body2">
-            PEG Ratio
-          </Typography>
+          <Typography variant="body2">PEG Ratio</Typography>
           <Typography variant="body2">
             <strong>{formatAmount(Number(companyData["PEGRatio"]))}</strong>
           </Typography>
         </div>
         <div className={classes.companyStatsItem}>
-          <Typography variant="body2">
-            Shares Float
-          </Typography>
+          <Typography variant="body2">Shares Float</Typography>
           <Typography variant="body2">
             <strong>{formatAmount(Number(companyData["SharesFloat"]))}</strong>
           </Typography>
@@ -194,16 +184,34 @@ export default function CompanyOverview({ company, stockData }) {
         <Typography className={classes.performance} variant="h3">
           PERFORMANCE
         </Typography>
-        <div className={classes.performanceRow}>
-          <PerformanceBox percentage={calculatePercentage(stockData, "1D")} range="1D" />
-          <PerformanceBox percentage={calculatePercentage(stockData, "1W")} range="1W" />
-          <PerformanceBox percentage={calculatePercentage(stockData, "1M")} range="1M" />
+        {/* <div className={classes.performanceRow}>
+          <PerformanceBox
+            percentage={calculatePercentage(stockData, "1D")}
+            range="1D"
+          />
+          <PerformanceBox
+            percentage={calculatePercentage(stockData, "1W")}
+            range="1W"
+          />
+          <PerformanceBox
+            percentage={calculatePercentage(stockData, "1M")}
+            range="1M"
+          />
         </div>
         <div className={classes.performanceRow}>
-          <PerformanceBox percentage={calculatePercentage(stockData, "3M")} range="3M" />
-          <PerformanceBox percentage={calculatePercentage(stockData, "6M")} range="6M" />
-          <PerformanceBox percentage={calculatePercentage(stockData, "1Y")} range="1Y" />
-        </div>
+          <PerformanceBox
+            percentage={calculatePercentage(stockData, "3M")}
+            range="3M"
+          />
+          <PerformanceBox
+            percentage={calculatePercentage(stockData, "6M")}
+            range="6M"
+          />
+          <PerformanceBox
+            percentage={calculatePercentage(stockData, "1Y")}
+            range="1Y"
+          />
+        </div> */}
       </div>
     </div>
   );
@@ -214,8 +222,12 @@ function PerformanceBox(props) {
 
   return (
     <div className={classes.performanceBox}>
-      <Typography className={classes.performancePercentage} variant="body2"><strong>{props.percentage}</strong>%</Typography>
-      <Typography className={classes.performanceRange} variant="body3">{props.range}</Typography>
+      <Typography className={classes.performancePercentage} variant="body2">
+        <strong>{props.percentage}</strong>%
+      </Typography>
+      <Typography className={classes.performanceRange} variant="body3">
+        {props.range}
+      </Typography>
     </div>
   );
 }
@@ -245,7 +257,7 @@ function formatAmount(amount) {
 }
 
 // Note: Temporary solution
-function calculatePercentage (stockData, range) {
+function calculatePercentage(stockData, range) {
   const currentPrice = stockData[0].close;
   let previousPrice = stockData[0].close;
 
@@ -263,5 +275,5 @@ function calculatePercentage (stockData, range) {
     previousPrice = stockData[261].close;
   }
 
-  return ((currentPrice - previousPrice) / previousPrice * 100).toFixed(2);
+  return (((currentPrice - previousPrice) / previousPrice) * 100).toFixed(2);
 }
