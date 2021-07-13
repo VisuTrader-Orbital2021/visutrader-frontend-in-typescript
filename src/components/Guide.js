@@ -67,7 +67,7 @@ export default function Guide() {
   const classes = useStyles(theme);
   const user = useSelector(userSelector);
 
-  if (!user.authenticated) {
+  if (user.authenticated) {
     return (
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
@@ -802,7 +802,10 @@ export default function Guide() {
                         short candlesticks indicate little price movement.
                       </Typography>
 
-                      <img alt="long vs short body" src="" />
+                      <img
+                        alt="long vs short body"
+                        src="https://github.com/VisuTrader-Orbital2021/visutrader-frontend/blob/assets/images/guide/long_vs_short_body.png"
+                      />
 
                       <Typography className={classes.paragraph} variant="body1">
                         Long green candlesticks show strong buying pressure. The
@@ -823,7 +826,10 @@ export default function Guide() {
                         Long vs short shadow
                       </Typography>
 
-                      <img alt="long vs short shadow" src="" />
+                      <img
+                        alt="long vs short shadow"
+                        src="https://github.com/VisuTrader-Orbital2021/visutrader-frontend/blob/assets/images/guide/long_vs_short_shadow.png"
+                      />
 
                       <Typography className={classes.paragraph} variant="body1">
                         Candlesticks with short shadows indicate that most of
@@ -836,7 +842,10 @@ export default function Guide() {
                         Upper vs lower shadow
                       </Typography>
 
-                      <img alt="upper vs lower shadow" src="" />
+                      <img
+                        alt="upper vs lower shadow"
+                        src="https://github.com/VisuTrader-Orbital2021/visutrader-frontend/blob/assets/images/guide/upper_vs_lower_shadow.png"
+                      />
 
                       <Typography className={classes.paragraph} variant="body1">
                         Candlesticks with a long upper shadow and short lower
@@ -863,7 +872,10 @@ export default function Guide() {
                         like a cross, inverted cross or plus sign.
                       </Typography>
 
-                      <img alt="doji" src="" />
+                      <img
+                        alt="doji"
+                        src="https://github.com/VisuTrader-Orbital2021/visutrader-frontend/blob/assets/images/guide/doji.png"
+                      />
 
                       <Typography className={classes.paragraph} variant="body1">
                         Ideally, but not necessarily, the open and close should
@@ -894,7 +906,10 @@ export default function Guide() {
                         and the session high.
                       </Typography>
 
-                      <img alt="dragonfly vs gravestone doji" src="" />
+                      <img
+                        alt="dragonfly vs gravestone doji"
+                        src="https://github.com/VisuTrader-Orbital2021/visutrader-frontend/blob/assets/images/guide/dragonfly_vs_gravestone_doji.png"
+                      />
 
                       <Typography className={classes.paragraph} variant="body1">
                         On the other hand, gravestone doji form when the open,
@@ -911,7 +926,10 @@ export default function Guide() {
                         Bearish engulfing
                       </Typography>
 
-                      <img alt="bearish engulfing" src="" />
+                      <img
+                        alt="bearish engulfing"
+                        src="https://github.com/VisuTrader-Orbital2021/visutrader-frontend/blob/assets/images/guide/bearish_engulfing.png"
+                      />
 
                       <Typography className={classes.paragraph} variant="body1">
                         To engulf means to swallow, notice how the red
@@ -928,7 +946,10 @@ export default function Guide() {
                         Bullish engulfing
                       </Typography>
 
-                      <img alt="bullish engulfing" src="" />
+                      <img
+                        alt="bullish engulfing"
+                        src="https://github.com/VisuTrader-Orbital2021/visutrader-frontend/blob/assets/images/guide/bullish_engulfing.png"
+                      />
 
                       <Typography className={classes.paragraph} variant="body1">
                         To engulf means to swallow, notice how the green

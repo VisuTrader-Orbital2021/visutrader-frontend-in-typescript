@@ -6,7 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Fade from "@material-ui/core/Fade";
-import TextField from '@material-ui/core/TextField';
+import TextField from "@material-ui/core/TextField";
 import FormControl from "@material-ui/core/FormControl";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -97,36 +97,36 @@ export default function PaperTrading() {
 
       <Typography variant="body3">Order Type</Typography>
       <div className={classes.orderTypeAndQuantity}>
-          <Button
-            aria-controls="fade-menu"
-            aria-haspopup="true"
-            onClick={handleOrderTypeClick}
-          >
-            {orderType}
-          </Button>
-          <Menu
-            id="fade-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={open}
-            onClose={() => handleOrderTypeClose(orderType)}
-            TransitionComponent={Fade}
-          >
-            <MenuItem onClick={() => handleOrderTypeClose(MARKET)}>
-              <Typography variant="body3">MARKET</Typography>
-            </MenuItem>
-            <MenuItem onClick={() => handleOrderTypeClose(LIMIT)}>
-              <Typography variant="body3">LIMIT</Typography>
-            </MenuItem>
-          </Menu>
-          <TextField
-            id="standard-number"
-            label="Quantity"
-            type="number"
-            InputLabelProps={{
-              shrink: true,
-            }}
-          />
+        <Button
+          aria-controls="fade-menu"
+          aria-haspopup="true"
+          onClick={handleOrderTypeClick}
+        >
+          {orderType}
+        </Button>
+        <Menu
+          id="fade-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={open}
+          onClose={() => handleOrderTypeClose(orderType)}
+          TransitionComponent={Fade}
+        >
+          <MenuItem onClick={() => handleOrderTypeClose(MARKET)}>
+            <Typography variant="body3">MARKET</Typography>
+          </MenuItem>
+          <MenuItem onClick={() => handleOrderTypeClose(LIMIT)}>
+            <Typography variant="body3">LIMIT</Typography>
+          </MenuItem>
+        </Menu>
+        <TextField
+          id="standard-number"
+          label="Quantity"
+          type="number"
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
       </div>
     </div>
   );
