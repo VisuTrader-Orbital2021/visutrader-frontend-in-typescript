@@ -4,13 +4,14 @@ import { userSelector } from "../redux/slices/user";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
+import Drawer from "@material-ui/core/Drawer";
 import Box from "@material-ui/core/Box";
+import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
+import ListItem from "@material-ui/core/ListItem";
+import { MathComponent } from "mathjax-react";
 import Copyright from "./Copyright";
 
-// TODO: Fix table of contents
-// TODO: Use Latex for formulas
-// TODO: Fix broken image
 const useStyles = makeStyles((theme) => ({
   appBarSpacer: theme.mixins.toolbar,
   content: {
@@ -35,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "20px",
   },
   tableOfContents: {
-    position: "fixed",
+    marginTop: "80px",
   },
   list: {
     listStyle: "none",
@@ -468,14 +469,19 @@ export default function Guide() {
                           </li>
 
                           <li>
-                            <strong>EPS</strong>
+                            <strong>Earnings Per Share (EPS)</strong>
                             <div>
                               The amount of profit allocated to a share of
-                              common stock. This can be found by taking (Net
-                              Income - Dividends)/(Number of Shares
-                              Outstanding). EPS is very important in determining
-                              how successful a company is performing and where
-                              it stands in terms of profitability. Usually, the
+                              common stock.
+                            </div>
+                            <MathComponent
+                              tex={String.raw`EPS=\frac{Net\ Income\ -\ Dividends}{\sum Shares\ Outstanding}`}
+                              display={true}
+                            />
+                            <div>
+                              EPS is very important in determining how
+                              successful a company is performing and where it
+                              stands in terms of profitability. Usually, the
                               higher a company&apos;s EPS, the more profitable
                               it is considered to be.
                             </div>
@@ -483,59 +489,73 @@ export default function Guide() {
 
                           <li>
                             <strong>P/E Ratio</strong>
+                            <MathComponent
+                              tex={String.raw`P/E\ Ratio=\frac{Share\ Price}{EPS}`}
+                              display={true}
+                            />
                             <div>
-                              Stock price divided by EPS. High P/E typically
-                              indicates expectations of high growth. This is why
-                              we see companies like Amazon with relatively high
-                              P/E&apos;s. Low P/E&apos;s may indicate a company
-                              is pretty mature and that limited growth is
-                              expected.
+                              High P/E typically indicates expectations of high
+                              growth. This is why we see companies like Amazon
+                              with relatively high P/E&apos;s. Low P/E&apos;s
+                              may indicate a company is pretty mature and that
+                              limited growth is expected.
                             </div>
                           </li>
 
                           <li>
-                            <strong>PEG</strong>
+                            <strong>PEG Ratio</strong>
                             <div>
                               PEG ratio is used to determine the value of a
                               stock while taking into account growth of a
-                              company&apos;s earnings. The formula for PEG ratio
-                              is a little more complex than some of the other
-                              ones we have here, but please visit{" "}
-                              <a
-                                className={classes.linkText}
-                                href="https://www.investopedia.com/terms/p/pegratio.asp"
-                              >
-                                here
-                              </a>{" "}
-                              if you&apos;re interested.
+                              company&apos;s earnings growth, and it is thought
+                              to provide a more complete picture than P/E ratio.
+                              The price/earnings to growth ratio (PEG ratio) is
+                              a stock&apos;s price-to-earnings (P/E) ratio
+                              divided by the growth rate of its earnings for a
+                              specified time period.
+                            </div>
+                            <MathComponent
+                              tex={String.raw`PEG\ Ratio=\frac{P/E\ Ratio}{EPS\ Growth}`}
+                              display={true}
+                            />
+                            <div>
+                              However, the expected EPS growth rate is not that
+                              easy to calculate. Analysts usually derive an
+                              estimation according to the company&quot;s
+                              historical growth rates.
                             </div>
                           </li>
 
                           <li>
                             <strong>ROA</strong>
+                            <MathComponent
+                              tex={String.raw`ROA=\frac{Net\ Income}{Total\ Assets}`}
+                              display={true}
+                            />
                             <div>
-                              Return on Assets (ROA) is calculated by dividing a
-                              company’s net income by total assets. It is an
-                              indicator of how profitable a company is relative
-                              to its total assets. ROA gives a manager,
-                              investor, or analyst an idea as to how efficient a
-                              company&apos;s management is at using its assets
-                              to generate earnings. ROA is displayed as a
-                              percentage; the higher the ROA is, the better.
-                              Although some companies will have low ROA by the
-                              nature of their business such as bank stocks.
+                              Return on Assets (ROA) is an indicator of how
+                              profitable a company is relative to its total
+                              assets. ROA gives a manager, investor, or analyst
+                              an idea as to how efficient a company&apos;s
+                              management is at using its assets to generate
+                              earnings. ROA is displayed as a percentage; the
+                              higher the ROA is, the better. Although some
+                              companies will have low ROA by the nature of their
+                              business such as bank stocks.
                             </div>
                           </li>
 
                           <li>
                             <strong>ROE</strong>
+                            <MathComponent
+                              tex={String.raw`ROE=\frac{Net\ Income}{Average\ Shareholders'\ Equity}`}
+                              display={true}
+                            />
                             <div>
-                              Return on equity (ROE) is a measure of financial
-                              performance calculated by dividing net income and
-                              shareholders equity. This formula can be used to
-                              get a better idea of future growth, how debt is
-                              impacting things, and how the company compares to
-                              its peers in the industry.
+                              Return on Equity (ROE) can be used to get a better
+                              idea of future growth, how debt is impacting
+                              things, and how the company compares to its peers
+                              in the industry.
                             </div>
                           </li>
 
@@ -608,8 +628,10 @@ export default function Guide() {
                       </Typography>
 
                       <img
-                        src="https://github.com/VisuTrader-Orbital2021/visutrader-frontend/blob/assets/images/guide/candlestick.svg"
                         alt="candlestick"
+                        src="candlestick.svg"
+                        width="80%"
+                        height="auto"
                       />
 
                       <Typography className={classes.paragraph} variant="body1">
@@ -756,18 +778,27 @@ export default function Guide() {
                               Volume Weighted Average Price (VWAP)
                             </strong>
                             <div>
-                              The volume weighted average price (VWAP) is a
-                              trading benchmark used by traders that gives the
-                              average price a security has traded at throughout
-                              the day, based on both volume and price. It is
-                              important because it provides traders with insight
-                              into both the trend and value of a security. VWAP
-                              is calculated by (Price * The number of shares
-                              traded)/(The total shares traded).
+                              Volume weighted average price (VWAP) is a trading
+                              benchmark used by traders that gives the average
+                              price a security has traded at throughout the day,
+                              based on both volume and price. It is calculated
+                              by taking the total dollar value of trading in the
+                              security and dividing it by the volume of trades
+                              during that period.
+                            </div>
+                            <MathComponent
+                              tex={String.raw`VWAP=\frac{\sum Shares\ Bought \times Share\ Price}{\sum Volume}`}
+                              display={true}
+                            />
+                            <div>
+                              VWAP is important because it provides traders with
+                              insight into both the trend and value of a
+                              security.
                             </div>
                           </li>
                         </ul>
-                        Please consult{" "}
+                        There are many more indicators that are not included in
+                        this section. Please consult{" "}
                         <a
                           className={classes.linkText}
                           href="https://www.investopedia.com/"
@@ -804,7 +835,7 @@ export default function Guide() {
 
                       <img
                         alt="long vs short body"
-                        src="https://github.com/VisuTrader-Orbital2021/visutrader-frontend/blob/assets/images/guide/long_vs_short_body.png"
+                        src="long_vs_short_body.png"
                       />
 
                       <Typography className={classes.paragraph} variant="body1">
@@ -828,7 +859,7 @@ export default function Guide() {
 
                       <img
                         alt="long vs short shadow"
-                        src="https://github.com/VisuTrader-Orbital2021/visutrader-frontend/blob/assets/images/guide/long_vs_short_shadow.png"
+                        src="long_vs_short_shadow.png"
                       />
 
                       <Typography className={classes.paragraph} variant="body1">
@@ -844,7 +875,7 @@ export default function Guide() {
 
                       <img
                         alt="upper vs lower shadow"
-                        src="https://github.com/VisuTrader-Orbital2021/visutrader-frontend/blob/assets/images/guide/upper_vs_lower_shadow.png"
+                        src="upper_vs_lower_shadow.png"
                       />
 
                       <Typography className={classes.paragraph} variant="body1">
@@ -872,10 +903,7 @@ export default function Guide() {
                         like a cross, inverted cross or plus sign.
                       </Typography>
 
-                      <img
-                        alt="doji"
-                        src="https://github.com/VisuTrader-Orbital2021/visutrader-frontend/blob/assets/images/guide/doji.png"
-                      />
+                      <img alt="doji" src="doji.png" />
 
                       <Typography className={classes.paragraph} variant="body1">
                         Ideally, but not necessarily, the open and close should
@@ -908,7 +936,7 @@ export default function Guide() {
 
                       <img
                         alt="dragonfly vs gravestone doji"
-                        src="https://github.com/VisuTrader-Orbital2021/visutrader-frontend/blob/assets/images/guide/dragonfly_vs_gravestone_doji.png"
+                        src="dragonfly_vs_gravestone_doji.png"
                       />
 
                       <Typography className={classes.paragraph} variant="body1">
@@ -928,7 +956,7 @@ export default function Guide() {
 
                       <img
                         alt="bearish engulfing"
-                        src="https://github.com/VisuTrader-Orbital2021/visutrader-frontend/blob/assets/images/guide/bearish_engulfing.png"
+                        src="bearish_engulfing.png"
                       />
 
                       <Typography className={classes.paragraph} variant="body1">
@@ -948,7 +976,7 @@ export default function Guide() {
 
                       <img
                         alt="bullish engulfing"
-                        src="https://github.com/VisuTrader-Orbital2021/visutrader-frontend/blob/assets/images/guide/bullish_engulfing.png"
+                        src="bullish_engulfing.png"
                       />
 
                       <Typography className={classes.paragraph} variant="body1">
@@ -999,6 +1027,12 @@ export default function Guide() {
                       Part 4 Resources
                     </Typography>
 
+                    <Typography className={classes.paragraph} variant="body1">
+                      These are the useful resources that we used as references
+                      and inspiration for this guide. Highly recommended for
+                      further self-exploration.
+                    </Typography>
+
                     <section>
                       {/* Empty padding */}
                       <Typography id="getting_started">‎</Typography>
@@ -1024,15 +1058,6 @@ export default function Guide() {
                               href="https://www.khanacademy.org/economics-finance-domain/core-finance/stock-and-bonds"
                             >
                               Khan Academy guide to stocks and bonds
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              className={classes.linkText}
-                              href="https://www.khanacademy.org/economics-finance-domain/core-finance/investment-vehicles-tutorial"
-                            >
-                              Khan Academy guide to other investment vehicles
-                              and retirement plans
                             </a>
                           </li>
                         </ul>
@@ -1125,6 +1150,14 @@ export default function Guide() {
                           <li>
                             <a
                               className={classes.linkText}
+                              href="https://www.reddit.com/r/stocks"
+                            >
+                              Reddit Stocks Forum
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              className={classes.linkText}
                               href="https://www.reddit.com/r/Daytrading/wiki/book-recommendations"
                             >
                               Day Trading Books
@@ -1146,15 +1179,6 @@ export default function Guide() {
                               Bogleheads&apos; suggested readings
                             </a>
                           </li>
-                          <li>
-                            <a
-                              className={classes.linkText}
-                              href="https://www.reddit.com/r/stocks/comments/403usr/finance_and_wall_street_movies_dramas_and/"
-                            >
-                              Finance and Wall Street movies, dramas, and
-                              documentaries
-                            </a>
-                          </li>
                         </ul>
                       </Typography>
                     </section>
@@ -1164,242 +1188,7 @@ export default function Guide() {
             </Grid>
 
             <Grid item xs={3}>
-              <div className={classes.tableOfContents}>
-                <aside>
-                  <h3>TABLE OF CONTENTS</h3>
-                  <nav>
-                    <ul className={classes.list}>
-                      <li>
-                        <h4>
-                          <a
-                            className={classes.navigationText}
-                            href="#before_you_begin"
-                          >
-                            Part 1 Before You Begin
-                          </a>
-                        </h4>
-
-                        <ul>
-                          <li>
-                            <h5>
-                              <a
-                                className={classes.navigationText}
-                                href="#why_should_I_consider_investing"
-                              >
-                                Why should I consider Investing?
-                              </a>
-                            </h5>
-                          </li>
-
-                          <li>
-                            <h5>
-                              <a
-                                className={classes.navigationText}
-                                href="#what_is_investing"
-                              >
-                                What is investing?
-                              </a>
-                            </h5>
-                          </li>
-
-                          <li>
-                            <h5>
-                              <a
-                                className={classes.navigationText}
-                                href="#what_is_a_stock"
-                              >
-                                What is a stock?
-                              </a>
-                            </h5>
-                          </li>
-
-                          <li>
-                            <h5>
-                              <a
-                                className={classes.navigationText}
-                                href="#what_is_trading"
-                              >
-                                What is trading?
-                              </a>
-                            </h5>
-                          </li>
-
-                          <li>
-                            <h5>
-                              <a
-                                className={classes.navigationText}
-                                href="#investment_vs_trading"
-                              >
-                                Investment vs trading
-                              </a>
-                            </h5>
-                          </li>
-
-                          <li>
-                            <h5>
-                              <a
-                                className={classes.navigationText}
-                                href="#general_advice"
-                              >
-                                General Advice
-                              </a>
-                            </h5>
-                          </li>
-
-                          <li>
-                            <h5>
-                              <a
-                                className={classes.navigationText}
-                                href="#but_how_do_I_buy_a_share_in_the_first_place"
-                              >
-                                But how do I buy a share in the first place?
-                              </a>
-                            </h5>
-                          </li>
-
-                          <li>
-                            <h5>
-                              <a
-                                className={classes.navigationText}
-                                href="#market_capitalization"
-                              >
-                                Market Capitalization
-                              </a>
-                            </h5>
-                          </li>
-
-                          <li>
-                            <h5>
-                              <a
-                                className={classes.navigationText}
-                                href="#common_terminologies_in_the_stock_market"
-                              >
-                                Common terminologies in the stock market
-                              </a>
-                            </h5>
-                          </li>
-                        </ul>
-                      </li>
-
-                      <li>
-                        <h4>
-                          <a
-                            className={classes.navigationText}
-                            href="#understanding_candlestick_charts"
-                          >
-                            Part 2 Understanding Candlestick Charts
-                          </a>
-                        </h4>
-
-                        <ul>
-                          <li>
-                            <h5>
-                              <a
-                                className={classes.navigationText}
-                                href="#history"
-                              >
-                                History
-                              </a>
-                            </h5>
-                          </li>
-
-                          <li>
-                            <h5>
-                              <a
-                                className={classes.navigationText}
-                                href="#explanation"
-                              >
-                                Explanation
-                              </a>
-                            </h5>
-                          </li>
-
-                          <li>
-                            <h5>
-                              <a
-                                className={classes.navigationText}
-                                href="#indicators"
-                              >
-                                Indicators
-                              </a>
-                            </h5>
-                          </li>
-
-                          <li>
-                            <h5>
-                              <a
-                                className={classes.navigationText}
-                                href="#patterns"
-                              >
-                                Patterns
-                              </a>
-                            </h5>
-                          </li>
-                        </ul>
-                      </li>
-
-                      <li>
-                        <h4>
-                          <a
-                            className={classes.navigationText}
-                            href="#paper_trading_with_visutrader"
-                          >
-                            Part 3 Paper Trading with VisuTrader
-                          </a>
-                        </h4>
-
-                        <ul></ul>
-                      </li>
-
-                      <li>
-                        <h4>
-                          <a
-                            className={classes.navigationText}
-                            href="#resources"
-                          >
-                            Part 4 Resources
-                          </a>
-                        </h4>
-
-                        <ul>
-                          <li>
-                            <h5>
-                              <a
-                                className={classes.navigationText}
-                                href="#getting_started"
-                              >
-                                Getting Started
-                              </a>
-                            </h5>
-                          </li>
-
-                          <li>
-                            <h5>
-                              <a
-                                className={classes.navigationText}
-                                href="#relevant_websites"
-                              >
-                                Relevant websites
-                              </a>
-                            </h5>
-                          </li>
-
-                          <li>
-                            <h5>
-                              <a
-                                className={classes.navigationText}
-                                href="#relevant_posts"
-                              >
-                                Relevant posts
-                              </a>
-                            </h5>
-                          </li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </nav>
-                </aside>
-              </div>
+              <TableOfContents classes={classes} />
             </Grid>
           </Grid>
           <Box pt={4}>
@@ -1425,4 +1214,235 @@ export default function Guide() {
       </main>
     );
   }
+}
+
+function TableOfContents({ classes }) {
+  return (
+    <Drawer variant="permanent" anchor="right">
+      <List>
+        <ListItem>
+          <nav>
+            <ul className={classes.list}>
+              <li className={classes.tableOfContents}>
+                <h3>TABLE OF CONTENTS</h3>
+              </li>
+
+              <li>
+                <h4>
+                  <a
+                    className={classes.navigationText}
+                    href="#before_you_begin"
+                  >
+                    Part 1 Before You Begin
+                  </a>
+                </h4>
+
+                <ul>
+                  <li>
+                    <h5>
+                      <a
+                        className={classes.navigationText}
+                        href="#why_should_I_consider_investing"
+                      >
+                        Why should I consider Investing?
+                      </a>
+                    </h5>
+                  </li>
+
+                  <li>
+                    <h5>
+                      <a
+                        className={classes.navigationText}
+                        href="#what_is_investing"
+                      >
+                        What is investing?
+                      </a>
+                    </h5>
+                  </li>
+
+                  <li>
+                    <h5>
+                      <a
+                        className={classes.navigationText}
+                        href="#what_is_a_stock"
+                      >
+                        What is a stock?
+                      </a>
+                    </h5>
+                  </li>
+
+                  <li>
+                    <h5>
+                      <a
+                        className={classes.navigationText}
+                        href="#what_is_trading"
+                      >
+                        What is trading?
+                      </a>
+                    </h5>
+                  </li>
+
+                  <li>
+                    <h5>
+                      <a
+                        className={classes.navigationText}
+                        href="#investment_vs_trading"
+                      >
+                        Investment vs trading
+                      </a>
+                    </h5>
+                  </li>
+
+                  <li>
+                    <h5>
+                      <a
+                        className={classes.navigationText}
+                        href="#general_advice"
+                      >
+                        General Advice
+                      </a>
+                    </h5>
+                  </li>
+
+                  <li>
+                    <h5>
+                      <a
+                        className={classes.navigationText}
+                        href="#but_how_do_I_buy_a_share_in_the_first_place"
+                      >
+                        But how do I buy a share in the first place?
+                      </a>
+                    </h5>
+                  </li>
+
+                  <li>
+                    <h5>
+                      <a
+                        className={classes.navigationText}
+                        href="#market_capitalization"
+                      >
+                        Market Capitalization
+                      </a>
+                    </h5>
+                  </li>
+
+                  <li>
+                    <h5>
+                      <a
+                        className={classes.navigationText}
+                        href="#common_terminologies_in_the_stock_market"
+                      >
+                        Common terminologies in the stock market
+                      </a>
+                    </h5>
+                  </li>
+                </ul>
+              </li>
+
+              <li>
+                <h4>
+                  <a
+                    className={classes.navigationText}
+                    href="#understanding_candlestick_charts"
+                  >
+                    Part 2 Understanding Candlestick Charts
+                  </a>
+                </h4>
+
+                <ul>
+                  <li>
+                    <h5>
+                      <a className={classes.navigationText} href="#history">
+                        History
+                      </a>
+                    </h5>
+                  </li>
+
+                  <li>
+                    <h5>
+                      <a className={classes.navigationText} href="#explanation">
+                        Explanation
+                      </a>
+                    </h5>
+                  </li>
+
+                  <li>
+                    <h5>
+                      <a className={classes.navigationText} href="#indicators">
+                        Indicators
+                      </a>
+                    </h5>
+                  </li>
+
+                  <li>
+                    <h5>
+                      <a className={classes.navigationText} href="#patterns">
+                        Patterns
+                      </a>
+                    </h5>
+                  </li>
+                </ul>
+              </li>
+
+              <li>
+                <h4>
+                  <a
+                    className={classes.navigationText}
+                    href="#paper_trading_with_visutrader"
+                  >
+                    Part 3 Paper Trading with VisuTrader
+                  </a>
+                </h4>
+
+                <ul></ul>
+              </li>
+
+              <li>
+                <h4>
+                  <a className={classes.navigationText} href="#resources">
+                    Part 4 Resources
+                  </a>
+                </h4>
+
+                <ul>
+                  <li>
+                    <h5>
+                      <a
+                        className={classes.navigationText}
+                        href="#getting_started"
+                      >
+                        Getting Started
+                      </a>
+                    </h5>
+                  </li>
+
+                  <li>
+                    <h5>
+                      <a
+                        className={classes.navigationText}
+                        href="#relevant_websites"
+                      >
+                        Relevant websites
+                      </a>
+                    </h5>
+                  </li>
+
+                  <li>
+                    <h5>
+                      <a
+                        className={classes.navigationText}
+                        href="#relevant_posts"
+                      >
+                        Relevant posts
+                      </a>
+                    </h5>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </ListItem>
+      </List>
+    </Drawer>
+  );
 }
