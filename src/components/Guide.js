@@ -4,13 +4,14 @@ import { userSelector } from "../redux/slices/user";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
+import Drawer from "@material-ui/core/Drawer";
 import Box from "@material-ui/core/Box";
+import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
+import ListItem from "@material-ui/core/ListItem";
 import Copyright from "./Copyright";
 
-// TODO: Fix table of contents
 // TODO: Use Latex for formulas
-// TODO: Fix broken image
 const useStyles = makeStyles((theme) => ({
   appBarSpacer: theme.mixins.toolbar,
   content: {
@@ -35,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "20px",
   },
   tableOfContents: {
-    position: "fixed",
+    marginTop: "80px",
   },
   list: {
     listStyle: "none",
@@ -67,7 +68,7 @@ export default function Guide() {
   const classes = useStyles(theme);
   const user = useSelector(userSelector);
 
-  if (user.authenticated) {
+  if (!user.authenticated) {
     return (
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
@@ -608,8 +609,10 @@ export default function Guide() {
                       </Typography>
 
                       <img
-                        src="https://github.com/VisuTrader-Orbital2021/visutrader-frontend/blob/assets/images/guide/candlestick.svg"
                         alt="candlestick"
+                        src="candlestick.svg"
+                        width="80%"
+                        height="auto"
                       />
 
                       <Typography className={classes.paragraph} variant="body1">
@@ -804,7 +807,7 @@ export default function Guide() {
 
                       <img
                         alt="long vs short body"
-                        src="https://github.com/VisuTrader-Orbital2021/visutrader-frontend/blob/assets/images/guide/long_vs_short_body.png"
+                        src="long_vs_short_body.png"
                       />
 
                       <Typography className={classes.paragraph} variant="body1">
@@ -828,7 +831,7 @@ export default function Guide() {
 
                       <img
                         alt="long vs short shadow"
-                        src="https://github.com/VisuTrader-Orbital2021/visutrader-frontend/blob/assets/images/guide/long_vs_short_shadow.png"
+                        src="long_vs_short_shadow.png"
                       />
 
                       <Typography className={classes.paragraph} variant="body1">
@@ -844,7 +847,7 @@ export default function Guide() {
 
                       <img
                         alt="upper vs lower shadow"
-                        src="https://github.com/VisuTrader-Orbital2021/visutrader-frontend/blob/assets/images/guide/upper_vs_lower_shadow.png"
+                        src="upper_vs_lower_shadow.png"
                       />
 
                       <Typography className={classes.paragraph} variant="body1">
@@ -872,10 +875,7 @@ export default function Guide() {
                         like a cross, inverted cross or plus sign.
                       </Typography>
 
-                      <img
-                        alt="doji"
-                        src="https://github.com/VisuTrader-Orbital2021/visutrader-frontend/blob/assets/images/guide/doji.png"
-                      />
+                      <img alt="doji" src="doji.png" />
 
                       <Typography className={classes.paragraph} variant="body1">
                         Ideally, but not necessarily, the open and close should
@@ -908,7 +908,7 @@ export default function Guide() {
 
                       <img
                         alt="dragonfly vs gravestone doji"
-                        src="https://github.com/VisuTrader-Orbital2021/visutrader-frontend/blob/assets/images/guide/dragonfly_vs_gravestone_doji.png"
+                        src="dragonfly_vs_gravestone_doji.png"
                       />
 
                       <Typography className={classes.paragraph} variant="body1">
@@ -928,7 +928,7 @@ export default function Guide() {
 
                       <img
                         alt="bearish engulfing"
-                        src="https://github.com/VisuTrader-Orbital2021/visutrader-frontend/blob/assets/images/guide/bearish_engulfing.png"
+                        src="bearish_engulfing.png"
                       />
 
                       <Typography className={classes.paragraph} variant="body1">
@@ -948,7 +948,7 @@ export default function Guide() {
 
                       <img
                         alt="bullish engulfing"
-                        src="https://github.com/VisuTrader-Orbital2021/visutrader-frontend/blob/assets/images/guide/bullish_engulfing.png"
+                        src="bullish_engulfing.png"
                       />
 
                       <Typography className={classes.paragraph} variant="body1">
@@ -1164,242 +1164,7 @@ export default function Guide() {
             </Grid>
 
             <Grid item xs={3}>
-              <div className={classes.tableOfContents}>
-                <aside>
-                  <h3>TABLE OF CONTENTS</h3>
-                  <nav>
-                    <ul className={classes.list}>
-                      <li>
-                        <h4>
-                          <a
-                            className={classes.navigationText}
-                            href="#before_you_begin"
-                          >
-                            Part 1 Before You Begin
-                          </a>
-                        </h4>
-
-                        <ul>
-                          <li>
-                            <h5>
-                              <a
-                                className={classes.navigationText}
-                                href="#why_should_I_consider_investing"
-                              >
-                                Why should I consider Investing?
-                              </a>
-                            </h5>
-                          </li>
-
-                          <li>
-                            <h5>
-                              <a
-                                className={classes.navigationText}
-                                href="#what_is_investing"
-                              >
-                                What is investing?
-                              </a>
-                            </h5>
-                          </li>
-
-                          <li>
-                            <h5>
-                              <a
-                                className={classes.navigationText}
-                                href="#what_is_a_stock"
-                              >
-                                What is a stock?
-                              </a>
-                            </h5>
-                          </li>
-
-                          <li>
-                            <h5>
-                              <a
-                                className={classes.navigationText}
-                                href="#what_is_trading"
-                              >
-                                What is trading?
-                              </a>
-                            </h5>
-                          </li>
-
-                          <li>
-                            <h5>
-                              <a
-                                className={classes.navigationText}
-                                href="#investment_vs_trading"
-                              >
-                                Investment vs trading
-                              </a>
-                            </h5>
-                          </li>
-
-                          <li>
-                            <h5>
-                              <a
-                                className={classes.navigationText}
-                                href="#general_advice"
-                              >
-                                General Advice
-                              </a>
-                            </h5>
-                          </li>
-
-                          <li>
-                            <h5>
-                              <a
-                                className={classes.navigationText}
-                                href="#but_how_do_I_buy_a_share_in_the_first_place"
-                              >
-                                But how do I buy a share in the first place?
-                              </a>
-                            </h5>
-                          </li>
-
-                          <li>
-                            <h5>
-                              <a
-                                className={classes.navigationText}
-                                href="#market_capitalization"
-                              >
-                                Market Capitalization
-                              </a>
-                            </h5>
-                          </li>
-
-                          <li>
-                            <h5>
-                              <a
-                                className={classes.navigationText}
-                                href="#common_terminologies_in_the_stock_market"
-                              >
-                                Common terminologies in the stock market
-                              </a>
-                            </h5>
-                          </li>
-                        </ul>
-                      </li>
-
-                      <li>
-                        <h4>
-                          <a
-                            className={classes.navigationText}
-                            href="#understanding_candlestick_charts"
-                          >
-                            Part 2 Understanding Candlestick Charts
-                          </a>
-                        </h4>
-
-                        <ul>
-                          <li>
-                            <h5>
-                              <a
-                                className={classes.navigationText}
-                                href="#history"
-                              >
-                                History
-                              </a>
-                            </h5>
-                          </li>
-
-                          <li>
-                            <h5>
-                              <a
-                                className={classes.navigationText}
-                                href="#explanation"
-                              >
-                                Explanation
-                              </a>
-                            </h5>
-                          </li>
-
-                          <li>
-                            <h5>
-                              <a
-                                className={classes.navigationText}
-                                href="#indicators"
-                              >
-                                Indicators
-                              </a>
-                            </h5>
-                          </li>
-
-                          <li>
-                            <h5>
-                              <a
-                                className={classes.navigationText}
-                                href="#patterns"
-                              >
-                                Patterns
-                              </a>
-                            </h5>
-                          </li>
-                        </ul>
-                      </li>
-
-                      <li>
-                        <h4>
-                          <a
-                            className={classes.navigationText}
-                            href="#paper_trading_with_visutrader"
-                          >
-                            Part 3 Paper Trading with VisuTrader
-                          </a>
-                        </h4>
-
-                        <ul></ul>
-                      </li>
-
-                      <li>
-                        <h4>
-                          <a
-                            className={classes.navigationText}
-                            href="#resources"
-                          >
-                            Part 4 Resources
-                          </a>
-                        </h4>
-
-                        <ul>
-                          <li>
-                            <h5>
-                              <a
-                                className={classes.navigationText}
-                                href="#getting_started"
-                              >
-                                Getting Started
-                              </a>
-                            </h5>
-                          </li>
-
-                          <li>
-                            <h5>
-                              <a
-                                className={classes.navigationText}
-                                href="#relevant_websites"
-                              >
-                                Relevant websites
-                              </a>
-                            </h5>
-                          </li>
-
-                          <li>
-                            <h5>
-                              <a
-                                className={classes.navigationText}
-                                href="#relevant_posts"
-                              >
-                                Relevant posts
-                              </a>
-                            </h5>
-                          </li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </nav>
-                </aside>
-              </div>
+              <TableOfContents classes={classes} />
             </Grid>
           </Grid>
           <Box pt={4}>
@@ -1425,4 +1190,235 @@ export default function Guide() {
       </main>
     );
   }
+}
+
+function TableOfContents({ classes }) {
+  return (
+    <Drawer variant="permanent" anchor="right">
+      <List>
+        <ListItem>
+          <nav>
+            <ul className={classes.list}>
+              <li className={classes.tableOfContents}>
+                <h3>TABLE OF CONTENTS</h3>
+              </li>
+
+              <li>
+                <h4>
+                  <a
+                    className={classes.navigationText}
+                    href="#before_you_begin"
+                  >
+                    Part 1 Before You Begin
+                  </a>
+                </h4>
+
+                <ul>
+                  <li>
+                    <h5>
+                      <a
+                        className={classes.navigationText}
+                        href="#why_should_I_consider_investing"
+                      >
+                        Why should I consider Investing?
+                      </a>
+                    </h5>
+                  </li>
+
+                  <li>
+                    <h5>
+                      <a
+                        className={classes.navigationText}
+                        href="#what_is_investing"
+                      >
+                        What is investing?
+                      </a>
+                    </h5>
+                  </li>
+
+                  <li>
+                    <h5>
+                      <a
+                        className={classes.navigationText}
+                        href="#what_is_a_stock"
+                      >
+                        What is a stock?
+                      </a>
+                    </h5>
+                  </li>
+
+                  <li>
+                    <h5>
+                      <a
+                        className={classes.navigationText}
+                        href="#what_is_trading"
+                      >
+                        What is trading?
+                      </a>
+                    </h5>
+                  </li>
+
+                  <li>
+                    <h5>
+                      <a
+                        className={classes.navigationText}
+                        href="#investment_vs_trading"
+                      >
+                        Investment vs trading
+                      </a>
+                    </h5>
+                  </li>
+
+                  <li>
+                    <h5>
+                      <a
+                        className={classes.navigationText}
+                        href="#general_advice"
+                      >
+                        General Advice
+                      </a>
+                    </h5>
+                  </li>
+
+                  <li>
+                    <h5>
+                      <a
+                        className={classes.navigationText}
+                        href="#but_how_do_I_buy_a_share_in_the_first_place"
+                      >
+                        But how do I buy a share in the first place?
+                      </a>
+                    </h5>
+                  </li>
+
+                  <li>
+                    <h5>
+                      <a
+                        className={classes.navigationText}
+                        href="#market_capitalization"
+                      >
+                        Market Capitalization
+                      </a>
+                    </h5>
+                  </li>
+
+                  <li>
+                    <h5>
+                      <a
+                        className={classes.navigationText}
+                        href="#common_terminologies_in_the_stock_market"
+                      >
+                        Common terminologies in the stock market
+                      </a>
+                    </h5>
+                  </li>
+                </ul>
+              </li>
+
+              <li>
+                <h4>
+                  <a
+                    className={classes.navigationText}
+                    href="#understanding_candlestick_charts"
+                  >
+                    Part 2 Understanding Candlestick Charts
+                  </a>
+                </h4>
+
+                <ul>
+                  <li>
+                    <h5>
+                      <a className={classes.navigationText} href="#history">
+                        History
+                      </a>
+                    </h5>
+                  </li>
+
+                  <li>
+                    <h5>
+                      <a className={classes.navigationText} href="#explanation">
+                        Explanation
+                      </a>
+                    </h5>
+                  </li>
+
+                  <li>
+                    <h5>
+                      <a className={classes.navigationText} href="#indicators">
+                        Indicators
+                      </a>
+                    </h5>
+                  </li>
+
+                  <li>
+                    <h5>
+                      <a className={classes.navigationText} href="#patterns">
+                        Patterns
+                      </a>
+                    </h5>
+                  </li>
+                </ul>
+              </li>
+
+              <li>
+                <h4>
+                  <a
+                    className={classes.navigationText}
+                    href="#paper_trading_with_visutrader"
+                  >
+                    Part 3 Paper Trading with VisuTrader
+                  </a>
+                </h4>
+
+                <ul></ul>
+              </li>
+
+              <li>
+                <h4>
+                  <a className={classes.navigationText} href="#resources">
+                    Part 4 Resources
+                  </a>
+                </h4>
+
+                <ul>
+                  <li>
+                    <h5>
+                      <a
+                        className={classes.navigationText}
+                        href="#getting_started"
+                      >
+                        Getting Started
+                      </a>
+                    </h5>
+                  </li>
+
+                  <li>
+                    <h5>
+                      <a
+                        className={classes.navigationText}
+                        href="#relevant_websites"
+                      >
+                        Relevant websites
+                      </a>
+                    </h5>
+                  </li>
+
+                  <li>
+                    <h5>
+                      <a
+                        className={classes.navigationText}
+                        href="#relevant_posts"
+                      >
+                        Relevant posts
+                      </a>
+                    </h5>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </ListItem>
+      </List>
+    </Drawer>
+  );
 }
