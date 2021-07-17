@@ -32,14 +32,10 @@ const theme = createMuiTheme({
       fontWeight: "700",
     },
     body1: {
-      fontSize: "20px",
-      fontWeight: "400",
-    },
-    body2: {
       fontSize: "16px",
       fontWeight: "400",
     },
-    body3: {
+    body2: {
       fontSize: "12px",
       fontWeight: "400",
     },
