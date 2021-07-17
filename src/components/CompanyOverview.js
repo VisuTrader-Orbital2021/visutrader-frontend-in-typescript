@@ -124,7 +124,7 @@ export default function CompanyOverview({ company, stockData }) {
         <Typography className={classes.companyName} variant="h3">
           {companyData["Name"]}
         </Typography>
-        <Typography className={classes.companyIndustry} variant="body2">
+        <Typography className={classes.companyIndustry} variant="body1">
           {companyData["Industry"]}
         </Typography>
       </div>
@@ -142,40 +142,40 @@ export default function CompanyOverview({ company, stockData }) {
           KEY STATISTICS
         </Typography>
         <div className={classes.companyStatsItem}>
-          <Typography variant="body2">Volume</Typography>
+          <Typography variant="body1">Volume</Typography>
           {/* <Typography variant="body2">
             <strong>{formatAmount(Number(stockData[0].volume))}</strong>
           </Typography> */}
         </div>
         <div className={classes.companyStatsItem}>
-          <Typography variant="body2">Market Capitalization</Typography>
-          <Typography variant="body2">
+          <Typography variant="body1">Market Capitalization</Typography>
+          <Typography variant="body1">
             <strong>
               ${formatAmount(Number(companyData["MarketCapitalization"]))}
             </strong>
           </Typography>
         </div>
         <div className={classes.companyStatsItem}>
-          <Typography variant="body2">EPS</Typography>
-          <Typography variant="body2">
+          <Typography variant="body1">EPS</Typography>
+          <Typography variant="body1">
             <strong>{formatAmount(Number(companyData["EPS"]))}</strong>
           </Typography>
         </div>
         <div className={classes.companyStatsItem}>
-          <Typography variant="body2">P/E Ratio</Typography>
-          <Typography variant="body2">
+          <Typography variant="body1">P/E Ratio</Typography>
+          <Typography variant="body1">
             <strong>{formatAmount(Number(companyData["PERatio"]))}</strong>
           </Typography>
         </div>
         <div className={classes.companyStatsItem}>
-          <Typography variant="body2">PEG Ratio</Typography>
-          <Typography variant="body2">
+          <Typography variant="body1">PEG Ratio</Typography>
+          <Typography variant="body1">
             <strong>{formatAmount(Number(companyData["PEGRatio"]))}</strong>
           </Typography>
         </div>
         <div className={classes.companyStatsItem}>
-          <Typography variant="body2">Shares Float</Typography>
-          <Typography variant="body2">
+          <Typography variant="body1">Shares Float</Typography>
+          <Typography variant="body1">
             <strong>{formatAmount(Number(companyData["SharesFloat"]))}</strong>
           </Typography>
         </div>

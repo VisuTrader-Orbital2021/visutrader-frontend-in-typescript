@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
+import Box from "@material-ui/core/Box";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
@@ -24,29 +25,33 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "10px",
     height: "24px",
   },
-  buyButton: {
+  buyAndSell: {
     display: "flex",
-    backgroundColor: "#e6ebed",
+    justifyContent: "space-around",
+  },
+  buyButton: {
+    flex: 1,
+    backgroundColor: theme.palette.success.main,
     "&:hover": {
-      backgroundColor: "#edf3f5",
+      backgroundColor: theme.palette.success.light,
     },
-    color: "#02d158",
-    justifyContent: "flex-start",
-    paddingLeft: "16px",
+    color: "#ffffff", // white
   },
   sellButton: {
-    display: "flex",
-    backgroundColor: "#e6ebed",
+    flex: 1,
+    backgroundColor: theme.palette.error.main,
     "&:hover": {
-      backgroundColor: "#edf3f5",
+      backgroundColor: theme.palette.error.light,
     },
-    color: "#ff3911",
-    justifyContent: "flex-end",
-    paddingRight: "16px",
+    color: "#ffffff", // white
   },
   orderTypeAndQuantity: {
     display: "flex",
     flexDirection: "row",
+    marginBottom: theme.spacing(3),
+  },
+  title: {
+    marginBottom: theme.spacing(3),
   },
   orderType: {
     display: "flex",
@@ -56,11 +61,36 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
   },
+  buttons: {
+    marginBottom: theme.spacing(3),
+  },
+  textField: {
+    flex: 1,
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+  },
+  dateField: {
+    display: "flex",
+    justifyContent: "center",
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    marginBottom: theme.spacing(3),
+  },
 }));
 
 export default function PaperTrading() {
   const theme = useTheme();
   const classes = useStyles(theme);
+
+  const [quantity, setQuantity] = React.useState(0);
+  const handleChangeQuantity = (e) => {
+    setQuantity(e.target.value);
+  };
+
+  const [date, setDate] = React.useState(new Date());
+  const handleDateChange = (date) => {
+    setDate(date);
+  };
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -71,54 +101,25 @@ export default function PaperTrading() {
   const handleOrderTypeClose = (orderType) => {
     setAnchorEl(null);
     setOrderType(orderType);
-    console.log(orderType);
   };
 
   return (
     <div className={classes.paperTrading}>
-      <Typography variant="h2" color="primary">
+      <Typography variant="h2" color="primary" className={classes.title}>
         PAPER TRADING
       </Typography>
-      <Typography className={classes.side} variant="body3">
-        Side
-      </Typography>
-      <ButtonGroup variant="contained" size="small" fullWidth disableElevation>
-        <Button className={classes.buyButton}>
-          <Typography variant="body3">
-            <strong>BUY</strong>
-          </Typography>
-        </Button>
-        <Button className={classes.sellButton}>
-          <Typography variant="body3">
-            <strong>SELL</strong>
-          </Typography>
-        </Button>
-      </ButtonGroup>
 
-      <Typography variant="body3">Order Type</Typography>
       <div className={classes.orderTypeAndQuantity}>
-        <Button
-          aria-controls="fade-menu"
-          aria-haspopup="true"
-          onClick={handleOrderTypeClick}
+        <TextField
+          select
+          label="Order Type"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          className={classes.textField}
         >
-          {orderType}
-        </Button>
-        <Menu
-          id="fade-menu"
-          anchorEl={anchorEl}
-          keepMounted
-          open={open}
-          onClose={() => handleOrderTypeClose(orderType)}
-          TransitionComponent={Fade}
-        >
-          <MenuItem onClick={() => handleOrderTypeClose(MARKET)}>
-            <Typography variant="body3">MARKET</Typography>
-          </MenuItem>
-          <MenuItem onClick={() => handleOrderTypeClose(LIMIT)}>
-            <Typography variant="body3">LIMIT</Typography>
-          </MenuItem>
-        </Menu>
+          <MenuItem value="market">MARKET</MenuItem>
+        </TextField>
         <TextField
           id="standard-number"
           label="Quantity"
@@ -126,7 +127,18 @@ export default function PaperTrading() {
           InputLabelProps={{
             shrink: true,
           }}
+          onChange={handleChangeQuantity}
+          className={classes.textField}
         />
+      </div>
+
+      <div className={classes.buyAndSell}>
+        <Box width="30%" align="center">
+          <Button className={classes.buyButton}>BUY</Button>
+        </Box>
+        <Box width="30%" align="center">
+          <Button className={classes.sellButton}>SELL</Button>
+        </Box>
       </div>
     </div>
   );
