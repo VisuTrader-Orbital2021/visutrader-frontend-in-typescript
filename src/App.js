@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Home from "./components/Home";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
+import ForgotPassword from "./components/ForgotPassword";
 import Personal from "./components/Personal";
 
 import { Provider } from "react-redux";
@@ -19,6 +20,9 @@ function App() {
             </Route>
             <Route exact path="/login">
               <Login />
+            </Route>
+            <Route exact path="/forgot_password">
+              <ForgotPassword />
             </Route>
             <Route
               exact
