@@ -1,18 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Link from "@material-ui/core/Link";
 import Paper from "@material-ui/core/Paper";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { Formik, Form, Field } from "formik";
+import { TextField } from "formik-material-ui";
+import * as yup from "yup";
 import { useDispatch } from "react-redux";
 import { signUpUser } from "../redux/slices/user";
 import { useHistory } from "react-router-dom";
@@ -68,56 +67,16 @@ export default function Signup() {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [fields, setFields] = useState({});
-  const [passwordWarning, setPasswordWarning] = useState(false);
-  const [confirmPasswordWarning, setConfirmPasswordWarning] = useState(false);
+  const handleSubmit = async (values) => {
+    const response = await dispatch(signUpUser(values));
 
-  const handleInputChange = (e) => {
-    const target = e.target;
-
-    const name = target.name;
-    const value = target.value;
-
-    setFields({
-      ...fields,
-      [name]: value,
-    });
-
-    if (name === "password") {
-      if (value.length > 0 && value.length < 8) {
-        setPasswordWarning(true);
-      } else {
-        setPasswordWarning(false);
-      }
-    }
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (e.target[6].value >= 8) {
-      if (e.target[6].value === e.target[8].value) {
-        setConfirmPasswordWarning(false);
-
-        const response = await dispatch(signUpUser(fields));
-
-        if (response.type === signUpUser.fulfilled.toString()) {
-          // Redirect when success here
-          alert("Signed up successfully");
-          history.push("/login");
-        } else {
-          // TODO: fix this with better UI.
-          alert(JSON.stringify(response.payload));
-        }
-      } else {
-        setConfirmPasswordWarning(true);
-      }
+    if (response.type === signUpUser.fulfilled.toString()) {
+      // Redirect when success here
+      alert("Signed up successfully");
+      history.push("/login");
     } else {
-      if (e.target[6].value === e.target[8].value) {
-        setConfirmPasswordWarning(false);
-      } else {
-        setConfirmPasswordWarning(true);
-      }
+      // TODO: fix this with better UI.
+      alert(JSON.stringify(response.payload));
     }
   };
 
@@ -133,96 +92,111 @@ export default function Signup() {
           <Typography component="h1" variant="h5">
             SIGN UP
           </Typography>
-          <form className={classes.form} noValidate onSubmit={handleSubmit}>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="username"
-              label="Username"
-              name="username"
-              autoFocus
-              onChange={handleInputChange}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="display_name"
-              label="Display name"
-              name="display_name"
-              autoFocus
-              onChange={handleInputChange}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email"
-              name="email"
-              autoFocus
-              onChange={handleInputChange}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              onChange={handleInputChange}
-            />
-            {passwordWarning && (
-              <Typography variant="body2" className={classes.warningText}>
-                × Must contain at least 8 characters
-              </Typography>
-            )}
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="confirm_password"
-              label="Confirm Password"
-              type="password"
-              id="confirm_password"
-              onChange={handleInputChange}
-            />
-            {confirmPasswordWarning && (
-              <Typography variant="body2" className={classes.warningText}>
-                × Password does not match
-              </Typography>
-            )}
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              SIGN UP
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <RouterLink to="/login" className={classes.routerLink}>
-                  Already have an account? Log In!
-                </RouterLink>
+          <Formik
+            initialValues={{
+              username: "",
+              display_name: "",
+              email: "",
+              password: "",
+              confirmPassword: "",
+            }}
+            className={classes.form}
+            validationSchema={yup.object({
+              username: yup.string().required("Required"),
+              display_name: yup.string().required("Required"),
+              email: yup.string().email("Invalid email").required("Required"),
+              password: yup
+                .string()
+                .required("Required")
+                .min(8, "Password must have length of at least 8"),
+              confirmPassword: yup.string().when("password", {
+                is: (val) => val && val.length > 0,
+                then: yup
+                  .string()
+                  .oneOf(
+                    [yup.ref("password")],
+                    "Confirm password need to be the same as password field"
+                  )
+                  .required("Required"),
+              }),
+            })}
+            onSubmit={handleSubmit}
+          >
+            <Form>
+              <Field
+                component={TextField}
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="username"
+                label="Username"
+                name="username"
+                autoFocus
+              />
+              <Field
+                component={TextField}
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="display_name"
+                label="Display name"
+                name="display_name"
+              />
+              <Field
+                component={TextField}
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email"
+                name="email"
+              />
+              <Field
+                component={TextField}
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+              />
+              <Field
+                component={TextField}
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="confirmPassword"
+                label="Confirm Password"
+                type="password"
+                id="confirmPassword"
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+              >
+                SIGN UP
+              </Button>
+              <Grid container>
+                <Grid item xs>
+                  <RouterLink to="/login" className={classes.routerLink}>
+                    Already have an account? Log In!
+                  </RouterLink>
+                </Grid>
               </Grid>
-            </Grid>
-            <Box mt={5}>
-              <Copyright />
-            </Box>
-          </form>
+              <Box mt={5}>
+                <Copyright />
+              </Box>
+            </Form>
+          </Formik>
         </div>
       </Grid>
     </Grid>
