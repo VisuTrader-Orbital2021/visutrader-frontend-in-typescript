@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link as RouterLink } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -11,11 +12,11 @@ import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import Copyright from "./Copyright";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { useDispatch } from "react-redux";
 import { signUpUser } from "../redux/slices/user";
 import { useHistory } from "react-router-dom";
+import Copyright from "./Copyright";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,15 +49,28 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  warningText: {
+    color: "red",
+  },
+  routerLink: {
+    textDecoration: "none",
+    color: theme.palette.primary.main,
+    "&:hover": {
+      textDecoration: "underline",
+    },
+  },
 }));
 
 export default function Signup() {
-  const classes = useStyles();
+  const theme = useTheme();
+  const classes = useStyles(theme);
 
   const dispatch = useDispatch();
   const history = useHistory();
 
   const [fields, setFields] = useState({});
+  const [passwordWarning, setPasswordWarning] = useState(false);
+  const [confirmPasswordWarning, setConfirmPasswordWarning] = useState(false);
 
   const handleInputChange = (e) => {
     const target = e.target;
@@ -68,20 +82,42 @@ export default function Signup() {
       ...fields,
       [name]: value,
     });
+
+    if (name === "password") {
+      if (value.length > 0 && value.length < 8) {
+        setPasswordWarning(true);
+      } else {
+        setPasswordWarning(false);
+      }
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const response = await dispatch(signUpUser(fields));
+    if (e.target[6].value >= 8) {
+      if (e.target[6].value === e.target[8].value) {
+        setConfirmPasswordWarning(false);
 
-    if (response.type === signUpUser.fulfilled.toString()) {
-      // Redirect when success here
-      alert("Signed up successfully");
-      history.push("/login");
+        const response = await dispatch(signUpUser(fields));
+
+        if (response.type === signUpUser.fulfilled.toString()) {
+          // Redirect when success here
+          alert("Signed up successfully");
+          history.push("/login");
+        } else {
+          // TODO: fix this with better UI.
+          alert(JSON.stringify(response.payload));
+        }
+      } else {
+        setConfirmPasswordWarning(true);
+      }
     } else {
-      // TODO: fix this with better UI.
-      alert(JSON.stringify(response.payload));
+      if (e.target[6].value === e.target[8].value) {
+        setConfirmPasswordWarning(false);
+      } else {
+        setConfirmPasswordWarning(true);
+      }
     }
   };
 
@@ -106,7 +142,6 @@ export default function Signup() {
               id="username"
               label="Username"
               name="username"
-              autoComplete="username"
               autoFocus
               onChange={handleInputChange}
             />
@@ -141,9 +176,29 @@ export default function Signup() {
               label="Password"
               type="password"
               id="password"
-              autoComplete="current-password"
               onChange={handleInputChange}
             />
+            {passwordWarning && (
+              <Typography variant="body2" className={classes.warningText}>
+                × Must contain at least 8 characters
+              </Typography>
+            )}
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="confirm_password"
+              label="Confirm Password"
+              type="password"
+              id="confirm_password"
+              onChange={handleInputChange}
+            />
+            {confirmPasswordWarning && (
+              <Typography variant="body2" className={classes.warningText}>
+                × Password does not match
+              </Typography>
+            )}
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
@@ -157,18 +212,13 @@ export default function Signup() {
             >
               SIGN UP
             </Button>
-            {/* <Grid container>
+            <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
+                <RouterLink to="/login" className={classes.routerLink}>
+                  Already have an account? Log In!
+                </RouterLink>
               </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid> */}
+            </Grid>
             <Box mt={5}>
               <Copyright />
             </Box>

@@ -12,11 +12,11 @@ import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import Copyright from "./Copyright";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, userSelector } from "../redux/slices/user";
 import { useHistory } from "react-router-dom";
+import Copyright from "./Copyright";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
   },
   routerLink: {
     textDecoration: "none",
-    color: "#536dfe", // TODO: Fix styling
+    color: theme.palette.primary.main,
     "&:hover": {
       textDecoration: "underline",
     },
@@ -59,7 +59,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Login() {
-  const classes = useStyles();
+  const theme = useTheme();
+  const classes = useStyles(theme);
 
   const history = useHistory();
 
@@ -159,13 +160,14 @@ export default function Login() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <RouterLink to="/login" className={classes.routerLink}>
+                {/* TODO */}
+                <RouterLink to="forgot_password" className={classes.routerLink}>
                   Forgot password?
                 </RouterLink>
               </Grid>
               <Grid item>
                 <RouterLink to="/signup" className={classes.routerLink}>
-                  {"Don't have an account? Sign Up"}
+                  Don&apos;t have an account? Sign Up!
                 </RouterLink>
               </Grid>
             </Grid>
