@@ -30,9 +30,6 @@ const useStyles = makeStyles((theme) => ({
     overflow: "auto",
     flexDirection: "column",
   },
-  fixedHeight: {
-    height: 240,
-  },
   chartHeader: {
     display: "flex",
     flexDirection: "row",
@@ -60,17 +57,16 @@ const useStyles = makeStyles((theme) => ({
 export default function Personal() {
   const theme = useTheme();
   const classes = useStyles(theme);
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
     <div className={classes.root}>
       <Route exact path="/forum">
         <Dashboard renderDrawer={true} location="forum" />
-        <Forum classes={classes} fixedHeightPaper={fixedHeightPaper} />
+        <Forum classes={classes} />
       </Route>
       <Route exact path="/guide">
         <Dashboard renderDrawer={true} location="guide" />
-        <Guide classes={classes} fixedHeightPaper={fixedHeightPaper} />
+        <Guide classes={classes} />
       </Route>
       <Route exact path="/trade">
         <Dashboard renderDrawer={true} location="trade" />
@@ -78,15 +74,15 @@ export default function Personal() {
       </Route>
       <Route exact path="/wallet">
         <Dashboard renderDrawer={true} location="wallet" />
-        <Wallet classes={classes} fixedHeightPaper={fixedHeightPaper} />
+        <Wallet classes={classes} />
       </Route>
       <Route exact path="/settings">
         <Dashboard renderDrawer={true} location="settings" />
-        <Settings classes={classes} fixedHeightPaper={fixedHeightPaper} />
+        <Settings classes={classes} />
       </Route>
       <Route exact path="/profile">
         <Dashboard renderDrawer={true} location="profile" />
-        <Profile classes={classes} fixedHeightPaper={fixedHeightPaper} />
+        <Profile classes={classes} />
       </Route>
     </div>
   );
