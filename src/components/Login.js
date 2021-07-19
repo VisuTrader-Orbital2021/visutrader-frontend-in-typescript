@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-  routerLinkStyle: {
+  routerLink: {
     textDecoration: "none",
     color: "#536dfe", // TODO: Fix styling
     "&:hover": {
@@ -159,12 +159,12 @@ export default function Login() {
             </Button>
             <Grid container>
               <Grid item xs>
-                <RouterLink to="/login" className={classes.routerLinkStyle}>
+                <RouterLink to="/login" className={classes.routerLink}>
                   Forgot password?
                 </RouterLink>
               </Grid>
               <Grid item>
-                <RouterLink to="/signup" className={classes.routerLinkStyle}>
+                <RouterLink to="/signup" className={classes.routerLink}>
                   {"Don't have an account? Sign Up"}
                 </RouterLink>
               </Grid>

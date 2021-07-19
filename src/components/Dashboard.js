@@ -61,9 +61,12 @@ const useStyles = makeStyles((theme) => ({
       width: theme.spacing(9),
     },
   },
-  routerLinkStyle: {
+  routerLink: {
     textDecoration: "none",
     color: "#ffffff",
+  },
+  profileIcon: {
+    borderRadius: "50%",
   },
 }));
 
@@ -105,6 +108,11 @@ function UpperBar({ classes, open }) {
     setAnchorEl(null);
   };
 
+  const handleProfile = () => {
+    handleClose();
+    history.push("/profile");
+  };
+
   const handleLogOut = () => {
     handleClose();
     dispatch(resetUser());
@@ -130,7 +138,12 @@ function UpperBar({ classes, open }) {
             onClick={handleMenu}
             color="inherit"
           >
-            <AccountCircle />
+            {/* <AccountCircle /> */}
+            <img
+              alt="gravatar"
+              src="https://www.gravatar.com/avatar/ca7a60a96f3931d9bfb0ddc9c05310ec?s=32"
+              className={classes.profileIcon}
+            />
           </IconButton>
           <Menu
             id="menu-appbar"
@@ -147,8 +160,7 @@ function UpperBar({ classes, open }) {
             open={profileOpen}
             onClose={handleClose}
           >
-            <MenuItem onClick={handleClose}>Profile</MenuItem>
-            <MenuItem onClick={handleClose}>My account</MenuItem>
+            <MenuItem onClick={handleProfile}>Profile</MenuItem>
             <MenuItem onClick={handleLogOut}>Log out</MenuItem>
           </Menu>
         </div>
@@ -156,10 +168,10 @@ function UpperBar({ classes, open }) {
     } else {
       return (
         <div>
-          <RouterLink to="/login" className={classes.routerLinkStyle}>
+          <RouterLink to="/login" className={classes.routerLink}>
             <Button color="inherit">LOG IN</Button>
           </RouterLink>
-          <RouterLink to="/signup" className={classes.routerLinkStyle}>
+          <RouterLink to="/signup" className={classes.routerLink}>
             <Button variant="contained" color="secondary">
               SIGN UP
             </Button>
@@ -182,7 +194,7 @@ function UpperBar({ classes, open }) {
           noWrap
           className={classes.title}
         >
-          <RouterLink to="/" className={classes.routerLinkStyle}>
+          <RouterLink to="/" className={classes.routerLink}>
             VISUTRADER
           </RouterLink>
         </Typography>

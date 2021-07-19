@@ -8,6 +8,7 @@ import Guide from "./Guide";
 import Trade from "./Trade";
 import Wallet from "./Wallet";
 import Settings from "./Settings";
+import Profile from "./Profile";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,6 +38,23 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     justifyContent: "space-between",
   },
+  profileHeader: {
+    color: theme.palette.primary.main,
+    marginBottom: "30px",
+  },
+  profilePicture: {
+    borderRadius: "5px",
+  },
+  linkText: {
+    textDecoration: "underline",
+    color: theme.palette.primary.dark,
+    "&:hover": {
+      color: theme.palette.primary.light,
+    },
+    "&:active": {
+      color: theme.palette.secondary.light,
+    },
+  },
 }));
 
 export default function Personal() {
@@ -65,6 +83,10 @@ export default function Personal() {
       <Route exact path="/settings">
         <Dashboard renderDrawer={true} location="settings" />
         <Settings classes={classes} fixedHeightPaper={fixedHeightPaper} />
+      </Route>
+      <Route exact path="/profile">
+        <Dashboard renderDrawer={true} location="profile" />
+        <Profile classes={classes} fixedHeightPaper={fixedHeightPaper} />
       </Route>
     </div>
   );

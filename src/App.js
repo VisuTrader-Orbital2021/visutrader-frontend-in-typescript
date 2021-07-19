@@ -22,7 +22,14 @@ function App() {
             </Route>
             <Route
               exact
-              path={["/forum", "/guide", "/trade", "/wallet", "/settings"]}
+              path={[
+                "/forum",
+                "/guide",
+                "/trade",
+                "/wallet",
+                "/settings",
+                "/profile",
+              ]}
             >
               <Personal />
             </Route>
