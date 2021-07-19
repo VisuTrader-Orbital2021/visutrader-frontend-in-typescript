@@ -39,8 +39,34 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.primary.main,
     marginBottom: "30px",
   },
+  profileContent: {
+    display: "flex",
+    flexDirection: "row",
+  },
   profilePicture: {
     borderRadius: "5px",
+    marginRight: "100px",
+  },
+  profileInfo: {
+    display: "flex",
+    flexDirection: "row",
+    padding: "10px",
+  },
+  profileInfoLeft: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-around",
+    marginRight: "60px",
+  },
+  profileInfoRight: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-around",
+  },
+  profileFooter: {
+    display: "flex",
+    height: "48px",
+    alignItems: "flex-end",
   },
   linkText: {
     textDecoration: "underline",

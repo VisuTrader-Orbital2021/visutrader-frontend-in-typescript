@@ -13,9 +13,10 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import LeftDrawer from "./LeftDrawer";
 import { userSelector } from "../redux/slices/user";
 import { resetUser } from "../redux/slices/user";
+import SparkMD5 from "spark-md5";
+import LeftDrawer from "./LeftDrawer";
 
 const DRAWER_WIDTH = 58;
 
@@ -72,6 +73,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Dashboard(props) {
   const classes = useStyles();
+  const user = useSelector(userSelector);
   const [open, setOpen] = React.useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -138,10 +140,9 @@ function UpperBar({ classes, open }) {
             onClick={handleMenu}
             color="inherit"
           >
-            {/* <AccountCircle /> */}
             <img
               alt="gravatar"
-              src="https://www.gravatar.com/avatar/ca7a60a96f3931d9bfb0ddc9c05310ec?s=32"
+              src={"https://www.gravatar.com/avatar/" + SparkMD5.hash(user.email) + "?s=32"}
               className={classes.profileIcon}
             />
           </IconButton>
