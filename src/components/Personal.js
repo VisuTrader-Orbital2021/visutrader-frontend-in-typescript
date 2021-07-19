@@ -8,6 +8,7 @@ import Guide from "./Guide";
 import Trade from "./Trade";
 import Wallet from "./Wallet";
 import Settings from "./Settings";
+import Profile from "./Profile";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,30 +30,69 @@ const useStyles = makeStyles((theme) => ({
     overflow: "auto",
     flexDirection: "column",
   },
-  fixedHeight: {
-    height: 240,
-  },
   chartHeader: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
+  },
+  profileHeader: {
+    color: theme.palette.primary.main,
+    marginBottom: "30px",
+  },
+  profileContent: {
+    display: "flex",
+    flexDirection: "row",
+  },
+  profilePicture: {
+    borderRadius: "5px",
+    marginRight: "100px",
+  },
+  profileInfo: {
+    display: "flex",
+    flexDirection: "row",
+    padding: "10px",
+  },
+  profileInfoLeft: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-around",
+    marginRight: "60px",
+  },
+  profileInfoRight: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-around",
+  },
+  profileFooter: {
+    display: "flex",
+    height: "48px",
+    alignItems: "flex-end",
+  },
+  linkText: {
+    textDecoration: "underline",
+    color: theme.palette.primary.dark,
+    "&:hover": {
+      color: theme.palette.primary.light,
+    },
+    "&:active": {
+      color: theme.palette.secondary.light,
+    },
   },
 }));
 
 export default function Personal() {
   const theme = useTheme();
   const classes = useStyles(theme);
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
     <div className={classes.root}>
       <Route exact path="/forum">
         <Dashboard renderDrawer={true} location="forum" />
-        <Forum classes={classes} fixedHeightPaper={fixedHeightPaper} />
+        <Forum classes={classes} />
       </Route>
       <Route exact path="/guide">
         <Dashboard renderDrawer={true} location="guide" />
-        <Guide classes={classes} fixedHeightPaper={fixedHeightPaper} />
+        <Guide classes={classes} />
       </Route>
       <Route exact path="/trade">
         <Dashboard renderDrawer={true} location="trade" />
@@ -60,11 +100,15 @@ export default function Personal() {
       </Route>
       <Route exact path="/wallet">
         <Dashboard renderDrawer={true} location="wallet" />
-        <Wallet classes={classes} fixedHeightPaper={fixedHeightPaper} />
+        <Wallet classes={classes} />
       </Route>
       <Route exact path="/settings">
         <Dashboard renderDrawer={true} location="settings" />
-        <Settings classes={classes} fixedHeightPaper={fixedHeightPaper} />
+        <Settings classes={classes} />
+      </Route>
+      <Route exact path="/profile">
+        <Dashboard renderDrawer={true} location="profile" />
+        <Profile classes={classes} />
       </Route>
     </div>
   );

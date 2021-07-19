@@ -7,7 +7,7 @@ import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import Copyright from "./Copyright";
 
-export default function Settings({ classes, fixedHeightPaper }) {
+export default function Settings({ classes }) {
   const user = useSelector(userSelector);
 
   if (user.authenticated) {

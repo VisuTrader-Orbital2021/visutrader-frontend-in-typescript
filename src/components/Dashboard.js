@@ -13,9 +13,10 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import LeftDrawer from "./LeftDrawer";
 import { userSelector } from "../redux/slices/user";
 import { resetUser } from "../redux/slices/user";
+import SparkMD5 from "spark-md5";
+import LeftDrawer from "./LeftDrawer";
 
 const DRAWER_WIDTH = 58;
 
@@ -61,14 +62,18 @@ const useStyles = makeStyles((theme) => ({
       width: theme.spacing(9),
     },
   },
-  routerLinkStyle: {
+  routerLink: {
     textDecoration: "none",
     color: "#ffffff",
+  },
+  profileIcon: {
+    borderRadius: "50%",
   },
 }));
 
 export default function Dashboard(props) {
   const classes = useStyles();
+  const user = useSelector(userSelector);
   const [open, setOpen] = React.useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -105,6 +110,11 @@ function UpperBar({ classes, open }) {
     setAnchorEl(null);
   };
 
+  const handleProfile = () => {
+    handleClose();
+    history.push("/profile");
+  };
+
   const handleLogOut = () => {
     handleClose();
     dispatch(resetUser());
@@ -130,7 +140,11 @@ function UpperBar({ classes, open }) {
             onClick={handleMenu}
             color="inherit"
           >
-            <AccountCircle />
+            <img
+              alt="gravatar"
+              src={"https://www.gravatar.com/avatar/" + SparkMD5.hash(user.email) + "?s=32"}
+              className={classes.profileIcon}
+            />
           </IconButton>
           <Menu
             id="menu-appbar"
@@ -147,8 +161,7 @@ function UpperBar({ classes, open }) {
             open={profileOpen}
             onClose={handleClose}
           >
-            <MenuItem onClick={handleClose}>Profile</MenuItem>
-            <MenuItem onClick={handleClose}>My account</MenuItem>
+            <MenuItem onClick={handleProfile}>Profile</MenuItem>
             <MenuItem onClick={handleLogOut}>Log out</MenuItem>
           </Menu>
         </div>
@@ -156,10 +169,10 @@ function UpperBar({ classes, open }) {
     } else {
       return (
         <div>
-          <RouterLink to="/login" className={classes.routerLinkStyle}>
+          <RouterLink to="/login" className={classes.routerLink}>
             <Button color="inherit">LOG IN</Button>
           </RouterLink>
-          <RouterLink to="/signup" className={classes.routerLinkStyle}>
+          <RouterLink to="/signup" className={classes.routerLink}>
             <Button variant="contained" color="secondary">
               SIGN UP
             </Button>
@@ -182,7 +195,7 @@ function UpperBar({ classes, open }) {
           noWrap
           className={classes.title}
         >
-          <RouterLink to="/" className={classes.routerLinkStyle}>
+          <RouterLink to="/" className={classes.routerLink}>
             VISUTRADER
           </RouterLink>
         </Typography>

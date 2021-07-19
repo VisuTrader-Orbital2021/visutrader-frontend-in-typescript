@@ -1,20 +1,14 @@
 import React, { useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
-import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Link from "@material-ui/core/Link";
 import Paper from "@material-ui/core/Paper";
 import Box from "@material-ui/core/Box";
+import Avatar from "@material-ui/core/Avatar";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { useDispatch, useSelector } from "react-redux";
-import { loginUser, userSelector } from "../redux/slices/user";
 import { useHistory } from "react-router-dom";
 import Copyright from "./Copyright";
 
@@ -49,23 +43,13 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-  routerLink: {
-    textDecoration: "none",
-    color: theme.palette.primary.main,
-    "&:hover": {
-      textDecoration: "underline",
-    },
-  },
 }));
 
-export default function Login() {
+export default function ForgotPassword() {
   const theme = useTheme();
   const classes = useStyles(theme);
 
   const history = useHistory();
-
-  const dispatch = useDispatch();
-  const userData = useSelector(userSelector);
 
   const [fields, setFields] = useState({});
 
@@ -84,17 +68,7 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const response = await dispatch(loginUser(fields));
-
-    if (response.type === loginUser.fulfilled.toString()) {
-      // Redirect when success here
-
-      alert("Logged in successfully");
-      history.push("/trade");
-    } else {
-      // TODO: fix this with better UI.
-      alert(JSON.stringify(response.payload));
-    }
+    // TODO
   };
 
   return (
@@ -107,21 +81,9 @@ export default function Login() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            LOG IN
+            FORGOT PASSWORD
           </Typography>
           <form className={classes.form} noValidate onSubmit={handleSubmit}>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="username"
-              label="Username"
-              name="username"
-              autoComplete="username"
-              autoFocus
-              onChange={handleInputChange}
-            />
             <TextField
               variant="outlined"
               margin="normal"
@@ -133,22 +95,6 @@ export default function Login() {
               autoComplete="email"
               onChange={handleInputChange}
             />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              onChange={handleInputChange}
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
             <Button
               type="submit"
               fullWidth
@@ -156,21 +102,8 @@ export default function Login() {
               color="primary"
               className={classes.submit}
             >
-              LOG IN
+              SUBMIT
             </Button>
-            <Grid container>
-              <Grid item xs>
-                {/* TODO */}
-                <RouterLink to="forgot_password" className={classes.routerLink}>
-                  Forgot password?
-                </RouterLink>
-              </Grid>
-              <Grid item>
-                <RouterLink to="/signup" className={classes.routerLink}>
-                  Don&apos;t have an account? Sign Up!
-                </RouterLink>
-              </Grid>
-            </Grid>
             <Box mt={5}>
               <Copyright />
             </Box>

@@ -68,7 +68,7 @@ function getBalanceHistory(initial, history, userJoinDate) {
   return timeline.reverse();
 }
 
-export default function Wallet({ classes, fixedHeightPaper }) {
+export default function Wallet({ classes }) {
   const theme = useTheme();
   const walletStyle = useStyles();
 
