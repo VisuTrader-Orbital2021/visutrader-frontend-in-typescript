@@ -21,13 +21,17 @@ export default function Profile({ classes }) {
           <Grid item xs={12}>
             <Card>
               <CardContent>
-                <Typography variant="h2" className={classes.profileHeader}>
+                <Typography variant="h2" className={classes.cardHeader}>
                   PROFILE
                 </Typography>
                 <div className={classes.profileContent}>
                   <img
                     alt="gravatar"
-                    src={"https://www.gravatar.com/avatar/" + SparkMD5.hash(user.email) + "?s=160"}
+                    src={
+                      "https://www.gravatar.com/avatar/" +
+                      SparkMD5.hash(user.email) +
+                      "?s=160"
+                    }
                     className={classes.profilePicture}
                   />
                   <div className={classes.profileInfo}>
@@ -41,7 +45,9 @@ export default function Profile({ classes }) {
                       <Typography variant="h4">{user.username}</Typography>
                       <Typography variant="h4">{user.displayName}</Typography>
                       <Typography variant="h4">{user.email}</Typography>
-                      <Typography variant="h4">{user.dateJoined.substring(0, 10)}</Typography>
+                      <Typography variant="h4">
+                        {user.dateJoined.substring(0, 10)}
+                      </Typography>
                     </div>
                   </div>
                 </div>

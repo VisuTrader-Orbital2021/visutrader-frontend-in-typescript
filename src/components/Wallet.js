@@ -178,6 +178,7 @@ export default function Wallet({ classes }) {
                 </Card>
               </Grid>
             </Grid>
+            
             <Grid item>
               <TableContainer component={Paper}>
                 <Table>
