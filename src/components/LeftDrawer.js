@@ -12,8 +12,8 @@ import Zoom from "@material-ui/core/Zoom";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ForumIcon from "@material-ui/icons/Forum";
-import MenuBookIcon from "@material-ui/icons/MenuBook";
+import BookmarksIcon from "@material-ui/icons/Bookmarks";
+import ChatIcon from "@material-ui/icons/Chat";
 import EqualizerIcon from "@material-ui/icons/Equalizer";
 import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
 import SettingsIcon from "@material-ui/icons/Settings";
@@ -55,9 +55,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function routerStyle(location, icon) {
+function routerStyle(location, icon, theme) {
   return {
-    color: location === icon ? "#536dfe" : "#757575",
+    color: location === icon ? theme.palette.primary.main : "#757575",
   };
 }
 
@@ -66,35 +66,44 @@ function MainListIcons(props) {
     <div>
       <ListItem>
         <ListItemIcon>
-          <RouterLink to="/forum" style={routerStyle(props.location, "forum")}>
-            <Tooltip
-              title={<Typography variant="body2">Forum</Typography>}
-              placement="right"
-              TransitionComponent={Zoom}
-              arrow
-            >
-              <ForumIcon className={props.classes.listIcons} />
-            </Tooltip>
-          </RouterLink>
-        </ListItemIcon>
-      </ListItem>
-      <ListItem>
-        <ListItemIcon>
-          <RouterLink to="/guide" style={routerStyle(props.location, "guide")}>
+          <RouterLink
+            to="/guide"
+            style={routerStyle(props.location, "guide", props.theme)}
+          >
             <Tooltip
               title={<Typography variant="body2">Guide</Typography>}
               placement="right"
               TransitionComponent={Zoom}
               arrow
             >
-              <MenuBookIcon className={props.classes.listIcons} />
+              <BookmarksIcon className={props.classes.listIcons} />
             </Tooltip>
           </RouterLink>
         </ListItemIcon>
       </ListItem>
       <ListItem>
         <ListItemIcon>
-          <RouterLink to="/trade" style={routerStyle(props.location, "trade")}>
+          <RouterLink
+            to="/news"
+            style={routerStyle(props.location, "news", props.theme)}
+          >
+            <Tooltip
+              title={<Typography variant="body2">News</Typography>}
+              placement="right"
+              TransitionComponent={Zoom}
+              arrow
+            >
+              <ChatIcon className={props.classes.listIcons} />
+            </Tooltip>
+          </RouterLink>
+        </ListItemIcon>
+      </ListItem>
+      <ListItem>
+        <ListItemIcon>
+          <RouterLink
+            to="/trade"
+            style={routerStyle(props.location, "trade", props.theme)}
+          >
             <Tooltip
               title={<Typography variant="body2">Trade</Typography>}
               placement="right"
@@ -110,7 +119,7 @@ function MainListIcons(props) {
         <ListItemIcon>
           <RouterLink
             to="/wallet"
-            style={routerStyle(props.location, "wallet")}
+            style={routerStyle(props.location, "wallet", props.theme)}
           >
             <Tooltip
               title={<Typography variant="body2">Wallet</Typography>}
@@ -134,12 +143,12 @@ function SecondaryListIcons(props) {
         <ListItemIcon>
           <RouterLink
             to="/settings"
-            style={routerStyle(props.location, "settings")}
+            style={routerStyle(props.location, "settings", props.theme)}
           >
             <Tooltip
               title={<Typography variant="body2">Settings</Typography>}
               placement="right"
-              TransitionCoponent={Zoom}
+              TransitionComponent={Zoom}
               arrow
             >
               <SettingsIcon className={props.classes.listIcons} />
@@ -175,12 +184,20 @@ export default function LeftDrawer({
             </IconButton>
           </div>
           <Divider />
-          <div classsName={classes.drawerIcons}>
-            <List className="main-list-icons" autowidth={false}>
-              <MainListIcons classes={classes} location={location} />
+          <div className={classes.drawerIcons}>
+            <List className="main-list-icons">
+              <MainListIcons
+                classes={classes}
+                location={location}
+                theme={theme}
+              />
             </List>
-            <List className="secondary-list-icons" autowidth={false}>
-              <SecondaryListIcons classes={classes} location={location} />
+            <List className="secondary-list-icons">
+              <SecondaryListIcons
+                classes={classes}
+                location={location}
+                theme={theme}
+              />
             </List>
           </div>
         </Drawer>
