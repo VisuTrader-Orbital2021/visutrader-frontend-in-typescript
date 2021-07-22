@@ -48,9 +48,6 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-  warningText: {
-    color: "red",
-  },
   routerLink: {
     textDecoration: "none",
     color: theme.palette.primary.main,
@@ -98,7 +95,7 @@ export default function Signup() {
               display_name: "",
               email: "",
               password: "",
-              confirmPassword: "",
+              confirm_password: "",
             }}
             className={classes.form}
             validationSchema={yup.object({
@@ -108,14 +105,15 @@ export default function Signup() {
               password: yup
                 .string()
                 .required("Required")
-                .min(8, "Password must have length of at least 8"),
-              confirmPassword: yup.string().when("password", {
+                .min(8, "Password must contains at least 8 characters")
+                .max(20, "Password must contains less than 20 characters"),
+              confirm_password: yup.string().when("password", {
                 is: (val) => val && val.length > 0,
                 then: yup
                   .string()
                   .oneOf(
                     [yup.ref("password")],
-                    "Confirm password need to be the same as password field"
+                    "Password confirmation does not match"
                   )
                   .required("Required"),
               }),
@@ -132,7 +130,6 @@ export default function Signup() {
                 id="username"
                 label="Username"
                 name="username"
-                autoFocus
               />
               <Field
                 component={TextField}
@@ -171,10 +168,10 @@ export default function Signup() {
                 margin="normal"
                 required
                 fullWidth
-                name="confirmPassword"
+                name="confirm_password"
                 label="Confirm Password"
                 type="password"
-                id="confirmPassword"
+                id="confirm_password"
               />
               <Button
                 type="submit"
