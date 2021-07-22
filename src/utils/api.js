@@ -32,3 +32,18 @@ export const sendRequest = async (path, token, method, request) => {
       return Promise.resolve();
   }
 };
+
+const axiosNewsInstance = axios.create({
+  baseURL: "https://newsapi.org/v2/top-headlines",
+});
+
+export const sendNewsHeadlineRequest = () => {
+  return axiosNewsInstance.get("", {
+    params: {
+      country: "us",
+      category: "business",
+      pageSize: 3,
+      apiKey: "33d1fee58f4d49e4ad35fc377d1fdb0c",
+    },
+  });
+};

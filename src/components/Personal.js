@@ -1,10 +1,9 @@
 import React from "react";
-import { Route, Redirect } from "react-router-dom";
-import clsx from "clsx";
+import { Route } from "react-router-dom";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Dashboard from "./Dashboard";
-import Forum from "./Forum";
 import Guide from "./Guide";
+import News from "./News";
 import Trade from "./Trade";
 import Wallet from "./Wallet";
 import Settings from "./Settings";
@@ -35,9 +34,24 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     justifyContent: "space-between",
   },
-  profileHeader: {
+  cardHeader: {
     color: theme.palette.primary.main,
     marginBottom: "30px",
+  },
+  newsCardMedia: {
+    height: "240px",
+  },
+  settingsContent: {
+    display: "flex",
+    flexDirection: "column",
+    marginTop: "20px",
+  },
+  settingsContentRow: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "500px",
+    padding: "5px",
   },
   profileContent: {
     display: "flex",
@@ -86,13 +100,13 @@ export default function Personal() {
 
   return (
     <div className={classes.root}>
-      <Route exact path="/forum">
-        <Dashboard renderDrawer={true} location="forum" />
-        <Forum classes={classes} />
-      </Route>
       <Route exact path="/guide">
         <Dashboard renderDrawer={true} location="guide" />
         <Guide classes={classes} />
+      </Route>
+      <Route exact path="/news">
+        <Dashboard renderDrawer={true} location="news" />
+        <News classes={classes} />
       </Route>
       <Route exact path="/trade">
         <Dashboard renderDrawer={true} location="trade" />
