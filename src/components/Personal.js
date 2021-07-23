@@ -46,8 +46,8 @@ const useStyles = makeStyles((theme) => ({
   },
   newsListAvatar: {
     borderRadius: 0,
-    height: "100px",
-    width: "100px",
+    height: "120px",
+    width: "120px",
     marginRight: "30px",
   },
   newsChip: {

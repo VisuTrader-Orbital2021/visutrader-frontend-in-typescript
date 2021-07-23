@@ -16,7 +16,7 @@ export const getNewsHeadline = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const newsHeadlineData = await sendNewsHeadlineRequest();
-      return newsHeadlineData.data.articles;
+      return newsHeadlineData.data.value;
     } catch (err) {
       return rejectWithValue(err.response.data);
     }
@@ -28,7 +28,7 @@ export const getNewsSearch = createAsyncThunk(
   async (query, { rejectWithValue }) => {
     try {
       const newsSearchData = await sendNewsSearchRequest(query);
-      return newsSearchData.data.articles;
+      return newsSearchData.data.value;
     } catch (err) {
       return rejectWithValue(err.response.data);
     }
