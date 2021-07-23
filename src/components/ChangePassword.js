@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
@@ -11,10 +11,14 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Formik, Form, Field } from "formik";
 import { TextField } from "formik-material-ui";
 import * as yup from "yup";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-import Copyright from "../Copyright";
-import { resetPasswordUser } from "../../redux/slices/user";
+import Copyright from "./Copyright";
+import {
+  changePasswordUser,
+  resetUser,
+  userSelector,
+} from "../redux/slices/user";
 import { unwrapResult } from "@reduxjs/toolkit";
 
 const useStyles = makeStyles((theme) => ({
@@ -51,10 +55,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ResetPassword() {
+  useEffect(() => {
+    if (!authenticated) {
+      alert("Please log in to view this page");
+      history.push("/login");
+    }
+  });
+
   const theme = useTheme();
   const classes = useStyles(theme);
 
   const dispatch = useDispatch();
+  const { authenticated } = useSelector(userSelector);
+
   const history = useHistory();
   const { uid, token } = useParams();
 
@@ -65,9 +78,10 @@ export default function ResetPassword() {
       token,
     };
 
-    await dispatch(resetPasswordUser(values))
+    await dispatch(changePasswordUser(values))
       .then(unwrapResult)
       .then((res) => alert(res))
+      .then(() => dispatch(resetUser()))
       .then(() => history.push("/login"))
       .catch((err) => alert(JSON.stringify(err)));
   };
@@ -82,14 +96,16 @@ export default function ResetPassword() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            RESET PASSWORD
+            CHANGE PASSWORD
           </Typography>
           <Formik
             initialValues={{
+              old_password: "",
               new_password1: "",
               new_password2: "",
             }}
             validationSchema={yup.object({
+              old_password: yup.string().required("Required"),
               new_password1: yup
                 .string()
                 .required("Required")
@@ -109,6 +125,17 @@ export default function ResetPassword() {
             onSubmit={handleSubmit}
           >
             <Form className={classes.form}>
+              <Field
+                component={TextField}
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="old_password"
+                label="Password"
+                name="old_password"
+                type="password"
+              />
               <Field
                 component={TextField}
                 variant="outlined"
@@ -138,7 +165,7 @@ export default function ResetPassword() {
                 color="primary"
                 className={classes.submit}
               >
-                RESET PASSWORD
+                CHANGE PASSWORD
               </Button>
               <Box mt={5}>
                 <Copyright />

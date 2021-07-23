@@ -127,6 +127,26 @@ export const resetPasswordUser = createAsyncThunk(
   }
 );
 
+export const changePasswordUser = createAsyncThunk(
+  "user/changePassword",
+  async (request, { getState, rejectWithValue }) => {
+    try {
+      const token = getState().user.token;
+
+      const response = await sendRequest(
+        "accounts/password/change/",
+        token,
+        "post",
+        request
+      );
+
+      return response.detail;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
 const userSlice = createSlice({
   name: "user",
   initialState,
