@@ -89,6 +89,44 @@ export const loginUser = createAsyncThunk(
   }
 );
 
+export const forgotPasswordUser = createAsyncThunk(
+  "user/forgotPassword",
+  async (request, { rejectWithValue }) => {
+    try {
+      const response = await sendRequest(
+        "accounts/password/reset/",
+        null,
+        "post",
+        request
+      );
+
+      return response.detail;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const resetPasswordUser = createAsyncThunk(
+  "user/resetPassword",
+  async (request, { rejectWithValue }) => {
+    try {
+      const path =
+        "accounts/password/reset/confirm/" +
+        request.uid +
+        "/" +
+        request.token +
+        "/";
+
+      const response = await sendRequest(path, null, "post", request);
+
+      return response.detail;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
 const userSlice = createSlice({
   name: "user",
   initialState,

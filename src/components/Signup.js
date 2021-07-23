@@ -97,7 +97,6 @@ export default function Signup() {
               password: "",
               confirm_password: "",
             }}
-            className={classes.form}
             validationSchema={yup.object({
               username: yup.string().required("Required"),
               display_name: yup.string().required("Required"),
@@ -120,7 +119,7 @@ export default function Signup() {
             })}
             onSubmit={handleSubmit}
           >
-            <Form>
+            <Form className={classes.form}>
               <Field
                 component={TextField}
                 variant="outlined"

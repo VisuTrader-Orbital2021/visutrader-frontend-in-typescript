@@ -12,8 +12,10 @@ import { Formik, Form, Field } from "formik";
 import { TextField } from "formik-material-ui";
 import * as yup from "yup";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
-import Copyright from "./Copyright";
+import { useHistory, useParams } from "react-router-dom";
+import Copyright from "../Copyright";
+import { resetPasswordUser } from "../../redux/slices/user";
+import { unwrapResult } from "@reduxjs/toolkit";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,15 +50,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ForgotPassword() {
+export default function ResetPassword() {
   const theme = useTheme();
   const classes = useStyles(theme);
 
   const dispatch = useDispatch();
   const history = useHistory();
+  const { uid, token } = useParams();
 
-  const handleSubmit = async (values) => {
-    // TODO
+  const handleSubmit = async (formValues) => {
+    const values = {
+      ...formValues,
+      uid,
+      token,
+    };
+
+    await dispatch(resetPasswordUser(values))
+      .then(unwrapResult)
+      .then((res) => alert(res))
+      .then(() => history.push("/login"))
+      .catch((err) => alert(JSON.stringify(err)));
   };
 
   return (
@@ -73,24 +86,50 @@ export default function ForgotPassword() {
           </Typography>
           <Formik
             initialValues={{
-              email: "",
+              new_password1: "",
+              new_password2: "",
             }}
-            className={classes.form}
             validationSchema={yup.object({
-              email: yup.string().email("Invalid email").required("Required"),
+              new_password1: yup
+                .string()
+                .required("Required")
+                .min(8, "Password must contains at least 8 characters")
+                .max(20, "Password must contains less than 20 characters"),
+              new_password2: yup.string().when("new_password1", {
+                is: (val) => val && val.length > 0,
+                then: yup
+                  .string()
+                  .oneOf(
+                    [yup.ref("new_password1")],
+                    "Password confirmation does not match"
+                  )
+                  .required("Required"),
+              }),
             })}
             onSubmit={handleSubmit}
           >
-            <Form>
+            <Form className={classes.form}>
               <Field
                 component={TextField}
                 variant="outlined"
                 margin="normal"
                 required
                 fullWidth
-                id="email"
-                label="Email"
-                name="email"
+                id="new_password1"
+                label="New Password"
+                name="new_password1"
+                type="password"
+              />
+              <Field
+                component={TextField}
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="new_password2"
+                label="Confirm Password"
+                name="new_password2"
+                type="password"
               />
               <Button
                 type="submit"
@@ -99,7 +138,7 @@ export default function ForgotPassword() {
                 color="primary"
                 className={classes.submit}
               >
-                submit
+                RESET PASSWORD
               </Button>
               <Box mt={5}>
                 <Copyright />

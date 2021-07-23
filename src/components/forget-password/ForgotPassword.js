@@ -1,21 +1,21 @@
 import React, { useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
-import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import Box from "@material-ui/core/Box";
+import Avatar from "@material-ui/core/Avatar";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { useDispatch, useSelector } from "react-redux";
-import { loginUser, userSelector } from "../redux/slices/user";
-import { useHistory } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import { TextField } from "formik-material-ui";
 import * as yup from "yup";
-import Copyright from "./Copyright";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import Copyright from "../Copyright";
+import { forgotPasswordUser } from "../../redux/slices/user";
+import { unwrapResult } from "@reduxjs/toolkit";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,20 +48,9 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-  routerLink: {
-    textDecoration: "none",
-    color: theme.palette.primary.main,
-    "&:hover": {
-      textDecoration: "underline",
-    },
-  },
-  backdrop: {
-    zIndex: theme.zIndex.drawer + 1,
-    color: theme.palette.primary.light,
-  },
 }));
 
-export default function Login() {
+export default function ForgotPassword() {
   const theme = useTheme();
   const classes = useStyles(theme);
 
@@ -69,16 +58,11 @@ export default function Login() {
   const history = useHistory();
 
   const handleSubmit = async (values) => {
-    const response = await dispatch(loginUser(values));
-
-    if (response.type === loginUser.fulfilled.toString()) {
-      // Redirect when success here
-      alert("Logged in successfully");
-      history.push("/trade");
-    } else {
-      // TODO: fix this with better UI.
-      alert(JSON.stringify(response.payload));
-    }
+    await dispatch(forgotPasswordUser(values))
+      .then(unwrapResult)
+      .then((res) => alert(res))
+      .then(() => history.push("/login"))
+      .catch((err) => JSON.stringify(err));
   };
 
   return (
@@ -91,18 +75,14 @@ export default function Login() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            LOG IN
+            FORGOT PASSWORD
           </Typography>
           <Formik
             initialValues={{
-              username: "",
               email: "",
-              password: "",
             }}
             validationSchema={yup.object({
-              username: yup.string().required("Required"),
               email: yup.string().email("Invalid email").required("Required"),
-              password: yup.string().required("Required"),
             })}
             onSubmit={handleSubmit}
           >
@@ -113,30 +93,9 @@ export default function Login() {
                 margin="normal"
                 required
                 fullWidth
-                id="username"
-                label="Username"
-                name="username"
-              />
-              <Field
-                component={TextField}
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
                 id="email"
                 label="Email"
                 name="email"
-              />
-              <Field
-                component={TextField}
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
               />
               <Button
                 type="submit"
@@ -145,23 +104,8 @@ export default function Login() {
                 color="primary"
                 className={classes.submit}
               >
-                LOG IN
+                SEND EMAIL
               </Button>
-              <Grid container>
-                <Grid item xs>
-                  <RouterLink
-                    to="/forgot-password"
-                    className={classes.routerLink}
-                  >
-                    Forgot password?
-                  </RouterLink>
-                </Grid>
-                <Grid item>
-                  <RouterLink to="/signup" className={classes.routerLink}>
-                    Don&apos;t have an account? Sign Up!
-                  </RouterLink>
-                </Grid>
-              </Grid>
               <Box mt={5}>
                 <Copyright />
               </Box>
