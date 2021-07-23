@@ -8,20 +8,23 @@ const INTRADAY = "INTRADAY";
 const CANDLESTICK = "CANDLESTICK";
 const SPLINE_AREA = "SPLINE AREA";
 
-export default function StockChart({ stockType, stockData, chartType }) {
+export default function StockChart({ stockType, chartType }) {
   const themeMode = useSelector((state) => state.color.themeMode);
+  const { dailyStockData, intradayStockData } = useSelector(
+    (state) => state.stock
+  );
 
   if (stockType === DAILY) {
     return chartType === CANDLESTICK ? (
-      <DailyCandlestickChart stockData={stockData} themeMode={themeMode} />
+      <DailyCandlestickChart stockData={dailyStockData} themeMode={themeMode} />
     ) : (
-      <DailySplineAreaChart stockData={stockData} themeMode={themeMode} />
+      <DailySplineAreaChart stockData={dailyStockData} themeMode={themeMode} />
     );
   } else {
     return chartType === CANDLESTICK ? (
-      <IntradayCandlestickChart stockData={stockData} />
+      <IntradayCandlestickChart stockData={intradayStockData} />
     ) : (
-      <IntradaySplineAreaChart stockData={stockData} />
+      <IntradaySplineAreaChart stockData={intradayStockData} />
     );
   }
 }
