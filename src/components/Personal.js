@@ -38,8 +38,69 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.primary.main,
     marginBottom: "30px",
   },
+  newsCard: {
+    height: "440px",
+  },
   newsCardMedia: {
-    height: "240px",
+    height: "260px",
+  },
+  newsListAvatar: {
+    borderRadius: 0,
+    height: "120px",
+    width: "120px",
+    marginRight: "30px",
+  },
+  newsChip: {
+    borderRadius: 0,
+    marginRight: "20px",
+    backgroundColor: "#f5f5f5",
+    color: theme.palette.primary.dark,
+  },
+  title: {
+    flexGrow: 1,
+    display: "none",
+    [theme.breakpoints.up("sm")]: {
+      display: "block",
+    },
+  },
+  search: {
+    position: "relative",
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: "#f5f5f5",
+    "&:hover": {
+      backgroundColor: "#f5f5f5",
+    },
+    marginLeft: 0,
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: theme.spacing(1),
+      width: "auto",
+    },
+  },
+  searchIcon: {
+    padding: theme.spacing(0, 2),
+    height: "100%",
+    position: "absolute",
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  inputRoot: {
+    color: "inherit",
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      width: "12ch",
+      "&:focus": {
+        width: "20ch",
+      },
+    },
   },
   settingsContent: {
     display: "flex",

@@ -34,16 +34,40 @@ export const sendRequest = async (path, token, method, request) => {
 };
 
 const axiosNewsInstance = axios.create({
-  baseURL: "https://newsapi.org/v2/top-headlines",
+  baseURL:
+    "https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/search/NewsSearchAPI",
+  headers: {
+    "x-rapidapi-key": "f25f84ae50msh67f1e24b6ae1bb8p1f5db7jsnbc2b827d78f7",
+    "x-rapidapi-host": "contextualwebsearch-websearch-v1.p.rapidapi.com",
+  },
 });
 
 export const sendNewsHeadlineRequest = () => {
   return axiosNewsInstance.get("", {
     params: {
-      country: "us",
-      category: "business",
-      pageSize: 3,
-      apiKey: process.env.REACT_APP_NEWS_API_KEY,
+      q: "stock market",
+      pageNumber: "1",
+      pageSize: "6",
+      autoCorrect: "false",
+      safeSearch: "true",
+      withThumbnails: "true",
+      fromPublishedDate: "null",
+      toPublishedDate: "null",
+    },
+  });
+};
+
+export const sendNewsSearchRequest = (query) => {
+  return axiosNewsInstance.get("", {
+    params: {
+      q: query,
+      pageNumber: "1",
+      pageSize: "4",
+      autoCorrect: "true",
+      safeSearch: "true",
+      withThumbnails: "true",
+      fromPublishedDate: "null",
+      toPublishedDate: "null",
     },
   });
 };
