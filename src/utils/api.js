@@ -43,7 +43,7 @@ export const sendNewsHeadlineRequest = () => {
       country: "us",
       category: "business",
       pageSize: 3,
-      apiKey: "33d1fee58f4d49e4ad35fc377d1fdb0c",
+      apiKey: process.env.REACT_APP_NEWS_API_KEY,
     },
   });
 };
