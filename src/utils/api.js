@@ -33,16 +33,34 @@ export const sendRequest = async (path, token, method, request) => {
   }
 };
 
-const axiosNewsInstance = axios.create({
-  baseURL: "https://newsapi.org/v2/top-headlines",
+const corsProxyUrl = "https://cors.bridged.cc/";
+
+const axiosNewsHeadlineInstance = axios.create({
+  baseURL: `${corsProxyUrl}https://newsapi.org/v2/top-headlines`,
 });
 
 export const sendNewsHeadlineRequest = () => {
-  return axiosNewsInstance.get("", {
+  return axiosNewsHeadlineInstance.get("", {
     params: {
-      country: "us",
+      country: "sg",
       category: "business",
-      pageSize: 3,
+      pageSize: 6,
+      apiKey: process.env.REACT_APP_NEWS_API_KEY,
+    },
+  });
+};
+
+const axiosNewsSearchInstance = axios.create({
+  baseUrl: `${corsProxyUrl}https://newsapi.org/v2/everything`,
+});
+
+export const sendNewsSearchRequest = (query) => {
+  return axiosNewsSearchInstance.get("", {
+    params: {
+      q: query,
+      language: "en",
+      sortBy: "relevancy",
+      pageSize: 4,
       apiKey: process.env.REACT_APP_NEWS_API_KEY,
     },
   });
