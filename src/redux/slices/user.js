@@ -7,6 +7,7 @@ const initialState = {
   email: localStorage.getItem("email"),
   token: localStorage.getItem("token"),
   wallet: localStorage.getItem("wallet"),
+  position: localStorage.getItem("position"),
   dateJoined: localStorage.getItem("dateJoined"),
   loading: false,
 };
