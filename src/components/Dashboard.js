@@ -142,7 +142,11 @@ function UpperBar({ classes, open }) {
           >
             <img
               alt="gravatar"
-              src={"https://www.gravatar.com/avatar/" + SparkMD5.hash(user.email) + "?s=32"}
+              src={
+                "https://www.gravatar.com/avatar/" +
+                SparkMD5.hash(user.email) +
+                "?s=32"
+              }
               className={classes.profileIcon}
             />
           </IconButton>

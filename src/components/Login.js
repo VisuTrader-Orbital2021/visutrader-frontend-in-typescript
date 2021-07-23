@@ -3,10 +3,6 @@ import { Link as RouterLink } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Link from "@material-ui/core/Link";
 import Paper from "@material-ui/core/Paper";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
@@ -16,6 +12,9 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser, userSelector } from "../redux/slices/user";
 import { useHistory } from "react-router-dom";
+import { Formik, Form, Field } from "formik";
+import { TextField } from "formik-material-ui";
+import * as yup from "yup";
 import Copyright from "./Copyright";
 
 const useStyles = makeStyles((theme) => ({
@@ -56,39 +55,24 @@ const useStyles = makeStyles((theme) => ({
       textDecoration: "underline",
     },
   },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: theme.palette.primary.light,
+  },
 }));
 
 export default function Login() {
   const theme = useTheme();
   const classes = useStyles(theme);
 
+  const dispatch = useDispatch();
   const history = useHistory();
 
-  const dispatch = useDispatch();
-  const userData = useSelector(userSelector);
-
-  const [fields, setFields] = useState({});
-
-  const handleInputChange = (e) => {
-    const target = e.target;
-
-    const name = target.name;
-    const value = target.value;
-
-    setFields({
-      ...fields,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const response = await dispatch(loginUser(fields));
+  const handleSubmit = async (values) => {
+    const response = await dispatch(loginUser(values));
 
     if (response.type === loginUser.fulfilled.toString()) {
       // Redirect when success here
-
       alert("Logged in successfully");
       history.push("/trade");
     } else {
@@ -109,72 +93,81 @@ export default function Login() {
           <Typography component="h1" variant="h5">
             LOG IN
           </Typography>
-          <form className={classes.form} noValidate onSubmit={handleSubmit}>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="username"
-              label="Username"
-              name="username"
-              autoComplete="username"
-              autoFocus
-              onChange={handleInputChange}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email"
-              name="email"
-              autoComplete="email"
-              onChange={handleInputChange}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              onChange={handleInputChange}
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              LOG IN
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                {/* TODO */}
-                <RouterLink to="forgot_password" className={classes.routerLink}>
-                  Forgot password?
-                </RouterLink>
+          <Formik
+            initialValues={{
+              username: "",
+              email: "",
+              password: "",
+            }}
+            className={classes.form}
+            validationSchema={yup.object({
+              username: yup.string().required("Required"),
+              email: yup.string().email("Invalid email").required("Required"),
+              password: yup.string().required("Required"),
+            })}
+            onSubmit={handleSubmit}
+          >
+            <Form>
+              <Field
+                component={TextField}
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="username"
+                label="Username"
+                name="username"
+              />
+              <Field
+                component={TextField}
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email"
+                name="email"
+              />
+              <Field
+                component={TextField}
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+              >
+                LOG IN
+              </Button>
+              <Grid container>
+                <Grid item xs>
+                  <RouterLink
+                    to="/forgot-password"
+                    className={classes.routerLink}
+                  >
+                    Forgot password?
+                  </RouterLink>
+                </Grid>
+                <Grid item>
+                  <RouterLink to="/signup" className={classes.routerLink}>
+                    Don&apos;t have an account? Sign Up!
+                  </RouterLink>
+                </Grid>
               </Grid>
-              <Grid item>
-                <RouterLink to="/signup" className={classes.routerLink}>
-                  Don&apos;t have an account? Sign Up!
-                </RouterLink>
-              </Grid>
-            </Grid>
-            <Box mt={5}>
-              <Copyright />
-            </Box>
-          </form>
+              <Box mt={5}>
+                <Copyright />
+              </Box>
+            </Form>
+          </Formik>
         </div>
       </Grid>
     </Grid>

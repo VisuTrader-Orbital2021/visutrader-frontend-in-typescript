@@ -76,6 +76,7 @@ export const loginUser = createAsyncThunk(
         displayName: userData.displayName,
         email: userData.email,
         wallet: userData.wallet,
+        position: userData.position,
         dateJoined: userData.dateJoined,
         token: tokenObject.token,
       });
@@ -123,7 +124,8 @@ const userSlice = createSlice({
       state.username = payload.username;
       state.displayName = payload.display_name;
       state.email = payload.email;
-      state.wallet = payload.wallets[0];
+      state.wallet = payload.wallet;
+      state.position = payload.position;
       state.dateJoined = payload.created_at;
     });
   },

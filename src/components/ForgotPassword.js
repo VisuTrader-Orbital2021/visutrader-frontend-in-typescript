@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
 import Paper from "@material-ui/core/Paper";
 import Box from "@material-ui/core/Box";
 import Avatar from "@material-ui/core/Avatar";
@@ -9,6 +8,10 @@ import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { Formik, Form, Field } from "formik";
+import { TextField } from "formik-material-ui";
+import * as yup from "yup";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Copyright from "./Copyright";
 
@@ -49,25 +52,10 @@ export default function ForgotPassword() {
   const theme = useTheme();
   const classes = useStyles(theme);
 
+  const dispatch = useDispatch();
   const history = useHistory();
 
-  const [fields, setFields] = useState({});
-
-  const handleInputChange = (e) => {
-    const target = e.target;
-
-    const name = target.name;
-    const value = target.value;
-
-    setFields({
-      ...fields,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const handleSubmit = async (values) => {
     // TODO
   };
 
@@ -83,31 +71,41 @@ export default function ForgotPassword() {
           <Typography component="h1" variant="h5">
             FORGOT PASSWORD
           </Typography>
-          <form className={classes.form} noValidate onSubmit={handleSubmit}>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email"
-              name="email"
-              autoComplete="email"
-              onChange={handleInputChange}
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              SUBMIT
-            </Button>
-            <Box mt={5}>
-              <Copyright />
-            </Box>
-          </form>
+          <Formik
+            initialValues={{
+              email: "",
+            }}
+            className={classes.form}
+            validationSchema={yup.object({
+              email: yup.string().email("Invalid email").required("Required"),
+            })}
+            onSubmit={handleSubmit}
+          >
+            <Form>
+              <Field
+                component={TextField}
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email"
+                name="email"
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+              >
+                submit
+              </Button>
+              <Box mt={5}>
+                <Copyright />
+              </Box>
+            </Form>
+          </Formik>
         </div>
       </Grid>
     </Grid>

@@ -1,17 +1,21 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { ThemeProvider } from "@material-ui/core/styles";
+import renderTheme from "./theme/theme";
 import Home from "./components/Home";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
+import { useSelector } from "react-redux";
 import ForgotPassword from "./components/ForgotPassword";
 import Personal from "./components/Personal";
 
-import { Provider } from "react-redux";
-import store from "./redux/store";
-
 function App() {
+  const color = useSelector((state) => state.color);
+
   return (
-    <Provider store={store}>
+    <ThemeProvider
+      theme={renderTheme(color.primaryColor, color.secondaryColor)}
+    >
       <BrowserRouter>
         <div>
           <Switch>
@@ -21,14 +25,14 @@ function App() {
             <Route exact path="/login">
               <Login />
             </Route>
-            <Route exact path="/forgot_password">
+            <Route exact path="/forgot-password">
               <ForgotPassword />
             </Route>
             <Route
               exact
               path={[
-                "/forum",
                 "/guide",
+                "/news",
                 "/trade",
                 "/wallet",
                 "/settings",
@@ -43,7 +47,7 @@ function App() {
           </Switch>
         </div>
       </BrowserRouter>
-    </Provider>
+    </ThemeProvider>
   );
 }
 
