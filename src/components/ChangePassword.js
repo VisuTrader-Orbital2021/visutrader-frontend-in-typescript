@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
@@ -11,9 +11,15 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Formik, Form, Field } from "formik";
 import { TextField } from "formik-material-ui";
 import * as yup from "yup";
-import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory, useParams } from "react-router-dom";
 import Copyright from "./Copyright";
+import {
+  changePasswordUser,
+  resetUser,
+  userSelector,
+} from "../redux/slices/user";
+import { unwrapResult } from "@reduxjs/toolkit";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,15 +54,36 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ForgotPassword() {
+export default function ChangePassword() {
+  useEffect(() => {
+    if (!authenticated) {
+      alert("Please log in to view this page");
+      history.push("/login");
+    }
+  });
+
   const theme = useTheme();
   const classes = useStyles(theme);
 
   const dispatch = useDispatch();
-  const history = useHistory();
+  const { authenticated } = useSelector(userSelector);
 
-  const handleSubmit = async (values) => {
-    // TODO
+  const history = useHistory();
+  const { uid, token } = useParams();
+
+  const handleSubmit = async (formValues) => {
+    const values = {
+      ...formValues,
+      uid,
+      token,
+    };
+
+    await dispatch(changePasswordUser(values))
+      .then(unwrapResult)
+      .then((res) => alert(res))
+      .then(() => dispatch(resetUser()))
+      .then(() => history.push("/login"))
+      .catch((err) => alert(JSON.stringify(err)));
   };
 
   return (
@@ -69,28 +96,67 @@ export default function ForgotPassword() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            FORGOT PASSWORD
+            CHANGE PASSWORD
           </Typography>
           <Formik
             initialValues={{
-              email: "",
+              old_password: "",
+              new_password1: "",
+              new_password2: "",
             }}
-            className={classes.form}
             validationSchema={yup.object({
-              email: yup.string().email("Invalid email").required("Required"),
+              old_password: yup.string().required("Required"),
+              new_password1: yup
+                .string()
+                .required("Required")
+                .min(8, "Password must contains at least 8 characters")
+                .max(20, "Password must contains less than 20 characters"),
+              new_password2: yup.string().when("new_password1", {
+                is: (val) => val && val.length > 0,
+                then: yup
+                  .string()
+                  .oneOf(
+                    [yup.ref("new_password1")],
+                    "Password confirmation does not match"
+                  )
+                  .required("Required"),
+              }),
             })}
             onSubmit={handleSubmit}
           >
-            <Form>
+            <Form className={classes.form}>
               <Field
                 component={TextField}
                 variant="outlined"
                 margin="normal"
                 required
                 fullWidth
-                id="email"
-                label="Email"
-                name="email"
+                id="old_password"
+                label="Password"
+                name="old_password"
+                type="password"
+              />
+              <Field
+                component={TextField}
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="new_password1"
+                label="New Password"
+                name="new_password1"
+                type="password"
+              />
+              <Field
+                component={TextField}
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="new_password2"
+                label="Confirm Password"
+                name="new_password2"
+                type="password"
               />
               <Button
                 type="submit"
@@ -99,7 +165,7 @@ export default function ForgotPassword() {
                 color="primary"
                 className={classes.submit}
               >
-                submit
+                CHANGE PASSWORD
               </Button>
               <Box mt={5}>
                 <Copyright />

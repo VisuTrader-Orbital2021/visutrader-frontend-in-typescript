@@ -1,10 +1,9 @@
-import React from "react";
-import { Link as RouterLink } from "react-router-dom";
-import Avatar from "@material-ui/core/Avatar";
+import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import Box from "@material-ui/core/Box";
+import Avatar from "@material-ui/core/Avatar";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
@@ -13,9 +12,10 @@ import { Formik, Form, Field } from "formik";
 import { TextField } from "formik-material-ui";
 import * as yup from "yup";
 import { useDispatch } from "react-redux";
-import { signUpUser } from "../redux/slices/user";
-import { useHistory } from "react-router-dom";
-import Copyright from "./Copyright";
+import { useHistory, useParams } from "react-router-dom";
+import Copyright from "../Copyright";
+import { resetPasswordUser } from "../../redux/slices/user";
+import { unwrapResult } from "@reduxjs/toolkit";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,33 +48,28 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-  routerLink: {
-    textDecoration: "none",
-    color: theme.palette.primary.main,
-    "&:hover": {
-      textDecoration: "underline",
-    },
-  },
 }));
 
-export default function Signup() {
+export default function ResetPassword() {
   const theme = useTheme();
   const classes = useStyles(theme);
 
   const dispatch = useDispatch();
   const history = useHistory();
+  const { uid, token } = useParams();
 
-  const handleSubmit = async (values) => {
-    const response = await dispatch(signUpUser(values));
+  const handleSubmit = async (formValues) => {
+    const values = {
+      ...formValues,
+      uid,
+      token,
+    };
 
-    if (response.type === signUpUser.fulfilled.toString()) {
-      // Redirect when success here
-      alert("Signed up successfully");
-      history.push("/login");
-    } else {
-      // TODO: fix this with better UI.
-      alert(JSON.stringify(response.payload));
-    }
+    await dispatch(resetPasswordUser(values))
+      .then(unwrapResult)
+      .then((res) => alert(res))
+      .then(() => history.push("/login"))
+      .catch((err) => alert(JSON.stringify(err)));
   };
 
   return (
@@ -87,31 +82,25 @@ export default function Signup() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            SIGN UP
+            RESET PASSWORD
           </Typography>
           <Formik
             initialValues={{
-              username: "",
-              display_name: "",
-              email: "",
-              password: "",
-              confirm_password: "",
+              new_password1: "",
+              new_password2: "",
             }}
             validationSchema={yup.object({
-              username: yup.string().required("Required"),
-              display_name: yup.string().required("Required"),
-              email: yup.string().email("Invalid email").required("Required"),
-              password: yup
+              new_password1: yup
                 .string()
                 .required("Required")
                 .min(8, "Password must contains at least 8 characters")
                 .max(20, "Password must contains less than 20 characters"),
-              confirm_password: yup.string().when("password", {
+              new_password2: yup.string().when("new_password1", {
                 is: (val) => val && val.length > 0,
                 then: yup
                   .string()
                   .oneOf(
-                    [yup.ref("password")],
+                    [yup.ref("new_password1")],
                     "Password confirmation does not match"
                   )
                   .required("Required"),
@@ -126,40 +115,10 @@ export default function Signup() {
                 margin="normal"
                 required
                 fullWidth
-                id="username"
-                label="Username"
-                name="username"
-              />
-              <Field
-                component={TextField}
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="display_name"
-                label="Display name"
-                name="display_name"
-              />
-              <Field
-                component={TextField}
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email"
-                name="email"
-              />
-              <Field
-                component={TextField}
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
+                id="new_password1"
+                label="New Password"
+                name="new_password1"
                 type="password"
-                id="password"
               />
               <Field
                 component={TextField}
@@ -167,10 +126,10 @@ export default function Signup() {
                 margin="normal"
                 required
                 fullWidth
-                name="confirm_password"
+                id="new_password2"
                 label="Confirm Password"
+                name="new_password2"
                 type="password"
-                id="confirm_password"
               />
               <Button
                 type="submit"
@@ -179,15 +138,8 @@ export default function Signup() {
                 color="primary"
                 className={classes.submit}
               >
-                SIGN UP
+                RESET PASSWORD
               </Button>
-              <Grid container>
-                <Grid item xs>
-                  <RouterLink to="/login" className={classes.routerLink}>
-                    Already have an account? Log In!
-                  </RouterLink>
-                </Grid>
-              </Grid>
               <Box mt={5}>
                 <Copyright />
               </Box>

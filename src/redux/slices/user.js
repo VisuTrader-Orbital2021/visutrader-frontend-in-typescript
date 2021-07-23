@@ -7,6 +7,7 @@ const initialState = {
   email: localStorage.getItem("email"),
   token: localStorage.getItem("token"),
   wallet: localStorage.getItem("wallet"),
+  position: localStorage.getItem("position"),
   dateJoined: localStorage.getItem("dateJoined"),
   loading: false,
 };
@@ -82,6 +83,64 @@ export const loginUser = createAsyncThunk(
       });
 
       return tokenObject;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const forgotPasswordUser = createAsyncThunk(
+  "user/forgotPassword",
+  async (request, { rejectWithValue }) => {
+    try {
+      const response = await sendRequest(
+        "accounts/password/reset/",
+        null,
+        "post",
+        request
+      );
+
+      return response.detail;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const resetPasswordUser = createAsyncThunk(
+  "user/resetPassword",
+  async (request, { rejectWithValue }) => {
+    try {
+      const path =
+        "accounts/password/reset/confirm/" +
+        request.uid +
+        "/" +
+        request.token +
+        "/";
+
+      const response = await sendRequest(path, null, "post", request);
+
+      return response.detail;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
+export const changePasswordUser = createAsyncThunk(
+  "user/changePassword",
+  async (request, { getState, rejectWithValue }) => {
+    try {
+      const token = getState().user.token;
+
+      const response = await sendRequest(
+        "accounts/password/change/",
+        token,
+        "post",
+        request
+      );
+
+      return response.detail;
     } catch (err) {
       return rejectWithValue(err.response.data);
     }

@@ -19,13 +19,23 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
 import { ColorPicker, createColor } from "material-ui-color";
+import { Link as RouterLink } from "react-router-dom";
 import Copyright from "./Copyright";
+
+const useStyles = makeStyles({
+  routerLink: {
+    textDecoration: "none",
+    color: "#ffffff",
+  },
+});
 
 export default function Settings({ classes }) {
   const color = useSelector((state) => state.color);
   const user = useSelector(userSelector);
   const dispatch = useDispatch();
+  const routerClass = useStyles();
 
   const [primaryColor, setPrimaryColor] = useState(
     createColor(color.primaryColor)
@@ -105,6 +115,17 @@ export default function Settings({ classes }) {
                       >
                         RESET DEFAULT
                       </Button>
+                    </div>
+                    <div className={classes.settingsContentRow}>
+                      <Typography variant="h4">Change password</Typography>
+                      <RouterLink
+                        to="/change-password"
+                        className={routerClass.routerLink}
+                      >
+                        <Button variant="contained" color="secondary">
+                          CHANGE PASSWORD
+                        </Button>
+                      </RouterLink>
                     </div>
                   </div>
                 </CardContent>

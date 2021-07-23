@@ -6,7 +6,9 @@ import Home from "./components/Home";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 import { useSelector } from "react-redux";
-import ForgotPassword from "./components/ForgotPassword";
+import ForgotPassword from "./components/forget-password/ForgotPassword";
+import ResetPassword from "./components/forget-password/ResetPassword";
+import ChangePassword from "./components/ChangePassword";
 import Personal from "./components/Personal";
 
 function App() {
@@ -27,6 +29,12 @@ function App() {
             </Route>
             <Route exact path="/forgot-password">
               <ForgotPassword />
+            </Route>
+            <Route exact path="/forgot-password/:uid/:token">
+              <ResetPassword />
+            </Route>
+            <Route exact path="/change-password">
+              <ChangePassword />
             </Route>
             <Route
               exact
