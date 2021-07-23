@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ResetPassword() {
+export default function ChangePassword() {
   useEffect(() => {
     if (!authenticated) {
       alert("Please log in to view this page");
