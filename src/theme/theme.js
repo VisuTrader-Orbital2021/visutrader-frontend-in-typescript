@@ -1,9 +1,9 @@
 import { createMuiTheme } from "@material-ui/core/styles";
-import store from "../redux/store";
 
-export default function renderTheme(primaryColor, secondaryColor) {
+export default function renderTheme(themeMode, primaryColor, secondaryColor) {
   const theme = createMuiTheme({
     palette: {
+      type: themeMode,
       primary: {
         main: primaryColor,
         contrastText: "#ffffff",
@@ -12,8 +12,6 @@ export default function renderTheme(primaryColor, secondaryColor) {
         main: secondaryColor,
         contrastText: "#ffffff",
       },
-      rising: "#04f77e",
-      falling: "#ff3911",
     },
     typography: {
       fontFamily: ["Nunito Sans", "sans-serif"].join(","),

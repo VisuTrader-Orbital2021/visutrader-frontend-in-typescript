@@ -23,25 +23,32 @@ import { ColorPicker, createColor } from "material-ui-color";
 import Copyright from "./Copyright";
 
 export default function Settings({ classes }) {
+  const color = useSelector((state) => state.color);
   const user = useSelector(userSelector);
   const dispatch = useDispatch();
 
-  const [primaryColor, setPrimaryColor] = useState(createColor("#536DFE"));
+  const [primaryColor, setPrimaryColor] = useState(
+    createColor(color.primaryColor)
+  );
   const handlePrimaryColor = (value) => {
     setPrimaryColor(value);
     dispatch(changePrimaryColor(`#${value.hex}`));
   };
 
-  const [secondaryColor, setSecondaryColor] = useState(createColor("#EC407A"));
+  const [secondaryColor, setSecondaryColor] = useState(
+    createColor(color.secondaryColor)
+  );
   const handleSecondaryColor = (value) => {
     setSecondaryColor(value);
     dispatch(changeSecondaryColor(`#${value.hex}`));
   };
 
-  const [checked, setChecked] = React.useState(false);
+  const [checked, setChecked] = React.useState(
+    color.themeMode === "light" ? false : true
+  );
   const handleChange = () => {
-    setChecked(!checked);
     dispatch(changeThemeMode(checked ? "light" : "dark"));
+    setChecked(!checked);
   };
 
   const handleClick = () => {

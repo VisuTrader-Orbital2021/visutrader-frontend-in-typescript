@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
   newsChip: {
     borderRadius: 0,
     marginRight: "20px",
-    backgroundColor: "#f5f5f5",
+    backgroundColor: theme.palette.type === "light" ? "#f5f5f5" : "#343434",
     color: theme.palette.primary.dark,
   },
   title: {
@@ -66,9 +66,9 @@ const useStyles = makeStyles((theme) => ({
   search: {
     position: "relative",
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: "#f5f5f5",
+    backgroundColor: theme.palette.type === "light" ? "#f5f5f5" : "#343434",
     "&:hover": {
-      backgroundColor: "#f5f5f5",
+      backgroundColor: theme.palette.type === "light" ? "#f5f5f5" : "#343434",
     },
     marginLeft: 0,
     width: "100%",
@@ -85,6 +85,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    color: theme.palette.type === "light" ? "black" : "white",
   },
   inputRoot: {
     color: "inherit",

@@ -24,7 +24,6 @@ const colorSlice = createSlice({
       state.themeMode = action.payload;
     },
     resetDefault: (state) => {
-      console.log(initialState);
       state.primaryColor = DEFAULT_PRIMARY_COLOR;
       state.secondaryColor = DEFAULT_SECONDARY_COLOR;
       state.themeMode = "light";
