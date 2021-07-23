@@ -7,6 +7,10 @@ import {
   changeThemeMode,
   resetDefault,
 } from "../redux/slices/color";
+import {
+  DEFAULT_PRIMARY_COLOR,
+  DEFAULT_SECONDARY_COLOR,
+} from "../utils/constants";
 import Container from "@material-ui/core/Container";
 import Switch from "@material-ui/core/Switch";
 import Button from "@material-ui/core/Button";
@@ -42,8 +46,8 @@ export default function Settings({ classes }) {
 
   const handleClick = () => {
     dispatch(resetDefault());
-    setPrimaryColor(createColor("#536DFE"));
-    setSecondaryColor(createColor("#EC407A"));
+    setPrimaryColor(createColor(DEFAULT_PRIMARY_COLOR));
+    setSecondaryColor(createColor(DEFAULT_SECONDARY_COLOR));
     setChecked(false);
   };
 

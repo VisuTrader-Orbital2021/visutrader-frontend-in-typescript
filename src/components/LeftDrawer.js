@@ -19,6 +19,7 @@ import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
 import SettingsIcon from "@material-ui/icons/Settings";
 
 const DRAWER_WIDTH = 58;
+const DEFAULT_ICON_COLOR = "#757575";
 
 const useStyles = makeStyles((theme) => ({
   leftDrawer: {
@@ -57,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
 
 function routerStyle(location, icon, theme) {
   return {
-    color: location === icon ? theme.palette.primary.main : "#757575",
+    color: location === icon ? theme.palette.primary.main : DEFAULT_ICON_COLOR,
   };
 }
 
@@ -68,7 +69,7 @@ function MainListIcons(props) {
         <ListItemIcon>
           <RouterLink
             to="/guide"
-            style={routerStyle(props.location, "guide", props.theme)}
+            style={routerStyle(props.location, "guide", useTheme())}
           >
             <Tooltip
               title={<Typography variant="body2">Guide</Typography>}
@@ -85,7 +86,7 @@ function MainListIcons(props) {
         <ListItemIcon>
           <RouterLink
             to="/news"
-            style={routerStyle(props.location, "news", props.theme)}
+            style={routerStyle(props.location, "news", useTheme())}
           >
             <Tooltip
               title={<Typography variant="body2">News</Typography>}
@@ -102,7 +103,7 @@ function MainListIcons(props) {
         <ListItemIcon>
           <RouterLink
             to="/trade"
-            style={routerStyle(props.location, "trade", props.theme)}
+            style={routerStyle(props.location, "trade", useTheme())}
           >
             <Tooltip
               title={<Typography variant="body2">Trade</Typography>}
@@ -119,7 +120,7 @@ function MainListIcons(props) {
         <ListItemIcon>
           <RouterLink
             to="/wallet"
-            style={routerStyle(props.location, "wallet", props.theme)}
+            style={routerStyle(props.location, "wallet", useTheme())}
           >
             <Tooltip
               title={<Typography variant="body2">Wallet</Typography>}
@@ -143,7 +144,7 @@ function SecondaryListIcons(props) {
         <ListItemIcon>
           <RouterLink
             to="/settings"
-            style={routerStyle(props.location, "settings", props.theme)}
+            style={routerStyle(props.location, "settings", useTheme())}
           >
             <Tooltip
               title={<Typography variant="body2">Settings</Typography>}
@@ -186,18 +187,10 @@ export default function LeftDrawer({
           <Divider />
           <div className={classes.drawerIcons}>
             <List className="main-list-icons">
-              <MainListIcons
-                classes={classes}
-                location={location}
-                theme={theme}
-              />
+              <MainListIcons classes={classes} location={location} />
             </List>
             <List className="secondary-list-icons">
-              <SecondaryListIcons
-                classes={classes}
-                location={location}
-                theme={theme}
-              />
+              <SecondaryListIcons classes={classes} location={location} />
             </List>
           </div>
         </Drawer>

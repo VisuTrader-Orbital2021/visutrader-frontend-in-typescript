@@ -102,7 +102,7 @@ export default function Login() {
             className={classes.form}
             validationSchema={yup.object({
               username: yup.string().required("Required"),
-              email: yup.string().required("Required"),
+              email: yup.string().email("Invalid email").required("Required"),
               password: yup.string().required("Required"),
             })}
             onSubmit={handleSubmit}

@@ -1,8 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
+import {
+  DEFAULT_PRIMARY_COLOR,
+  DEFAULT_SECONDARY_COLOR,
+} from "../../utils/constants";
 
 const initialState = {
-  primaryColor: "#536DFE",
-  secondaryColor: "#EC407A",
+  primaryColor: DEFAULT_PRIMARY_COLOR,
+  secondaryColor: DEFAULT_SECONDARY_COLOR,
   themeMode: "light",
 };
 
@@ -21,8 +25,8 @@ const colorSlice = createSlice({
     },
     resetDefault: (state) => {
       console.log(initialState);
-      state.primaryColor = "#536DFE";
-      state.secondaryColor = "#EC407A";
+      state.primaryColor = DEFAULT_PRIMARY_COLOR;
+      state.secondaryColor = DEFAULT_SECONDARY_COLOR;
       state.themeMode = "light";
     },
   },

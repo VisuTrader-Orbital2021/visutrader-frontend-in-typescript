@@ -77,7 +77,7 @@ export default function ForgotPassword() {
             }}
             className={classes.form}
             validationSchema={yup.object({
-              email: yup.string().required("Required"),
+              email: yup.string().email("Invalid email").required("Required"),
             })}
             onSubmit={handleSubmit}
           >
