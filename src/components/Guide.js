@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   },
   navigationText: {
     textDecoration: "none",
-    color: "black",
+    color: theme.palette.type === "light" ? "black" : "white",
     "&:hover": {
       color: theme.palette.primary.dark,
     },

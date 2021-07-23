@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import CanvasJSReact from "../assets/canvasjs.stock.react";
 let CanvasJSStockChart = CanvasJSReact.CanvasJSStockChart;
 
@@ -8,11 +9,13 @@ const CANDLESTICK = "CANDLESTICK";
 const SPLINE_AREA = "SPLINE AREA";
 
 export default function StockChart({ stockType, stockData, chartType }) {
+  const themeMode = useSelector((state) => state.color.themeMode);
+
   if (stockType === DAILY) {
     return chartType === CANDLESTICK ? (
-      <DailyCandlestickChart stockData={stockData} />
+      <DailyCandlestickChart stockData={stockData} themeMode={themeMode} />
     ) : (
-      <DailySplineAreaChart stockData={stockData} />
+      <DailySplineAreaChart stockData={stockData} themeMode={themeMode} />
     );
   } else {
     return chartType === CANDLESTICK ? (
@@ -23,11 +26,11 @@ export default function StockChart({ stockType, stockData, chartType }) {
   }
 }
 
-const DailyCandlestickChart = ({ stockData }) => {
+const DailyCandlestickChart = ({ stockData, themeMode }) => {
   return (
     <CanvasJSStockChart
       options={{
-        theme: "light2",
+        theme: `${themeMode}2`,
         charts: [
           {
             axisX: {
@@ -112,11 +115,11 @@ const DailyCandlestickChart = ({ stockData }) => {
   );
 };
 
-const DailySplineAreaChart = ({ stockData }) => {
+const DailySplineAreaChart = ({ stockData, themeMode }) => {
   return (
     <CanvasJSStockChart
       options={{
-        theme: "light2",
+        theme: `${themeMode}2`,
         charts: [
           {
             axisX: {

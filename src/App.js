@@ -10,12 +10,12 @@ import ForgotPassword from "./components/ForgotPassword";
 import Personal from "./components/Personal";
 
 function App() {
-  const color = useSelector((state) => state.color);
+  const { primaryColor, secondaryColor, themeMode } = useSelector(
+    (state) => state.color
+  );
 
   return (
-    <ThemeProvider
-      theme={renderTheme(color.primaryColor, color.secondaryColor)}
-    >
+    <ThemeProvider theme={renderTheme(themeMode, primaryColor, secondaryColor)}>
       <BrowserRouter>
         <div>
           <Switch>
