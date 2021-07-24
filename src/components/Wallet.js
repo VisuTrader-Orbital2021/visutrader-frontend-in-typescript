@@ -48,9 +48,6 @@ function getBalanceHistory(initial, history, userJoinDate) {
   let timeline = [];
   let currentValue = initial;
 
-  console.log(initial);
-  console.log(history);
-
   history.forEach(({ amount, createdAt }) => {
     timeline.push({
       amount: currentValue,

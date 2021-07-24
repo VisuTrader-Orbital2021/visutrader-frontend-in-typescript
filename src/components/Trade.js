@@ -6,7 +6,9 @@ import {
   getCompanyDataList,
   setCurrentCompany,
 } from "../redux/slices/stock";
+import { AMAZON, TESLA, MICROSOFT } from "../utils/constants";
 import { unwrapResult } from "@reduxjs/toolkit";
+import { useTheme } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
@@ -25,7 +27,6 @@ import CompanyOverview from "./CompanyOverview";
 import PaperTrading from "./PaperTrading";
 import Watchlist from "./Watchlist";
 import Copyright from "./Copyright";
-import { AMAZON, TESLA, MICROSOFT } from "../utils/constants";
 
 const DAILY = "DAILY";
 const INTRADAY = "INTRADAY";
@@ -33,6 +34,7 @@ const CANDLESTICK = "CANDLESTICK";
 const SPLINE_AREA = "SPLINE AREA";
 
 export default function Trade({ classes }) {
+  const theme = useTheme();
   const currentCompany = useSelector((state) => state.stock.currentCompany);
   const dispatch = useDispatch();
 
@@ -157,6 +159,7 @@ export default function Trade({ classes }) {
               </CardContent>
             </Card>
           </Grid>
+
           <Grid item xs={4}>
             <Card>
               <CardContent>
@@ -164,6 +167,7 @@ export default function Trade({ classes }) {
               </CardContent>
             </Card>
           </Grid>
+
           <Grid item xs={4}>
             <Card>
               <CardContent>
@@ -171,6 +175,7 @@ export default function Trade({ classes }) {
               </CardContent>
             </Card>
           </Grid>
+
           <Grid item xs={4}>
             <Card>
               <CardContent>
@@ -218,6 +223,7 @@ export default function Trade({ classes }) {
             </Card>
           </Grid>
         </Grid>
+
         <Box pt={4}>
           <Copyright />
         </Box>
