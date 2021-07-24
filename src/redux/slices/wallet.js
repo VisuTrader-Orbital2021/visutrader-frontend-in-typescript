@@ -39,6 +39,28 @@ export const getWalletDetail = createAsyncThunk(
   }
 );
 
+export const trade = createAsyncThunk(
+  "wallet/trade",
+  async (request, { getState, rejectWithValue }) => {
+    const token = getState().user.token;
+    const wallet = getState().user.wallet;
+
+    if (!token) {
+      return rejectWithValue("token is required");
+    }
+
+    try {
+      const url = wallet + "history/";
+
+      await sendRequest(url, token, "post", request);
+
+      return;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
 const walletSlice = createSlice({
   name: "wallet",
   initialState,
