@@ -12,7 +12,9 @@ import FormControl from "@material-ui/core/FormControl";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import { useDispatch } from "react-redux";
+import { trade } from "../redux/slices/wallet";
+import { useDispatch, useSelector } from "react-redux";
+import { unwrapResult } from "@reduxjs/toolkit";
 
 const MARKET = "MARKET";
 const LIMIT = "LIMIT";
@@ -87,6 +89,9 @@ export default function PaperTrading() {
   const classes = useStyles(theme);
 
   const dispatch = useDispatch();
+  const { dailyStockData: stockData, companyData } = useSelector(
+    (state) => state.stock
+  );
 
   const [quantity, setQuantity] = React.useState(0);
   const handleChangeQuantity = (e) => {
@@ -104,13 +109,23 @@ export default function PaperTrading() {
     setOrderType(orderType);
   };
 
-  const tradeHandler = (transactionType) => {
+  const tradeHandler = async (transactionType) => {
+    console.log("Called");
+    if (!stockData || stockData.length === 0) {
+      return;
+    }
+
     const values = {
       transaction_type: transactionType,
       quantity: quantity,
-      amount: quantity * 0, // extract data
-      market: "APPL",
+      amount: quantity * stockData[0].close, // extract data
+      market: companyData["Symbol"],
     };
+
+    await dispatch(trade(values))
+      .then(unwrapResult)
+      .then(() => alert("Transaction successful"))
+      .catch((err) => alert(JSON.stringify(err)));
   };
 
   return (
@@ -127,8 +142,9 @@ export default function PaperTrading() {
             shrink: true,
           }}
           className={classes.textField}
+          defaultValue={MARKET}
         >
-          <MenuItem value="market">MARKET</MenuItem>
+          <MenuItem value={MARKET}>MARKET</MenuItem>
         </TextField>
         <TextField
           id="standard-number"
@@ -142,14 +158,29 @@ export default function PaperTrading() {
         />
       </div>
 
+      <Box mb={3} mx="auto">
+        <Typography variant="h3">
+          Total price:{" USD $"}
+          {!stockData || stockData.length === 0
+            ? 0
+            : quantity * stockData[0].close}
+        </Typography>
+      </Box>
+
       <div className={classes.buyAndSell}>
         <Box width="30%" align="center">
-          <Button className={classes.buyButton} onClick={tradeHandler(BUY)}>
+          <Button
+            className={classes.buyButton}
+            onClick={() => tradeHandler(BUY)}
+          >
             BUY
           </Button>
         </Box>
         <Box width="30%" align="center">
-          <Button className={classes.sellButton} onClick={tradeHandler(SELL)}>
+          <Button
+            className={classes.sellButton}
+            onClick={() => tradeHandler(SELL)}
+          >
             SELL
           </Button>
         </Box>

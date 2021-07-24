@@ -50,7 +50,7 @@ export const trade = createAsyncThunk(
     }
 
     try {
-      const url = wallet + "history";
+      const url = wallet + "history/";
 
       await sendRequest(url, token, "post", request);
 
