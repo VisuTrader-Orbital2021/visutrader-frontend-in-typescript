@@ -29,6 +29,11 @@ const useStyles = makeStyles((theme) => ({
     overflow: "auto",
     flexDirection: "column",
   },
+  listHead: {
+    width: "100px",
+    fontWeight: 700,
+    textAlign: "center",
+  },
   chartHeader: {
     display: "flex",
     flexDirection: "row",

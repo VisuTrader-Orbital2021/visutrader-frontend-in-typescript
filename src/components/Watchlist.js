@@ -1,55 +1,94 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { companySelector } from "../redux/slices/stock";
 import ListItem from "@material-ui/core/ListItem";
 import Typography from "@material-ui/core/Typography";
 import Skeleton from "@material-ui/lab/Skeleton";
-import { makeStyles } from "@material-ui/core/styles";
+import { useTheme } from "@material-ui/core/styles";
 
-const useStyles = makeStyles((theme) => ({
-  listItem: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-}));
-
-// WORK IN PROGRESS
-export default function Watchlist({ company, onClick }) {
-  const classes = useStyles();
+export default function Watchlist({ classes, company, onClick }) {
+  const theme = useTheme();
 
   const handleChange = () => {
     onClick(company);
   };
 
-  const {
-    dailyStockData: stockData,
-    dailyStockLoading: loading,
-    companyData,
-  } = useSelector((state) => state.stock);
+  const { companyDataListLoading: loading } = useSelector(
+    (state) => state.stock
+  );
 
-  if (!loading && stockData && companyData) {
+  const companyData = useSelector((state) => companySelector(state, company));
+
+  if (!loading) {
     return (
-      <ListItem button onClick={handleChange} className={classes.listItem}>
-        <Typography variant="h3">{companyData["Symbol"]}</Typography>
-        <div className={classes.listItem}>
-          <Typography variant="h3" color="secondary">
-            ${companyData["AnalystTargetPrice"]}
-          </Typography>
-          <Typography
-            variant="h3"
-            color="secondary"
-            style={{ marginLeft: "40px" }}
-          >
-            2.44%
-          </Typography>
-        </div>
+      <ListItem
+        button
+        onClick={handleChange}
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
+        <Typography
+          variant="h3"
+          style={{ width: "100px", textAlign: "center" }}
+        >
+          {companyData["Symbol"]}
+        </Typography>
+        <Typography
+          variant="h4"
+          style={{
+            width: "100px",
+            color: theme.palette.primary.dark,
+            textAlign: "center",
+          }}
+        >
+          {companyData["Exchange"]}
+        </Typography>
+        <Typography
+          variant="h4"
+          style={{ width: "100px", textAlign: "center" }}
+        >
+          {formatAmount(Number(companyData["MarketCapitalization"]))}
+        </Typography>
       </ListItem>
     );
   } else {
     return (
-      <ListItem>
-        <Skeleton variant="rect" />
+      <ListItem
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
+        <Skeleton variant="rect" className={classes.listHead} />
       </ListItem>
     );
   }
+}
+
+function formatAmount(amount) {
+  const oneT = 1000000000000;
+  const oneB = 1000000000;
+  const oneM = 1000000;
+  const oneK = 1000;
+  let suffix = "";
+
+  if (amount >= oneT) {
+    amount /= oneT;
+    suffix = "T";
+  } else if (amount >= oneB) {
+    amount /= oneB;
+    suffix = "B";
+  } else if (amount >= oneM) {
+    amount /= oneM;
+    suffix = "M";
+  } else if (amount >= oneK) {
+    amount /= oneK;
+    suffix = "K";
+  }
+
+  return String(amount.toFixed(3)) + suffix;
 }

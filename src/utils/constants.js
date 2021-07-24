@@ -4,5 +4,8 @@ export const BACKEND_URL =
     : "https://visutrader-backend.herokuapp.com";
 
 export const DEFAULT_PRIMARY_COLOR = "#536DFE";
-
 export const DEFAULT_SECONDARY_COLOR = "#EC407A";
+
+export const AMAZON = "AMZN";
+export const TESLA = "TSLA";
+export const MICROSOFT = "MSFT";

@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { companySelector } from "../redux/slices/stock";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Skeleton from "@material-ui/lab/Skeleton";
@@ -105,95 +106,188 @@ const useStyles = makeStyles((theme) => ({
 export default function CompanyOverview() {
   const theme = useTheme();
   const classes = useStyles(theme);
+
   const {
     dailyStockData: stockData,
-    dailyStockLoading: loading,
-    companyData,
+    dailyStockLoading: stockLoading,
+    companyDataListLoading: companyLoading,
+    currentCompany,
   } = useSelector((state) => state.stock);
 
-  return (
-    <div>
-      <div className={classes.companyGeneral}>
-        <Typography className={classes.companySymbol} variant="h2">
-          {companyData["Symbol"]}
-        </Typography>
-        <Typography className={classes.companyName} variant="h3">
-          {companyData["Name"]}
-        </Typography>
-        <Typography className={classes.companyIndustry} variant="body1">
-          {companyData["Industry"]}
-        </Typography>
-      </div>
-      <div className={classes.companyStock}>
-        <Typography className={classes.stockPrice} variant="h1">
-          {!loading && stockData && `$${stockData[0].close}`}
-        </Typography>
-        <Typography className={classes.whiteSpace}> </Typography>
-        <Typography className={classes.stockCurrency} variant="h3">
-          {companyData["Currency"]}
-        </Typography>
-      </div>
-      <div className={classes.companyStats}>
-        <Typography className={classes.keyStats} variant="h3">
-          KEY STATISTICS
-        </Typography>
-        <div className={classes.companyStatsItem}>
-          <Typography variant="body1">Volume</Typography>
-          <Typography variant="body1">
-            {!loading && stockData && (
-              <strong>{formatAmount(Number(stockData[0].volume))}</strong>
-            )}
-          </Typography>
-        </div>
-        <div className={classes.companyStatsItem}>
-          <Typography variant="body1">Market Capitalization</Typography>
-          <Typography variant="body1">
-            <strong>
-              ${formatAmount(Number(companyData["MarketCapitalization"]))}
-            </strong>
-          </Typography>
-        </div>
-        <div className={classes.companyStatsItem}>
-          <Typography variant="body1">EPS</Typography>
-          <Typography variant="body1">
-            <strong>{formatAmount(Number(companyData["EPS"]))}</strong>
-          </Typography>
-        </div>
-        <div className={classes.companyStatsItem}>
-          <Typography variant="body1">P/E Ratio</Typography>
-          <Typography variant="body1">
-            <strong>{formatAmount(Number(companyData["PERatio"]))}</strong>
-          </Typography>
-        </div>
-        <div className={classes.companyStatsItem}>
-          <Typography variant="body1">PEG Ratio</Typography>
-          <Typography variant="body1">
-            <strong>{formatAmount(Number(companyData["PEGRatio"]))}</strong>
-          </Typography>
-        </div>
-        <div className={classes.companyStatsItem}>
-          <Typography variant="body1">Shares Float</Typography>
-          <Typography variant="body1">
-            <strong>{formatAmount(Number(companyData["SharesFloat"]))}</strong>
-          </Typography>
-        </div>
-      </div>
-      <div className={classes.companyPerformance}>
-        <Typography className={classes.performance} variant="h3">
-          PERFORMANCE
-        </Typography>
-        <RenderPerformance
-          classes={classes}
-          loading={loading}
-          stockData={stockData}
-        />
-      </div>
-    </div>
+  const companyData = useSelector((state) =>
+    companySelector(state, currentCompany)
   );
+
+  if (!stockLoading && !companyLoading) {
+    return (
+      <div>
+        <div className={classes.companyGeneral}>
+          <Typography className={classes.companySymbol} variant="h2">
+            {companyData["Symbol"]}
+          </Typography>
+          <Typography className={classes.companyName} variant="h3">
+            {companyData["Name"]}
+          </Typography>
+          <Typography className={classes.companyIndustry} variant="body1">
+            {companyData["Industry"]}
+          </Typography>
+        </div>
+        <div className={classes.companyStock}>
+          <Typography className={classes.stockPrice} variant="h1">
+            ${stockData[0].close}
+          </Typography>
+          <Typography className={classes.whiteSpace}> </Typography>
+          <Typography className={classes.stockCurrency} variant="h3">
+            {companyData["Currency"]}
+          </Typography>
+        </div>
+        <div className={classes.companyStats}>
+          <Typography className={classes.keyStats} variant="h3">
+            KEY STATISTICS
+          </Typography>
+          <div className={classes.companyStatsItem}>
+            <Typography variant="body1">Volume</Typography>
+            <Typography variant="body1">
+              <strong>{formatAmount(Number(stockData[0].volume))}</strong>
+            </Typography>
+          </div>
+          <div className={classes.companyStatsItem}>
+            <Typography variant="body1">Market Capitalization</Typography>
+            <Typography variant="body1">
+              <strong>
+                ${formatAmount(Number(companyData["MarketCapitalization"]))}
+              </strong>
+            </Typography>
+          </div>
+          <div className={classes.companyStatsItem}>
+            <Typography variant="body1">EPS</Typography>
+            <Typography variant="body1">
+              <strong>{formatAmount(Number(companyData["EPS"]))}</strong>
+            </Typography>
+          </div>
+          <div className={classes.companyStatsItem}>
+            <Typography variant="body1">P/E Ratio</Typography>
+            <Typography variant="body1">
+              <strong>{formatAmount(Number(companyData["PERatio"]))}</strong>
+            </Typography>
+          </div>
+          <div className={classes.companyStatsItem}>
+            <Typography variant="body1">PEG Ratio</Typography>
+            <Typography variant="body1">
+              <strong>{formatAmount(Number(companyData["PEGRatio"]))}</strong>
+            </Typography>
+          </div>
+          <div className={classes.companyStatsItem}>
+            <Typography variant="body1">Shares Float</Typography>
+            <Typography variant="body1">
+              <strong>
+                {formatAmount(Number(companyData["SharesFloat"]))}
+              </strong>
+            </Typography>
+          </div>
+        </div>
+        <div className={classes.companyPerformance}>
+          <Typography className={classes.performance} variant="h3">
+            PERFORMANCE
+          </Typography>
+          <RenderPerformance
+            classes={classes}
+            loading={stockLoading}
+            stockData={stockData}
+          />
+        </div>
+      </div>
+    );
+  } else {
+    return (
+      <React.Fragment>
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <div>
+            <Skeleton variant="rect" height="30px" width="40%" />
+          </div>
+          <div style={{ paddingTop: "20px" }}>
+            <Skeleton variant="rect" height="20px" width="60%" />
+          </div>
+          <div style={{ paddingTop: "10px" }}>
+            <Skeleton variant="text" height="20px" />
+          </div>
+          <div style={{ paddingTop: "20px" }}>
+            <Skeleton variant="rect" height="30px" width="80%" />
+          </div>
+          <div style={{ paddingTop: "20px" }}>
+            <Skeleton variant="text" height="20px" />
+          </div>
+          <div style={{ paddingTop: "10px" }}>
+            <Skeleton variant="text" height="20px" />
+          </div>
+          <div style={{ paddingTop: "10px" }}>
+            <Skeleton variant="text" height="20px" />
+          </div>
+          <div style={{ paddingTop: "10px" }}>
+            <Skeleton variant="text" height="20px" />
+          </div>
+          <div style={{ paddingTop: "10px" }}>
+            <Skeleton variant="text" height="20px" />
+          </div>
+          <div style={{ paddingTop: "10px" }}>
+            <Skeleton variant="text" height="20px" />
+          </div>
+          <div style={{ paddingTop: "10px" }}>
+            <Skeleton variant="text" height="20px" />
+          </div>
+          <div style={{ paddingTop: "10px" }}>
+            <Skeleton variant="text" height="20px" />
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              paddingTop: "20px",
+            }}
+          >
+            <Skeleton
+              variant="rect"
+              height="40px"
+              width="110px"
+              style={{ marginRight: "10px" }}
+            />
+            <Skeleton
+              variant="rect"
+              height="40px"
+              width="110px"
+              style={{ marginRight: "10px" }}
+            />
+            <Skeleton variant="rect" height="40px" width="110px" />
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              paddingTop: "10px",
+            }}
+          >
+            <Skeleton
+              variant="rect"
+              height="40px"
+              width="110px"
+              style={{ marginRight: "10px" }}
+            />
+            <Skeleton
+              variant="rect"
+              height="40px"
+              width="110px"
+              style={{ marginRight: "10px" }}
+            />
+            <Skeleton variant="rect" height="40px" width="110px" />
+          </div>
+        </div>
+      </React.Fragment>
+    );
+  }
 }
 
 function RenderPerformance({ classes, loading, stockData }) {
-  if (!loading && stockData) {
+  if (!loading) {
     return (
       <React.Fragment>
         <div className={classes.performanceRow}>
