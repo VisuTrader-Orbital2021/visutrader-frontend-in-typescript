@@ -48,9 +48,6 @@ function getBalanceHistory(initial, history, userJoinDate) {
   let timeline = [];
   let currentValue = initial;
 
-  console.log(initial);
-  console.log(history);
-
   history.forEach(({ amount, createdAt }) => {
     timeline.push({
       amount: currentValue,
@@ -108,7 +105,11 @@ export default function Wallet({ classes }) {
                 <Grid item>
                   <Card>
                     <CardContent>
-                      <Typography variant="h2">Account Details</Typography>
+                      <Box mb={2}>
+                        <Typography variant="h2" color="primary">
+                          ACCOUNT DETAILS
+                        </Typography>
+                      </Box>
                       <Typography variant="body1">
                         Balance: ${walletData.balance}
                       </Typography>
@@ -125,7 +126,9 @@ export default function Wallet({ classes }) {
                 <Grid item>
                   <Card>
                     <CardContent>
-                      <Typography variant="h2">Cash Flow</Typography>
+                      <Typography variant="h2" color="primary">
+                        CASH FLOW
+                      </Typography>
                       <ResponsiveContainer width="100%" height={400}>
                         <PieChart width={300} height={300}>
                           <Pie
@@ -150,7 +153,9 @@ export default function Wallet({ classes }) {
               <Grid item xs={8}>
                 <Card classes={{ root: walletStyle.fillHeight }}>
                   <CardContent classes={{ root: walletStyle.fillHeight }}>
-                    <Typography variant="h2">Balance Trend</Typography>
+                    <Typography variant="h2" color="primary">
+                      BALANCE TREND
+                    </Typography>
                     <ResponsiveContainer width="100%" height={400}>
                       {/* TODO: Fix width. XAxis label seems to be cut on right side. */}
                       <AreaChart
@@ -179,34 +184,103 @@ export default function Wallet({ classes }) {
               </Grid>
             </Grid>
 
-            <Grid item>
-              <TableContainer component={Paper}>
-                <Table>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell align="center">Date and Time</TableCell>
-                      <TableCell align="center">Amount</TableCell>
-                      <TableCell align="center">Market</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {walletData.history.map((row) => {
-                      return (
-                        <TableRow key={row.amount + row.createdAt}>
-                          <TableCell component="th" scope="row" align="center">
-                            {format(
-                              parseISO(row.createdAt),
-                              "MM/dd/yyyy HH:mm:ss O"
-                            )}
-                          </TableCell>
-                          <TableCell align="center">{row.amount}</TableCell>
-                          <TableCell align="center">{row.market}</TableCell>
-                        </TableRow>
-                      );
-                    })}
-                  </TableBody>
-                </Table>
-              </TableContainer>
+            <Grid container item spacing={3}>
+              <Grid item xs={8}>
+                <Card classes={{ root: walletStyle.fillHeight }}>
+                  <CardContent>
+                    <Typography variant="h2" color="primary">
+                      HISTORY
+                    </Typography>
+                    <TableContainer>
+                      <Table>
+                        <TableHead>
+                          <TableRow>
+                            <TableCell align="center">Date and Time</TableCell>
+                            <TableCell align="center">
+                              Transaction Type
+                            </TableCell>
+                            <TableCell align="center">Quantity</TableCell>
+                            <TableCell align="center">Total Price</TableCell>
+                            <TableCell align="center">Market</TableCell>
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          {walletData.history.map((row) => {
+                            return (
+                              <TableRow key={row.amount + row.createdAt}>
+                                <TableCell
+                                  component="th"
+                                  scope="row"
+                                  align="center"
+                                >
+                                  {format(
+                                    parseISO(row.createdAt),
+                                    "dd/MM/yyyy HH:mm:ss O"
+                                  )}
+                                </TableCell>
+                                <TableCell align="center">
+                                  {row.transactionType.toUpperCase()}
+                                </TableCell>
+                                <TableCell align="center">
+                                  {row.quantity}
+                                </TableCell>
+                                <TableCell align="center">
+                                  {row.amount}
+                                </TableCell>
+                                <TableCell align="center">
+                                  {row.market}
+                                </TableCell>
+                              </TableRow>
+                            );
+                          })}
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
+                  </CardContent>
+                </Card>
+              </Grid>
+
+              <Grid item xs={4}>
+                <Card classes={{ root: walletStyle.fillHeight }}>
+                  <CardContent>
+                    <Typography variant="h2" color="primary">
+                      POSITION
+                    </Typography>
+                    <TableContainer>
+                      <Table>
+                        <TableHead>
+                          <TableRow>
+                            <TableCell align="center">Symbol</TableCell>
+                            <TableCell align="center">Stock(s)</TableCell>
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          {Object.entries(walletData.position).map(
+                            ([symbol, stock]) => {
+                              if (stock === 0) {
+                                return null;
+                              }
+
+                              return (
+                                <TableRow key={symbol + stock}>
+                                  <TableCell
+                                    component="th"
+                                    scope="row"
+                                    align="center"
+                                  >
+                                    {symbol}
+                                  </TableCell>
+                                  <TableCell align="center">{stock}</TableCell>
+                                </TableRow>
+                              );
+                            }
+                          )}
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
+                  </CardContent>
+                </Card>
+              </Grid>
             </Grid>
           </Grid>
 
