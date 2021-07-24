@@ -1,4 +1,6 @@
 import axios from "axios";
+import localforage from "localforage";
+import { setupCache } from "axios-cache-adapter";
 import { BACKEND_URL } from "./constants";
 
 const axiosInstance = axios.create({
@@ -31,6 +33,52 @@ export const sendRequest = async (path, token, method, request) => {
     default:
       return Promise.resolve();
   }
+};
+
+const cache = setupCache({
+  maxAge: 60 * 60 * 1000,
+  store: localforage,
+  exclude: {
+    query: false,
+  },
+});
+
+const axiosStockInstance = axios.create({
+  baseURL: "https://www.alphavantage.co/query",
+  adapter: cache.adapter,
+});
+
+export const sendDailyStockRequest = (symbol) => {
+  return axiosStockInstance.get("", {
+    params: {
+      function: "TIME_SERIES_DAILY",
+      symbol: symbol,
+      outputsize: "full",
+      apikey: process.env.REACT_APP_ALPHA_VANTAGE_API_KEY,
+    },
+  });
+};
+
+export const sendIntradayStockRequest = (symbol, interval) => {
+  return axiosStockInstance.get("", {
+    params: {
+      function: "TIME_SERIES_INTRADAY",
+      symbol: symbol,
+      interval: interval,
+      outputsize: "full",
+      apikey: process.env.REACT_APP_ALPHA_VANTAGE_API_KEY,
+    },
+  });
+};
+
+export const sendCompanyRequest = (symbol) => {
+  return axiosStockInstance.get("", {
+    params: {
+      function: "OVERVIEW",
+      symbol: symbol,
+      apikey: process.env.REACT_APP_ALPHA_VANTAGE_API_KEY,
+    },
+  });
 };
 
 const axiosNewsInstance = axios.create({
