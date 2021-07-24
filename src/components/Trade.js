@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
   getDailyStock,
   getIntradayStock,
-  getCompanyOverview,
+  getCompanyDataList,
+  setCurrentCompany,
 } from "../redux/slices/stock";
 import { unwrapResult } from "@reduxjs/toolkit";
 import Container from "@material-ui/core/Container";
@@ -17,60 +18,56 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Fade from "@material-ui/core/Fade";
 import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
 import Divider from "@material-ui/core/Divider";
 import StockChart from "./StockChart";
 import CompanyOverview from "./CompanyOverview";
 import PaperTrading from "./PaperTrading";
 import Watchlist from "./Watchlist";
 import Copyright from "./Copyright";
+import { AMAZON, TESLA, MICROSOFT } from "../utils/constants";
 
 const DAILY = "DAILY";
 const INTRADAY = "INTRADAY";
 const CANDLESTICK = "CANDLESTICK";
 const SPLINE_AREA = "SPLINE AREA";
 
-const AMAZON = "AMZN";
-const APPLE = "AAPL";
-const TESLA = "TSLA";
-
 export default function Trade({ classes }) {
-  const [company, setCompany] = useState(AMAZON);
+  const currentCompany = useSelector((state) => state.stock.currentCompany);
+  const dispatch = useDispatch();
+
   const handleCompany = (company) => {
-    setCompany(company);
-    // console.log(company); // to be removed
+    dispatch(setCurrentCompany(company));
   };
 
   const [interval, setInterval] = useState("60min");
   const handleInterval = (interval) => {
     setInterval(interval);
-    // console.log(interval); // to be removed
   };
 
-  const dispatch = useDispatch();
-
   useEffect(() => {
-    dispatch(getDailyStock(company))
+    dispatch(getDailyStock(currentCompany))
       .then(unwrapResult)
       .catch((err) => {
         alert(JSON.stringify(err));
       });
-  }, [dispatch, company]);
+  }, [dispatch, currentCompany]);
 
   useEffect(() => {
-    dispatch(getIntradayStock({ company, interval }))
+    dispatch(getIntradayStock({ currentCompany, interval }))
       .then(unwrapResult)
       .catch((err) => {
         alert(JSON.stringify(err));
       });
-  }, [dispatch, company, interval]);
+  }, [dispatch, currentCompany, interval]);
 
   useEffect(() => {
-    dispatch(getCompanyOverview(company))
+    dispatch(getCompanyDataList())
       .then(unwrapResult)
       .catch((err) => {
         alert(JSON.stringify(err));
       });
-  }, [dispatch, company]);
+  }, [dispatch]);
 
   const [anchorStock, setAnchorStock] = useState(null);
   const openStock = Boolean(anchorStock);
@@ -81,7 +78,6 @@ export default function Trade({ classes }) {
   const handleStockClose = (stockType) => {
     setAnchorStock(null);
     setStockType(stockType);
-    // console.log(stockType); // to be removed
   };
 
   const [anchorChart, setAnchorChart] = useState(null);
@@ -93,7 +89,6 @@ export default function Trade({ classes }) {
   const handleChartClose = (chartType) => {
     setAnchorChart(null);
     setChartType(chartType);
-    // console.log(chartType); // to be removed
   };
 
   return (
@@ -172,7 +167,7 @@ export default function Trade({ classes }) {
           <Grid item xs={4}>
             <Card>
               <CardContent>
-                <PaperTrading company={company} />
+                <PaperTrading />
               </CardContent>
             </Card>
           </Grid>
@@ -183,11 +178,41 @@ export default function Trade({ classes }) {
                   MY WATCHLIST
                 </Typography>
                 <List>
-                  <Watchlist company={AMAZON} onClick={handleCompany} />
+                  <ListItem
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <Typography variant="body2" className={classes.listHead}>
+                      SYMBOL
+                    </Typography>
+                    <Typography variant="body2" className={classes.listHead}>
+                      EXCHANGE
+                    </Typography>
+                    <Typography variant="body2" className={classes.listHead}>
+                      MARKET CAP
+                    </Typography>
+                  </ListItem>
                   <Divider />
-                  <Watchlist company={APPLE} onClick={handleCompany} />
+                  <Watchlist
+                    classes={classes}
+                    company={AMAZON}
+                    onClick={handleCompany}
+                  />
                   <Divider />
-                  <Watchlist company={TESLA} onClick={handleCompany} />
+                  <Watchlist
+                    classes={classes}
+                    company={TESLA}
+                    onClick={handleCompany}
+                  />
+                  <Divider />
+                  <Watchlist
+                    classes={classes}
+                    company={MICROSOFT}
+                    onClick={handleCompany}
+                  />
                 </List>
               </CardContent>
             </Card>

@@ -1,17 +1,20 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { useDispatch } from "react-redux";
 import {
   sendDailyStockRequest,
   sendIntradayStockRequest,
   sendCompanyRequest,
 } from "../../utils/api";
+import { AMAZON, TESLA, MICROSOFT } from "../../utils/constants";
 
 const initialState = {
   dailyStockData: [],
   dailyStockLoading: true,
   intradayStockData: [],
   intradayStockLoading: true,
-  companyData: {},
-  companyLoading: true,
+  companyDataList: [],
+  companyDataListLoading: true,
+  currentCompany: AMAZON,
 };
 
 export const getDailyStock = createAsyncThunk(
@@ -32,7 +35,7 @@ export const getIntradayStock = createAsyncThunk(
   "stock/getIntradayStock",
   async (symbolAndInterval, { rejectWithValue }) => {
     try {
-      const { company: symbol, interval } = symbolAndInterval;
+      const { currentCompany: symbol, interval } = symbolAndInterval;
       const intradayStockData = await sendIntradayStockRequest(
         symbol,
         interval
@@ -46,12 +49,16 @@ export const getIntradayStock = createAsyncThunk(
   }
 );
 
-export const getCompanyOverview = createAsyncThunk(
-  "stock/getCompanyOverview",
-  async (symbol, { rejectWithValue }) => {
+export const getCompanyDataList = createAsyncThunk(
+  "stock/getCompanyDataList",
+  async (_, { rejectWithValue }) => {
     try {
-      const companyData = await sendCompanyRequest(symbol);
-      return companyData.data;
+      const companyData = await Promise.all([
+        sendCompanyRequest(AMAZON),
+        sendCompanyRequest(TESLA),
+        sendCompanyRequest(MICROSOFT),
+      ]).then((res) => res.map((companyData) => companyData.data));
+      return companyData;
     } catch (err) {
       return rejectWithValue(err.response.data);
     }
@@ -61,7 +68,11 @@ export const getCompanyOverview = createAsyncThunk(
 const stockSlice = createSlice({
   name: "stock",
   initialState,
-  reducers: {},
+  reducers: {
+    setCurrentCompany: (state, action) => {
+      state.currentCompany = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getDailyStock.pending, (state) => {
       state.dailyStockLoading = true;
@@ -73,6 +84,7 @@ const stockSlice = createSlice({
     builder.addCase(getDailyStock.rejected, (state) => {
       state.dailyStockLoading = false;
     });
+
     builder.addCase(getIntradayStock.pending, (state) => {
       state.intradayStockLoading = true;
     });
@@ -83,20 +95,34 @@ const stockSlice = createSlice({
     builder.addCase(getIntradayStock.rejected, (state) => {
       state.intradayStockLoading = false;
     });
-    builder.addCase(getCompanyOverview.pending, (state) => {
-      state.companyLoading = true;
+
+    builder.addCase(getCompanyDataList.pending, (state) => {
+      state.companyDataListLoading = true;
     });
-    builder.addCase(getCompanyOverview.fulfilled, (state, { payload }) => {
-      state.companyData = payload;
-      state.companyLoading = false;
+    builder.addCase(getCompanyDataList.fulfilled, (state, { payload }) => {
+      state.companyDataList = payload;
+      state.companyDataListLoading = false;
     });
-    builder.addCase(getCompanyOverview.rejected, (state) => {
-      state.companyLoading = false;
+    builder.addCase(getCompanyDataList.rejected, (state) => {
+      state.companyDataListLoading = false;
     });
   },
 });
 
+export const { setCurrentCompany } = stockSlice.actions;
+
 export default stockSlice.reducer;
+
+export const companySelector = (state, symbol) => {
+  const companyDataList = state.stock.companyDataList;
+  let selectedCompany = {};
+  for (const companyData of companyDataList) {
+    if (companyData["Symbol"] === symbol) {
+      selectedCompany = companyData;
+    }
+  }
+  return selectedCompany;
+};
 
 function formatDailyStockData(stockData) {
   return Object.entries(stockData).map((entries) => {
