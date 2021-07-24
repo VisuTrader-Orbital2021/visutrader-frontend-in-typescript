@@ -1,19 +1,13 @@
 import React from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
-import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import Fade from "@material-ui/core/Fade";
 import TextField from "@material-ui/core/TextField";
-import FormControl from "@material-ui/core/FormControl";
-import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
-import InputAdornment from "@material-ui/core/InputAdornment";
 import { trade } from "../redux/slices/wallet";
 import { useDispatch, useSelector } from "react-redux";
+import { companySelector } from "../redux/slices/stock";
 import { unwrapResult } from "@reduxjs/toolkit";
 
 const MARKET = "MARKET";
@@ -89,8 +83,15 @@ export default function PaperTrading() {
   const classes = useStyles(theme);
 
   const dispatch = useDispatch();
-  const { dailyStockData: stockData, companyData } = useSelector(
-    (state) => state.stock
+  const {
+    dailyStockData: stockData,
+    dailyStockLoading: stockLoading,
+    companyDataListLoading: companyLoading,
+    currentCompany,
+  } = useSelector((state) => state.stock);
+
+  const companyData = useSelector((state) =>
+    companySelector(state, currentCompany)
   );
 
   const [quantity, setQuantity] = React.useState(0);
@@ -111,21 +112,19 @@ export default function PaperTrading() {
 
   const tradeHandler = async (transactionType) => {
     console.log("Called");
-    if (!stockData || stockData.length === 0) {
-      return;
-    }
-
     const values = {
       transaction_type: transactionType,
       quantity: quantity,
-      amount: quantity * stockData[0].close, // extract data
+      amount: quantity * stockData[0].close,
       market: companyData["Symbol"],
     };
 
-    await dispatch(trade(values))
-      .then(unwrapResult)
-      .then(() => alert("Transaction successful"))
-      .catch((err) => alert(JSON.stringify(err)));
+    if (!stockLoading && !companyLoading) {
+      await dispatch(trade(values))
+        .then(unwrapResult)
+        .then(() => alert("Transaction successful"))
+        .catch((err) => alert(JSON.stringify(err)));
+    }
   };
 
   return (
@@ -161,9 +160,7 @@ export default function PaperTrading() {
       <Box mb={3} mx="auto">
         <Typography variant="h3">
           Total price:{" USD $"}
-          {!stockData || stockData.length === 0
-            ? 0
-            : quantity * stockData[0].close}
+          {stockLoading ? 0 : (quantity * stockData[0].close).toFixed(2)}
         </Typography>
       </Box>
 
