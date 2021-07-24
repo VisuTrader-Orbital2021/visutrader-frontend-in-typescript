@@ -12,6 +12,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import { useDispatch } from "react-redux";
 
 const MARKET = "MARKET";
 const LIMIT = "LIMIT";
@@ -79,17 +80,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function PaperTrading() {
+  const BUY = "buy";
+  const SELL = "sell";
+
   const theme = useTheme();
   const classes = useStyles(theme);
+
+  const dispatch = useDispatch();
 
   const [quantity, setQuantity] = React.useState(0);
   const handleChangeQuantity = (e) => {
     setQuantity(e.target.value);
-  };
-
-  const [date, setDate] = React.useState(new Date());
-  const handleDateChange = (date) => {
-    setDate(date);
   };
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -101,6 +102,15 @@ export default function PaperTrading() {
   const handleOrderTypeClose = (orderType) => {
     setAnchorEl(null);
     setOrderType(orderType);
+  };
+
+  const tradeHandler = (transactionType) => {
+    const values = {
+      transaction_type: transactionType,
+      quantity: quantity,
+      amount: quantity * 0, // extract data
+      market: "APPL",
+    };
   };
 
   return (
@@ -134,10 +144,14 @@ export default function PaperTrading() {
 
       <div className={classes.buyAndSell}>
         <Box width="30%" align="center">
-          <Button className={classes.buyButton}>BUY</Button>
+          <Button className={classes.buyButton} onClick={tradeHandler(BUY)}>
+            BUY
+          </Button>
         </Box>
         <Box width="30%" align="center">
-          <Button className={classes.sellButton}>SELL</Button>
+          <Button className={classes.sellButton} onClick={tradeHandler(SELL)}>
+            SELL
+          </Button>
         </Box>
       </div>
     </div>
