@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import { getCompanyOverview } from "./APIConnector";
+import Skeleton from "@material-ui/lab/Skeleton";
 
 const useStyles = makeStyles((theme) => ({
   companyGeneral: {
@@ -101,19 +102,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CompanyOverview({ company, stockData }) {
+export default function CompanyOverview() {
   const theme = useTheme();
   const classes = useStyles(theme);
-  const [companyData, setCompanyData] = useState([]);
-
-  useEffect(() => {
-    const fetchCompanyData = async () => {
-      const result = await getCompanyOverview(company);
-      setCompanyData(result.data);
-    };
-
-    fetchCompanyData();
-  }, [company]);
+  const {
+    dailyStockData: stockData,
+    dailyStockLoading: loading,
+    companyData,
+  } = useSelector((state) => state.stock);
 
   return (
     <div>
@@ -129,9 +125,9 @@ export default function CompanyOverview({ company, stockData }) {
         </Typography>
       </div>
       <div className={classes.companyStock}>
-        {/* <Typography className={classes.stockPrice} variant="h1">
-          ${stockData[0].close}
-        </Typography> */}
+        <Typography className={classes.stockPrice} variant="h1">
+          {!loading && stockData && `$${stockData[0].close}`}
+        </Typography>
         <Typography className={classes.whiteSpace}> </Typography>
         <Typography className={classes.stockCurrency} variant="h3">
           {companyData["Currency"]}
@@ -143,9 +139,11 @@ export default function CompanyOverview({ company, stockData }) {
         </Typography>
         <div className={classes.companyStatsItem}>
           <Typography variant="body1">Volume</Typography>
-          {/* <Typography variant="body2">
-            <strong>{formatAmount(Number(stockData[0].volume))}</strong>
-          </Typography> */}
+          <Typography variant="body1">
+            {!loading && stockData && (
+              <strong>{formatAmount(Number(stockData[0].volume))}</strong>
+            )}
+          </Typography>
         </div>
         <div className={classes.companyStatsItem}>
           <Typography variant="body1">Market Capitalization</Typography>
@@ -184,7 +182,21 @@ export default function CompanyOverview({ company, stockData }) {
         <Typography className={classes.performance} variant="h3">
           PERFORMANCE
         </Typography>
-        {/* <div className={classes.performanceRow}>
+        <RenderPerformance
+          classes={classes}
+          loading={loading}
+          stockData={stockData}
+        />
+      </div>
+    </div>
+  );
+}
+
+function RenderPerformance({ classes, loading, stockData }) {
+  if (!loading && stockData) {
+    return (
+      <React.Fragment>
+        <div className={classes.performanceRow}>
           <PerformanceBox
             percentage={calculatePercentage(stockData, "1D")}
             range="1D"
@@ -211,10 +223,47 @@ export default function CompanyOverview({ company, stockData }) {
             percentage={calculatePercentage(stockData, "1Y")}
             range="1Y"
           />
-        </div> */}
+        </div>
+      </React.Fragment>
+    );
+  } else {
+    return (
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <div style={{ display: "flex", flexDirection: "row" }}>
+          <Skeleton
+            variant="rect"
+            height="40px"
+            width="110px"
+            style={{ marginRight: "10px" }}
+          />
+          <Skeleton
+            variant="rect"
+            height="40px"
+            width="110px"
+            style={{ marginRight: "10px" }}
+          />
+          <Skeleton variant="rect" height="40px" width="110px" />
+        </div>
+        <div
+          style={{ display: "flex", flexDirection: "row", paddingTop: "10px" }}
+        >
+          <Skeleton
+            variant="rect"
+            height="40px"
+            width="110px"
+            style={{ marginRight: "10px" }}
+          />
+          <Skeleton
+            variant="rect"
+            height="40px"
+            width="110px"
+            style={{ marginRight: "10px" }}
+          />
+          <Skeleton variant="rect" height="40px" width="110px" />
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 function PerformanceBox(props) {
@@ -225,7 +274,7 @@ function PerformanceBox(props) {
       <Typography className={classes.performancePercentage} variant="body2">
         <strong>{props.percentage}</strong>%
       </Typography>
-      <Typography className={classes.performanceRange} variant="body3">
+      <Typography className={classes.performanceRange} variant="body2">
         {props.range}
       </Typography>
     </div>

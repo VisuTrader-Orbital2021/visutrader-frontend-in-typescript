@@ -1,4 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import {
+  getDailyStock,
+  getIntradayStock,
+  getCompanyOverview,
+} from "../redux/slices/stock";
+import { unwrapResult } from "@reduxjs/toolkit";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
@@ -11,7 +18,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Fade from "@material-ui/core/Fade";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
-import { getDailyStockChart, getIntradayStockChart } from "./APIConnector";
 import StockChart from "./StockChart";
 import CompanyOverview from "./CompanyOverview";
 import PaperTrading from "./PaperTrading";
@@ -28,15 +34,47 @@ const APPLE = "AAPL";
 const TESLA = "TSLA";
 
 export default function Trade({ classes }) {
-  const [company, setCompany] = React.useState(AMAZON);
+  const [company, setCompany] = useState(AMAZON);
   const handleCompany = (company) => {
     setCompany(company);
     // console.log(company); // to be removed
   };
 
-  const [anchorStock, setAnchorStock] = React.useState(null);
+  const [interval, setInterval] = useState("60min");
+  const handleInterval = (interval) => {
+    setInterval(interval);
+    // console.log(interval); // to be removed
+  };
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getDailyStock(company))
+      .then(unwrapResult)
+      .catch((err) => {
+        alert(JSON.stringify(err));
+      });
+  }, [dispatch, company]);
+
+  useEffect(() => {
+    dispatch(getIntradayStock({ company, interval }))
+      .then(unwrapResult)
+      .catch((err) => {
+        alert(JSON.stringify(err));
+      });
+  }, [dispatch, company, interval]);
+
+  useEffect(() => {
+    dispatch(getCompanyOverview(company))
+      .then(unwrapResult)
+      .catch((err) => {
+        alert(JSON.stringify(err));
+      });
+  }, [dispatch, company]);
+
+  const [anchorStock, setAnchorStock] = useState(null);
   const openStock = Boolean(anchorStock);
-  const [stockType, setStockType] = React.useState(DAILY);
+  const [stockType, setStockType] = useState(DAILY);
   const handleStockClick = (event) => {
     setAnchorStock(event.currentTarget);
   };
@@ -46,20 +84,9 @@ export default function Trade({ classes }) {
     // console.log(stockType); // to be removed
   };
 
-  const [stockData, setStockData] = useState([]);
-  useEffect(() => {
-    const fetchStockData = async () => {
-      const result = await getDailyStockChart(company);
-      setStockData(
-        formatDailyStockData(result.data["Time Series (Daily)"]).slice(0, 280)
-      );
-    };
-    fetchStockData();
-  }, [company]);
-
-  const [anchorChart, setAnchorChart] = React.useState(null);
+  const [anchorChart, setAnchorChart] = useState(null);
   const openChart = Boolean(anchorChart);
-  const [chartType, setChartType] = React.useState(CANDLESTICK);
+  const [chartType, setChartType] = useState(CANDLESTICK);
   const handleChartClick = (event) => {
     setAnchorChart(event.currentTarget);
   };
@@ -130,11 +157,7 @@ export default function Trade({ classes }) {
                   </Menu>
                 </div>
                 <div className="chart-content">
-                  <StockChart
-                    stockType={stockType}
-                    stockData={stockData}
-                    chartType={chartType}
-                  />
+                  <StockChart stockType={stockType} chartType={chartType} />
                 </div>
               </CardContent>
             </Card>
@@ -142,14 +165,14 @@ export default function Trade({ classes }) {
           <Grid item xs={4}>
             <Card>
               <CardContent>
-                <CompanyOverview company={company} stockData={stockData} />
+                <CompanyOverview />
               </CardContent>
             </Card>
           </Grid>
           <Grid item xs={4}>
             <Card>
               <CardContent>
-                <PaperTrading />
+                <PaperTrading company={company} />
               </CardContent>
             </Card>
           </Grid>
@@ -176,35 +199,4 @@ export default function Trade({ classes }) {
       </Container>
     </main>
   );
-}
-
-function formatDailyStockData(stockData) {
-  // console.log(stockData);
-  return Object.entries(stockData).map((entries) => {
-    const [date, priceData] = entries;
-    return {
-      date,
-      open: Number(priceData["1. open"]),
-      high: Number(priceData["2. high"]),
-      low: Number(priceData["3. low"]),
-      close: Number(priceData["4. close"]),
-      volume: Number(priceData["5. volume"]),
-    };
-  });
-}
-
-// WORK IN PROGRESS
-function formatIntradayStockData(stockData) {
-  return Object.entries(stockData).map((entries) => {
-    const [dateAndTime, priceData] = entries;
-    return {
-      dateAndTime,
-      date: dateAndTime.split(" ")[0],
-      time: dateAndTime.split(" ")[1],
-      open: Number(priceData["1. open"]),
-      high: Number(priceData["2. high"]),
-      low: Number(priceData["3. low"]),
-      close: Number(priceData["4. close"]),
-    };
-  });
 }
