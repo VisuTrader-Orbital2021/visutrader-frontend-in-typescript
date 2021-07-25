@@ -75,7 +75,7 @@ export default function Signup() {
     const response = await dispatch(signUpUser(values));
 
     if (response.type === signUpUser.fulfilled.toString()) {
-      enqueueSnackbar("Sign up successful.", {
+      enqueueSnackbar("Sign up successful. Please confirm your email.", {
         variant: "success",
         anchorOrigin: {
           vertical: "top",
@@ -94,6 +94,7 @@ export default function Signup() {
         },
         TransitionComponent: Slide,
       });
+      console.log(response);
     }
   };
 

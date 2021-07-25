@@ -48,19 +48,23 @@ function getBalanceHistory(initial, history, userJoinDate) {
   history.sort((a, b) => parseISO(b.createdAt) - parseISO(a.createdAt));
 
   let timeline = [];
-  let currentValue = initial;
+  let currentValue = Number(initial);
 
-  history.forEach(({ amount, createdAt }) => {
+  history.forEach(({ transactionType, amount, createdAt }) => {
     timeline.push({
-      amount: currentValue,
+      amount: Number(currentValue),
       date: format(parseISO(createdAt), "MM/dd/yyyy"),
     });
 
-    currentValue -= amount;
+    if (transactionType === "sell") {
+      currentValue -= Number(amount);
+    } else {
+      currentValue += Number(amount);
+    }
   });
 
   timeline.push({
-    amount: currentValue,
+    amount: Number(currentValue),
     date: format(parseISO(userJoinDate), "MM/dd/yyyy"),
   });
 
@@ -125,10 +129,10 @@ export default function Wallet({ classes }) {
                         Balance: ${walletData.balance}
                       </Typography>
                       <Typography variant="body1">
-                        Expense: ${walletData.expense}
+                        Inflow: ${walletData.profit}
                       </Typography>
                       <Typography variant="body1">
-                        Profit: ${walletData.profit}
+                        Outflow: ${walletData.expense}
                       </Typography>
                     </CardContent>
                   </Card>

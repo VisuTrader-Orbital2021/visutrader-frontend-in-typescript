@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useSnackbar } from "notistack";
+import Slide from "@material-ui/core/Slide";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
@@ -58,6 +60,8 @@ export default function ResetPassword() {
   const history = useHistory();
   const { uid, token } = useParams();
 
+  const { enqueueSnackbar } = useSnackbar();
+
   const handleSubmit = async (formValues) => {
     const values = {
       ...formValues,
@@ -67,9 +71,30 @@ export default function ResetPassword() {
 
     await dispatch(resetPasswordUser(values))
       .then(unwrapResult)
-      .then((res) => alert(res))
+      .then((res) =>
+        enqueueSnackbar(res, {
+          variant: "success",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+          TransitionComponent: Slide,
+        })
+      )
       .then(() => history.push("/login"))
-      .catch((err) => alert(JSON.stringify(err)));
+      .catch((err) =>
+        enqueueSnackbar(
+          "The new password does not meet our security requirements.",
+          {
+            variant: "error",
+            anchorOrigin: {
+              vertical: "top",
+              horizontal: "center",
+            },
+            TransitionComponent: Slide,
+          }
+        )
+      );
   };
 
   return (

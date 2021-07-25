@@ -81,7 +81,7 @@ const walletSlice = createSlice({
         state.history = state.history.map((transaction) => ({
           transactionType: transaction.transaction_type,
           quantity: transaction.quantity,
-          amount: parseFloat(transaction.amount),
+          amount: transaction.amount,
           market: transaction.market,
           fromWallet: transaction.from_wallet,
           createdAt: transaction.created_at,
@@ -93,11 +93,14 @@ const walletSlice = createSlice({
 
         state.history.forEach(({ amount, transactionType }) => {
           if (transactionType === "sell") {
-            state.profit += amount;
+            state.profit += parseFloat(amount);
           } else {
-            state.expense += amount;
+            state.expense += parseFloat(amount);
           }
         });
+
+        state.profit = Number(state.profit.toFixed(2));
+        state.expense = Number(state.expense.toFixed(2));
       }
     });
   },

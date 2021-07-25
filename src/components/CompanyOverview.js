@@ -396,7 +396,7 @@ function formatAmount(amount) {
     suffix = "K";
   }
 
-  return String(amount.toFixed(3)) + suffix;
+  return amount.toFixed(3) + suffix;
 }
 
 // Note: Temporary solution

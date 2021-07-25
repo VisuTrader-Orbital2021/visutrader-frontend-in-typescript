@@ -119,7 +119,7 @@ export default function PaperTrading() {
     const values = {
       transaction_type: transactionType,
       quantity: quantity,
-      amount: quantity * stockData[0].close,
+      amount: (quantity * stockData[0].close).toFixed(2),
       market: companyData["Symbol"],
     };
 
