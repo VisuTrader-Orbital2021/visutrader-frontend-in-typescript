@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
+import { useSnackbar } from "notistack";
+import Slide from "@material-ui/core/Slide";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -64,16 +67,33 @@ export default function Signup() {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  const { enqueueSnackbar } = useSnackbar();
+  const [progress, setProgress] = useState(false);
+
   const handleSubmit = async (values) => {
+    setProgress(true);
     const response = await dispatch(signUpUser(values));
 
     if (response.type === signUpUser.fulfilled.toString()) {
-      // Redirect when success here
-      alert("Signed up successfully");
+      enqueueSnackbar("Sign up successful.", {
+        variant: "success",
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "center",
+        },
+        TransitionComponent: Slide,
+      });
       history.push("/login");
     } else {
-      // TODO: fix this with better UI.
-      alert(JSON.stringify(response.payload));
+      setProgress(false);
+      enqueueSnackbar("Sign up failed.", {
+        variant: "error",
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "center",
+        },
+        TransitionComponent: Slide,
+      });
     }
   };
 
@@ -181,6 +201,9 @@ export default function Signup() {
               >
                 SIGN UP
               </Button>
+              <div style={{ display: "flex", justifyContent: "space-around" }}>
+                {progress && <CircularProgress color="secondary" />}
+              </div>
               <Grid container>
                 <Grid item xs>
                   <RouterLink to="/login" className={classes.routerLink}>

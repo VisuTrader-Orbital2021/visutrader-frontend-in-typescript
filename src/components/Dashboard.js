@@ -1,6 +1,8 @@
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 import clsx from "clsx";
+import { useSnackbar } from "notistack";
+import Slide from "@material-ui/core/Slide";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
@@ -8,7 +10,6 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
-import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import { useSelector, useDispatch } from "react-redux";
@@ -115,12 +116,19 @@ function UpperBar({ classes, open }) {
     history.push("/profile");
   };
 
+  const { enqueueSnackbar } = useSnackbar();
+
   const handleLogOut = () => {
     handleClose();
     dispatch(resetUser());
-
-    // TODO: fix for better UI & UX
-    alert("Logged out successfully");
+    enqueueSnackbar("Logout successful.", {
+      variant: "success",
+      anchorOrigin: {
+        vertical: "top",
+        horizontal: "center",
+      },
+      TransitionComponent: Slide,
+    });
     history.push("/");
   };
 

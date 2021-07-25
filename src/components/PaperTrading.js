@@ -1,4 +1,6 @@
 import React from "react";
+import { useSnackbar } from "notistack";
+import Slide from "@material-ui/core/Slide";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
@@ -110,6 +112,8 @@ export default function PaperTrading() {
     setOrderType(orderType);
   };
 
+  const { enqueueSnackbar } = useSnackbar();
+
   const tradeHandler = async (transactionType) => {
     console.log("Called");
     const values = {
@@ -122,8 +126,26 @@ export default function PaperTrading() {
     if (!stockLoading && !companyLoading) {
       await dispatch(trade(values))
         .then(unwrapResult)
-        .then(() => alert("Transaction successful"))
-        .catch((err) => alert(JSON.stringify(err)));
+        .then(() =>
+          enqueueSnackbar("Transaction successful.", {
+            variant: "success",
+            anchorOrigin: {
+              vertical: "top",
+              horizontal: "center",
+            },
+            TransitionComponent: Slide,
+          })
+        )
+        .catch((err) =>
+          enqueueSnackbar("Transaction failed.", {
+            variant: "error",
+            anchorOrigin: {
+              vertical: "top",
+              horizontal: "center",
+            },
+            TransitionComponent: Slide,
+          })
+        );
     }
   };
 

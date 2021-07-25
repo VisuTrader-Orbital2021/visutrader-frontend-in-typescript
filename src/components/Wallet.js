@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+import { useSnackbar } from "notistack";
+import Slide from "@material-ui/core/Slide";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
@@ -76,13 +78,22 @@ export default function Wallet({ classes }) {
     const walletData = useSelector((state) => state.wallet);
     const userJoinDate = useSelector((state) => state.user.dateJoined);
 
+    const { enqueueSnackbar } = useSnackbar();
+
     useEffect(() => {
       dispatch(getWalletDetail())
         .then(unwrapResult)
-        .catch((err) => {
-          alert(JSON.stringify(err));
-        });
-    }, [dispatch]);
+        .catch((err) =>
+          enqueueSnackbar("Failed to fetch wallet.", {
+            variant: "error",
+            anchorOrigin: {
+              vertical: "top",
+              horizontal: "center",
+            },
+            TransitionComponent: Slide,
+          })
+        );
+    }, [dispatch, enqueueSnackbar]);
 
     const data = [
       { name: "Inflow", value: walletData.profit, fill: "#3FE06D" },

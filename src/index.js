@@ -1,6 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
+import { SnackbarProvider } from "notistack";
+import Slide from "@material-ui/core/Slide";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import store from "./redux/store";
@@ -9,7 +11,16 @@ import "./styles/index.css";
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <SnackbarProvider
+        maxSnack={3}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+        TransitionComponent={Slide}
+      >
+        <App />
+      </SnackbarProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")

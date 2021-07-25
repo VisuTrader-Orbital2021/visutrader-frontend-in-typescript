@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+import { useSnackbar } from "notistack";
+import Slide from "@material-ui/core/Slide";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
@@ -55,9 +57,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ChangePassword() {
+  const { enqueueSnackbar } = useSnackbar();
+
   useEffect(() => {
     if (!authenticated) {
-      alert("Please log in to view this page");
+      enqueueSnackbar("Please login to view this page.", {
+        variant: "error",
+        anchorOrigin: {
+          vertical: "top",
+          horizontal: "center",
+        },
+        TransitionComponent: Slide,
+      });
       history.push("/login");
     }
   });
@@ -80,10 +91,31 @@ export default function ChangePassword() {
 
     await dispatch(changePasswordUser(values))
       .then(unwrapResult)
-      .then((res) => alert(res))
-      .then(() => dispatch(resetUser()))
+      .then(() =>
+        enqueueSnackbar("The new password has been saved.", {
+          variant: "success",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+          TransitionComponent: Slide,
+        })
+      )
       .then(() => history.push("/login"))
-      .catch((err) => alert(JSON.stringify(err)));
+      .then(() => dispatch(resetUser()))
+      .catch((err) =>
+        enqueueSnackbar(
+          "The new password does not meet our security requirements.",
+          {
+            variant: "error",
+            anchorOrigin: {
+              vertical: "top",
+              horizontal: "center",
+            },
+            TransitionComponent: Slide,
+          }
+        )
+      );
   };
 
   return (
@@ -132,7 +164,7 @@ export default function ChangePassword() {
                 required
                 fullWidth
                 id="old_password"
-                label="Password"
+                label="Old Password"
                 name="old_password"
                 type="password"
               />
@@ -154,7 +186,7 @@ export default function ChangePassword() {
                 required
                 fullWidth
                 id="new_password2"
-                label="Confirm Password"
+                label="Confirm New Password"
                 name="new_password2"
                 type="password"
               />
