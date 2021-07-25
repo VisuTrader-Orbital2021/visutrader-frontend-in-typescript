@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { userSelector } from "../redux/slices/user";
 import { getNewsHeadline, getNewsSearch } from "../redux/slices/news";
 import { unwrapResult } from "@reduxjs/toolkit";
+import { useSnackbar } from "notistack";
+import Slide from "@material-ui/core/Slide";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
@@ -40,13 +42,22 @@ export default function News({ classes }) {
     newsSearchLoading: searchLoading,
   } = useSelector((state) => state.news);
 
+  const { enqueueSnackbar } = useSnackbar();
+
   useEffect(() => {
     dispatch(getNewsHeadline())
       .then(unwrapResult)
-      .catch((err) => {
-        alert(JSON.stringify(err));
-      });
-  }, [dispatch]);
+      .catch((err) =>
+        enqueueSnackbar("Failed to fetch news.", {
+          variant: "error",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+          TransitionComponent: Slide,
+        })
+      );
+  }, [dispatch, enqueueSnackbar]);
 
   const [query, setQuery] = useState("trading");
   const handleKeyDown = (event) => {
@@ -58,10 +69,17 @@ export default function News({ classes }) {
   useEffect(() => {
     dispatch(getNewsSearch(query))
       .then(unwrapResult)
-      .catch((err) => {
-        alert(JSON.stringify(err));
-      });
-  }, [dispatch, query]);
+      .catch((err) =>
+        enqueueSnackbar("Failed to search news.", {
+          variant: "error",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+          TransitionComponent: Slide,
+        })
+      );
+  }, [dispatch, query, enqueueSnackbar]);
 
   if (user.authenticated) {
     return (

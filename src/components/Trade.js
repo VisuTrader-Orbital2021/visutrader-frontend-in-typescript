@@ -7,6 +7,8 @@ import {
   setCurrentCompany,
 } from "../redux/slices/stock";
 import { AMAZON, TESLA, MICROSOFT } from "../utils/constants";
+import { useSnackbar } from "notistack";
+import Slide from "@material-ui/core/Slide";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useTheme } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
@@ -47,29 +49,61 @@ export default function Trade({ classes }) {
     setInterval(interval);
   };
 
+  const { enqueueSnackbar } = useSnackbar();
+
   useEffect(() => {
     dispatch(getDailyStock(currentCompany))
       .then(unwrapResult)
-      .catch((err) => {
-        alert(JSON.stringify(err));
-      });
-  }, [dispatch, currentCompany]);
+      .catch((err) =>
+        enqueueSnackbar(
+          "API call is limited to 5 requests/minute. Please wait...",
+          {
+            variant: "error",
+            anchorOrigin: {
+              vertical: "top",
+              horizontal: "center",
+            },
+            TransitionComponent: Slide,
+          }
+        )
+      );
+  }, [dispatch, currentCompany, enqueueSnackbar]);
 
   useEffect(() => {
     dispatch(getIntradayStock({ currentCompany, interval }))
       .then(unwrapResult)
-      .catch((err) => {
-        alert(JSON.stringify(err));
-      });
-  }, [dispatch, currentCompany, interval]);
+      .catch((err) =>
+        enqueueSnackbar(
+          "API call is limited to 5 requests/minute. Please wait...",
+          {
+            variant: "error",
+            anchorOrigin: {
+              vertical: "top",
+              horizontal: "center",
+            },
+            TransitionComponent: Slide,
+          }
+        )
+      );
+  }, [dispatch, currentCompany, interval, enqueueSnackbar]);
 
   useEffect(() => {
     dispatch(getCompanyDataList())
       .then(unwrapResult)
-      .catch((err) => {
-        alert(JSON.stringify(err));
-      });
-  }, [dispatch]);
+      .catch((err) =>
+        enqueueSnackbar(
+          "API call is limited to 5 requests/minute. Please wait...",
+          {
+            variant: "error",
+            anchorOrigin: {
+              vertical: "top",
+              horizontal: "center",
+            },
+            TransitionComponent: Slide,
+          }
+        )
+      );
+  }, [dispatch, enqueueSnackbar]);
 
   const [anchorStock, setAnchorStock] = useState(null);
   const openStock = Boolean(anchorStock);

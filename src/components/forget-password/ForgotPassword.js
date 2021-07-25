@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useSnackbar } from "notistack";
+import Slide from "@material-ui/core/Slide";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
@@ -57,12 +59,32 @@ export default function ForgotPassword() {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  const { enqueueSnackbar } = useSnackbar();
+
   const handleSubmit = async (values) => {
     await dispatch(forgotPasswordUser(values))
       .then(unwrapResult)
-      .then((res) => alert(res))
+      .then((res) =>
+        enqueueSnackbar(res, {
+          variant: "success",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+          TransitionComponent: Slide,
+        })
+      )
       .then(() => history.push("/login"))
-      .catch((err) => JSON.stringify(err));
+      .catch((err) =>
+        enqueueSnackbar("Something went wrong.", {
+          variant: "error",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+          TransitionComponent: Slide,
+        })
+      );
   };
 
   return (
