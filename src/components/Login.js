@@ -90,14 +90,17 @@ export default function Login() {
       history.push("/trade");
     } else {
       setProgress(false);
-      enqueueSnackbar("Login failed.", {
-        variant: "error",
-        anchorOrigin: {
-          vertical: "top",
-          horizontal: "center",
-        },
-        TransitionComponent: Slide,
-      });
+      enqueueSnackbar(
+        "Login failed. If you just signed up, please check for verification email.",
+        {
+          variant: "error",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+          TransitionComponent: Slide,
+        }
+      );
     }
   };
 
