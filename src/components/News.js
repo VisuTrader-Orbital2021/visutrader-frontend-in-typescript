@@ -275,7 +275,7 @@ function NewsCard({ classes, content, loading }) {
                 color="secondary"
                 style={{
                   marginLeft: "5px",
-                  marginButtom: "5px",
+                  marginBottom: "5px",
                   borderRadius: 0,
                 }}
               >
