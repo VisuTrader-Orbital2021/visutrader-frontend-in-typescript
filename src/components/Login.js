@@ -118,28 +118,16 @@ export default function Login() {
           </Typography>
           <Formik
             initialValues={{
-              username: "",
               email: "",
               password: "",
             }}
             validationSchema={yup.object({
-              username: yup.string().required("Required"),
               email: yup.string().email("Invalid email").required("Required"),
               password: yup.string().required("Required"),
             })}
             onSubmit={handleSubmit}
           >
             <Form className={classes.form}>
-              <Field
-                component={TextField}
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="username"
-                label="Username"
-                name="username"
-              />
               <Field
                 component={TextField}
                 variant="outlined"
