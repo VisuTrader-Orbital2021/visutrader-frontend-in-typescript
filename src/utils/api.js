@@ -35,6 +35,21 @@ export const sendRequest = async (path, token, method, request) => {
   }
 };
 
+const axiosInstanceForLatestStockPrice = axios.create({
+  baseURL: "https://cloud.iexapis.com/stable",
+});
+
+export const sendLatestStockPriceRequest = (symbol) => {
+  return axiosInstanceForLatestStockPrice.get(
+    `/stock/${symbol}/quote/latestPrice`,
+    {
+      params: {
+        token: "pk_ba36c35bc6af438a96eec030457a7189",
+      },
+    }
+  );
+};
+
 const cache = setupCache({
   maxAge: 60 * 60 * 1000,
   store: localforage,

@@ -1,176 +1,194 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import CanvasJSReact from "../assets/canvasjs.stock.react";
-let CanvasJSStockChart = CanvasJSReact.CanvasJSStockChart;
-
-const DAILY = "DAILY";
-const INTRADAY = "INTRADAY";
-const CANDLESTICK = "CANDLESTICK";
-const SPLINE_AREA = "SPLINE AREA";
+import TradingViewWidget, { Themes } from "react-tradingview-widget";
 
 export default function StockChart({ stockType, chartType }) {
   const themeMode = useSelector((state) => state.color.themeMode);
-  const { dailyStockData, intradayStockData } = useSelector(
-    (state) => state.stock
-  );
+  const { currentCompany } = useSelector((state) => state.stock);
 
-  if (stockType === DAILY) {
-    return chartType === CANDLESTICK ? (
-      <DailyCandlestickChart stockData={dailyStockData} themeMode={themeMode} />
-    ) : (
-      <DailySplineAreaChart stockData={dailyStockData} themeMode={themeMode} />
-    );
-  } else {
-    return chartType === CANDLESTICK ? (
-      <IntradayCandlestickChart stockData={intradayStockData} />
-    ) : (
-      <IntradaySplineAreaChart stockData={intradayStockData} />
-    );
-  }
+  return (
+    <TradingViewWidget
+      symbol={`NASDAQ:${currentCompany}`}
+      theme={themeMode === "light" ? Themes.LIGHT : Themes.DARK}
+      timezone="Asia/Singapore"
+      locale="en"
+      width="1200"
+      height="700"
+    />
+  );
 }
 
-const DailyCandlestickChart = ({ stockData, themeMode }) => {
-  return (
-    <CanvasJSStockChart
-      options={{
-        theme: `${themeMode}2`,
-        charts: [
-          {
-            axisX: {
-              tickLength: 0,
-              labelFormatter: function (e) {
-                return "";
-              },
-              crosshair: {
-                enabled: true,
-                snapToDataPoint: true,
-                labelFormatter: function (e) {
-                  return "";
-                },
-              },
-              scaleBreaks: {
-                spacing: 0,
-                fillOpacity: 0,
-                lineThickness: 0,
-                customBreaks: stockData.reduce(
-                  (breaks, value, index, array) => {
-                    if (index === 0) return breaks;
-                    const currentDataPointUnix = Number(new Date(value.date));
-                    const previousDataPointUnix = Number(
-                      new Date(array[index - 1].date)
-                    );
-                    const oneDayInMs = 86400000;
-                    const difference =
-                      previousDataPointUnix - currentDataPointUnix;
-                    return difference === oneDayInMs
-                      ? breaks
-                      : [
-                          ...breaks,
-                          {
-                            startValue: currentDataPointUnix,
-                            endValue: previousDataPointUnix - oneDayInMs,
-                          },
-                        ];
-                  },
-                  []
-                ),
-              },
-            },
-            axisY: {
-              prefix: "$",
-              tickLength: 0,
-            },
-            toolTip: {
-              shared: true,
-            },
-            data: [
-              {
-                name: "Price (in USD)",
-                yValueFormatString: "$#,###.##",
-                type: "candlestick",
-                risingColor: "#04f77e",
-                fallingColor: "#ff3911",
-                dataPoints: stockData.map((stockData) => ({
-                  x: new Date(stockData.date),
-                  y: [
-                    stockData.open,
-                    stockData.high,
-                    stockData.low,
-                    stockData.close,
-                  ],
-                })),
-              },
-            ],
-          },
-        ],
-        navigator: {
-          data: [
-            {
-              dataPoints: stockData.map((stockData) => ({
-                x: new Date(stockData.date),
-                y: stockData.close,
-              })),
-            },
-          ],
-        },
-      }}
-    />
-  );
-};
+// import CanvasJSReact from "../assets/canvasjs.stock.react";
+// let CanvasJSStockChart = CanvasJSReact.CanvasJSStockChart;
 
-const DailySplineAreaChart = ({ stockData, themeMode }) => {
-  return (
-    <CanvasJSStockChart
-      options={{
-        theme: `${themeMode}2`,
-        charts: [
-          {
-            axisX: {
-              crosshair: {
-                enabled: true,
-                snapToDataPoint: true,
-                valueFormatString: "MMM DD YYYY",
-              },
-            },
-            axisY: {
-              prefix: "$",
-              crosshair: {
-                enabled: true,
-                snapToDataPoint: true,
-                valueFormatString: "$#,###.##",
-              },
-            },
-            toolTip: {
-              shared: true,
-            },
-            data: [
-              {
-                name: "Price (in USD)",
-                type: "splineArea",
-                color: "#3a4cb1",
-                yValueFormatString: "$#,###.##",
-                xValueFormatString: "MMM DD YYYY",
-                dataPoints: stockData.map((stockData) => ({
-                  x: new Date(stockData.date),
-                  y: stockData.close,
-                })),
-              },
-            ],
-          },
-        ],
-      }}
-    />
-  );
-};
+// const DAILY = "DAILY";
+// const INTRADAY = "INTRADAY";
+// const CANDLESTICK = "CANDLESTICK";
+// const SPLINE_AREA = "SPLINE AREA";
 
-// WORK IN PROGRESS
-// Note: CanvasJS doesn't support intraday chart. Consider using react-stockcharts instead.
-const IntradayCandlestickChart = ({ stockData }) => {
-  return null;
-};
+// export default function StockChart({ stockType, chartType }) {
+//   const themeMode = useSelector((state) => state.color.themeMode);
+//   const { dailyStockData, intradayStockData } = useSelector(
+//     (state) => state.stock
+//   );
 
-// WORK IN PROGRESS
-// Note: CanvasJS doesn't support intraday chart. Consider using react-stockcharts instead.
-const IntradaySplineAreaChart = ({ stockData }) => {
-  return null;
-};
+//   if (stockType === DAILY) {
+//     return chartType === CANDLESTICK ? (
+//       <DailyCandlestickChart stockData={dailyStockData} themeMode={themeMode} />
+//     ) : (
+//       <DailySplineAreaChart stockData={dailyStockData} themeMode={themeMode} />
+//     );
+//   } else {
+//     return chartType === CANDLESTICK ? (
+//       <IntradayCandlestickChart stockData={intradayStockData} />
+//     ) : (
+//       <IntradaySplineAreaChart stockData={intradayStockData} />
+//     );
+//   }
+// }
+
+// const DailyCandlestickChart = ({ stockData, themeMode }) => {
+//   return (
+//     <CanvasJSStockChart
+//       options={{
+//         theme: `${themeMode}2`,
+//         charts: [
+//           {
+//             axisX: {
+//               tickLength: 0,
+//               labelFormatter: function (e) {
+//                 return "";
+//               },
+//               crosshair: {
+//                 enabled: true,
+//                 snapToDataPoint: true,
+//                 labelFormatter: function (e) {
+//                   return "";
+//                 },
+//               },
+//               scaleBreaks: {
+//                 spacing: 0,
+//                 fillOpacity: 0,
+//                 lineThickness: 0,
+//                 customBreaks: stockData.reduce(
+//                   (breaks, value, index, array) => {
+//                     if (index === 0) return breaks;
+//                     const currentDataPointUnix = Number(new Date(value.date));
+//                     const previousDataPointUnix = Number(
+//                       new Date(array[index - 1].date)
+//                     );
+//                     const oneDayInMs = 86400000;
+//                     const difference =
+//                       previousDataPointUnix - currentDataPointUnix;
+//                     return difference === oneDayInMs
+//                       ? breaks
+//                       : [
+//                           ...breaks,
+//                           {
+//                             startValue: currentDataPointUnix,
+//                             endValue: previousDataPointUnix - oneDayInMs,
+//                           },
+//                         ];
+//                   },
+//                   []
+//                 ),
+//               },
+//             },
+//             axisY: {
+//               prefix: "$",
+//               tickLength: 0,
+//             },
+//             toolTip: {
+//               shared: true,
+//             },
+//             data: [
+//               {
+//                 name: "Price (in USD)",
+//                 yValueFormatString: "$#,###.##",
+//                 type: "candlestick",
+//                 risingColor: "#04f77e",
+//                 fallingColor: "#ff3911",
+//                 dataPoints: stockData.map((stockData) => ({
+//                   x: new Date(stockData.date),
+//                   y: [
+//                     stockData.open,
+//                     stockData.high,
+//                     stockData.low,
+//                     stockData.close,
+//                   ],
+//                 })),
+//               },
+//             ],
+//           },
+//         ],
+//         navigator: {
+//           data: [
+//             {
+//               dataPoints: stockData.map((stockData) => ({
+//                 x: new Date(stockData.date),
+//                 y: stockData.close,
+//               })),
+//             },
+//           ],
+//         },
+//       }}
+//     />
+//   );
+// };
+
+// const DailySplineAreaChart = ({ stockData, themeMode }) => {
+//   return (
+//     <CanvasJSStockChart
+//       options={{
+//         theme: `${themeMode}2`,
+//         charts: [
+//           {
+//             axisX: {
+//               crosshair: {
+//                 enabled: true,
+//                 snapToDataPoint: true,
+//                 valueFormatString: "MMM DD YYYY",
+//               },
+//             },
+//             axisY: {
+//               prefix: "$",
+//               crosshair: {
+//                 enabled: true,
+//                 snapToDataPoint: true,
+//                 valueFormatString: "$#,###.##",
+//               },
+//             },
+//             toolTip: {
+//               shared: true,
+//             },
+//             data: [
+//               {
+//                 name: "Price (in USD)",
+//                 type: "splineArea",
+//                 color: "#3a4cb1",
+//                 yValueFormatString: "$#,###.##",
+//                 xValueFormatString: "MMM DD YYYY",
+//                 dataPoints: stockData.map((stockData) => ({
+//                   x: new Date(stockData.date),
+//                   y: stockData.close,
+//                 })),
+//               },
+//             ],
+//           },
+//         ],
+//       }}
+//     />
+//   );
+// };
+
+// // WORK IN PROGRESS
+// // Note: CanvasJS doesn't support intraday chart. Consider using react-stockcharts instead.
+// const IntradayCandlestickChart = ({ stockData }) => {
+//   return null;
+// };
+
+// // WORK IN PROGRESS
+// // Note: CanvasJS doesn't support intraday chart. Consider using react-stockcharts instead.
+// const IntradaySplineAreaChart = ({ stockData }) => {
+//   return null;
+// };

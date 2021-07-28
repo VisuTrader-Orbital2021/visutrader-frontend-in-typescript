@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
+  getLatestStockPrice,
   getDailyStock,
   getIntradayStock,
   getCompanyDataList,
@@ -53,6 +54,25 @@ export default function Trade({ classes }) {
 
   useEffect(() => {
     dispatch(getDailyStock(currentCompany))
+      .then(unwrapResult)
+      .catch((err) => {
+        enqueueSnackbar(
+          "API call is limited to 5 requests/minute. Please wait...",
+          {
+            variant: "error",
+            anchorOrigin: {
+              vertical: "top",
+              horizontal: "center",
+            },
+            TransitionComponent: Slide,
+          }
+        );
+        console.log(JSON.stringify(err));
+      });
+  }, [dispatch, currentCompany, enqueueSnackbar]);
+
+  useEffect(() => {
+    dispatch(getLatestStockPrice(currentCompany))
       .then(unwrapResult)
       .catch((err) => {
         enqueueSnackbar(

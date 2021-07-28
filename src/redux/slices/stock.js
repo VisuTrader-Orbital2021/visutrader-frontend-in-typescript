@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import {
+  sendLatestStockPriceRequest,
   sendDailyStockRequest,
   sendIntradayStockRequest,
   sendCompanyRequest,
@@ -8,6 +9,8 @@ import {
 import { AMAZON, TESLA, MICROSOFT } from "../../utils/constants";
 
 const initialState = {
+  latestStockPrice: 0,
+  latestStockPriceLoading: true,
   dailyStockData: [],
   dailyStockLoading: true,
   intradayStockData: [],
@@ -16,6 +19,18 @@ const initialState = {
   companyDataListLoading: true,
   currentCompany: AMAZON,
 };
+
+export const getLatestStockPrice = createAsyncThunk(
+  "stock/getLatestStockPrice",
+  async (symbol, { rejectWithValue }) => {
+    try {
+      const stockData = await sendLatestStockPriceRequest(symbol);
+      return stockData.data;
+    } catch (err) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
 
 export const getDailyStock = createAsyncThunk(
   "stock/getDailyStock",
@@ -74,6 +89,17 @@ const stockSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(getLatestStockPrice.pending, (state) => {
+      state.latestStockPriceLoading = true;
+    });
+    builder.addCase(getLatestStockPrice.fulfilled, (state, { payload }) => {
+      state.latestStockPrice = payload;
+      state.latestStockPriceLoading = false;
+    });
+    builder.addCase(getLatestStockPrice.rejected, (state) => {
+      state.latestStockPriceLoading = false;
+    });
+
     builder.addCase(getDailyStock.pending, (state) => {
       state.dailyStockLoading = true;
     });

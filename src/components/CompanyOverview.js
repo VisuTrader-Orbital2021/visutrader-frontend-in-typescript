@@ -108,6 +108,8 @@ export default function CompanyOverview() {
   const classes = useStyles(theme);
 
   const {
+    latestStockPrice,
+    latestStockPriceLoading,
     dailyStockData: stockData,
     dailyStockLoading: stockLoading,
     companyDataListLoading: companyLoading,
@@ -118,7 +120,7 @@ export default function CompanyOverview() {
     companySelector(state, currentCompany)
   );
 
-  if (!stockLoading && !companyLoading) {
+  if (!latestStockPriceLoading && !stockLoading && !companyLoading) {
     return (
       <div>
         <div className={classes.companyGeneral}>
@@ -134,7 +136,7 @@ export default function CompanyOverview() {
         </div>
         <div className={classes.companyStock}>
           <Typography className={classes.stockPrice} variant="h1">
-            ${stockData[0].close}
+            ${latestStockPrice}
           </Typography>
           <Typography className={classes.whiteSpace}> </Typography>
           <Typography className={classes.stockCurrency} variant="h3">
